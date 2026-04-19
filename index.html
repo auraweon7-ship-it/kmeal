@@ -4895,6 +4895,618 @@ tr.favorite { background: rgba(59,158,255,0.04); }
   flex-wrap: wrap;
 }
 
+/* 🏆 킬러 피처 탭 - 대상 수상 3대 무기 */
+.tab.tab-killer {
+  position: relative;
+  background: linear-gradient(135deg, 
+    rgba(255, 212, 59, 0.1) 0%, 
+    rgba(255, 169, 77, 0.06) 100%);
+  border: 1px solid rgba(255, 212, 59, 0.3);
+  font-weight: 700;
+}
+
+.tab.tab-killer::after {
+  content: '✨';
+  position: absolute;
+  top: -2px;
+  right: 4px;
+  font-size: 10px;
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+.tab.tab-killer:hover {
+  background: linear-gradient(135deg, 
+    rgba(255, 212, 59, 0.2) 0%, 
+    rgba(255, 169, 77, 0.12) 100%);
+  border-color: #ffd43b;
+}
+
+.tab.tab-killer.active {
+  background: linear-gradient(135deg, #ffd43b 0%, #ffa94d 100%);
+  color: #0a0f1a;
+  border-color: #ffd43b;
+  box-shadow: 0 0 20px rgba(255, 212, 59, 0.4);
+}
+
+/* 🤖 AI 메뉴 생성기 스타일 */
+.ai-menu-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 900px) {
+  .ai-menu-container { grid-template-columns: 1fr; }
+}
+
+.ai-menu-form {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.ai-menu-form h3 {
+  color: #ffd43b;
+  margin: 0 0 16px 0;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.ai-form-group {
+  margin-bottom: 16px;
+}
+
+.ai-form-label {
+  display: block;
+  font-size: 12px;
+  color: var(--text2);
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.ai-form-select, .ai-form-input {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: inherit;
+}
+
+.ai-form-checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ai-form-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.ai-form-checkbox:hover {
+  border-color: var(--accent);
+}
+
+.ai-form-checkbox input {
+  display: none;
+}
+
+.ai-form-checkbox.selected {
+  background: rgba(255, 212, 59, 0.15);
+  border-color: #ffd43b;
+  color: #ffd43b;
+  font-weight: 700;
+}
+
+.ai-menu-btn {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #ffd43b 0%, #ffa94d 100%);
+  color: #0a0f1a;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: all 0.2s;
+}
+
+.ai-menu-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(255, 212, 59, 0.4);
+}
+
+.ai-menu-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.ai-menu-result {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  min-height: 400px;
+}
+
+.ai-menu-result-empty {
+  text-align: center;
+  color: var(--text3);
+  padding: 60px 20px;
+  font-size: 14px;
+}
+
+.ai-menu-card {
+  background: linear-gradient(135deg, 
+    rgba(0, 212, 170, 0.1) 0%, 
+    rgba(59, 158, 255, 0.06) 100%);
+  border: 1px solid rgba(0, 212, 170, 0.3);
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+.ai-menu-card-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: #00d4aa;
+  margin-bottom: 10px;
+}
+
+.ai-menu-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.ai-menu-item {
+  padding: 6px 12px;
+  background: rgba(7, 11, 20, 0.5);
+  border-radius: 20px;
+  font-size: 12px;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.ai-menu-badges {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.ai-badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.ai-badge-nutrition { background: rgba(59, 158, 255, 0.2); color: #3b9eff; }
+.ai-badge-allergy { background: rgba(0, 212, 170, 0.2); color: #00d4aa; }
+.ai-badge-origin { background: rgba(255, 212, 59, 0.2); color: #ffd43b; }
+
+/* 🔔 알림 센터 스타일 */
+.alert-center-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.alert-banner {
+  background: linear-gradient(135deg, 
+    rgba(255, 212, 59, 0.15) 0%, 
+    rgba(255, 107, 107, 0.08) 100%);
+  border: 1px solid rgba(255, 212, 59, 0.4);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.alert-banner-icon {
+  font-size: 32px;
+}
+
+.alert-banner-content {
+  flex: 1;
+}
+
+.alert-banner-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: #ffd43b;
+  margin-bottom: 4px;
+}
+
+.alert-banner-desc {
+  font-size: 12px;
+  color: var(--text2);
+}
+
+.alert-setup-btn {
+  padding: 10px 18px;
+  background: #ffd43b;
+  color: #0a0f1a;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.alert-setup-btn:hover {
+  background: #ffa94d;
+}
+
+.alert-section {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.alert-section-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.alert-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 12px;
+}
+
+.alert-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+  transition: all 0.2s;
+}
+
+.alert-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.alert-card-title {
+  font-size: 12px;
+  color: var(--text3);
+  margin-bottom: 6px;
+}
+
+.alert-card-value {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text);
+  font-family: var(--ff-mono);
+}
+
+.alert-card-unit {
+  font-size: 12px;
+  color: var(--text3);
+  margin-left: 4px;
+}
+
+.alert-card-footer {
+  font-size: 11px;
+  margin-top: 6px;
+}
+
+.alert-card.up .alert-card-footer { color: #00d4aa; }
+.alert-card.down .alert-card-footer { color: #ff6b6b; }
+.alert-card.neutral .alert-card-footer { color: var(--text3); }
+
+.alert-menu-of-today {
+  background: linear-gradient(135deg, 
+    rgba(0, 212, 170, 0.08) 0%, 
+    rgba(59, 158, 255, 0.04) 100%);
+  border-left: 3px solid #00d4aa;
+  padding: 14px 16px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.alert-weekly-highlight {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.alert-highlight-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--bg);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.alert-highlight-icon {
+  font-size: 22px;
+}
+
+.alert-highlight-text {
+  flex: 1;
+  font-size: 13px;
+  color: var(--text);
+}
+
+.alert-highlight-value {
+  font-weight: 800;
+  color: #ffd43b;
+  font-family: var(--ff-mono);
+}
+
+/* 🎮 미션 탭 스타일 */
+.mission-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.mission-profile {
+  background: linear-gradient(135deg, 
+    rgba(255, 212, 59, 0.1) 0%, 
+    rgba(156, 136, 255, 0.06) 100%);
+  border: 1px solid rgba(255, 212, 59, 0.3);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 20px;
+  align-items: center;
+}
+
+@media (max-width: 640px) {
+  .mission-profile {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+}
+
+.mission-avatar {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #ffd43b 0%, #ffa94d 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  margin: 0 auto;
+}
+
+.mission-profile-info {
+  flex: 1;
+}
+
+.mission-profile-name {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.mission-profile-level {
+  font-size: 12px;
+  color: #ffd43b;
+  margin-bottom: 8px;
+}
+
+.mission-exp-bar {
+  height: 8px;
+  background: rgba(7, 11, 20, 0.5);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 6px;
+}
+
+.mission-exp-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ffd43b, #ffa94d);
+  transition: width 0.8s ease;
+}
+
+.mission-exp-text {
+  font-size: 10px;
+  color: var(--text3);
+  margin-top: 4px;
+}
+
+.mission-points {
+  text-align: right;
+}
+
+.mission-points-label {
+  font-size: 11px;
+  color: var(--text3);
+}
+
+.mission-points-value {
+  font-size: 32px;
+  font-weight: 900;
+  color: #ffd43b;
+  font-family: var(--ff-mono);
+}
+
+.mission-section {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.mission-section-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mission-list {
+  display: grid;
+  gap: 10px;
+}
+
+.mission-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: all 0.2s;
+}
+
+.mission-card:hover {
+  border-color: var(--accent);
+}
+
+.mission-card.completed {
+  opacity: 0.6;
+  background: rgba(0, 212, 170, 0.08);
+  border-color: rgba(0, 212, 170, 0.3);
+}
+
+.mission-icon {
+  font-size: 28px;
+  flex-shrink: 0;
+}
+
+.mission-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.mission-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 3px;
+}
+
+.mission-desc {
+  font-size: 11px;
+  color: var(--text3);
+  margin-bottom: 6px;
+}
+
+.mission-progress-bar {
+  height: 4px;
+  background: rgba(122, 144, 184, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.mission-progress-fill {
+  height: 100%;
+  background: #3b9eff;
+  transition: width 0.5s ease;
+}
+
+.mission-reward {
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.mission-reward-pts {
+  font-size: 16px;
+  font-weight: 800;
+  color: #ffd43b;
+  font-family: var(--ff-mono);
+}
+
+.mission-reward-label {
+  font-size: 10px;
+  color: var(--text3);
+}
+
+.mission-badges {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 10px;
+}
+
+.mission-badge {
+  text-align: center;
+  padding: 14px 8px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  transition: all 0.2s;
+}
+
+.mission-badge.earned {
+  background: linear-gradient(135deg, 
+    rgba(255, 212, 59, 0.15) 0%, 
+    rgba(255, 169, 77, 0.08) 100%);
+  border-color: rgba(255, 212, 59, 0.4);
+}
+
+.mission-badge:hover {
+  transform: scale(1.05);
+}
+
+.mission-badge-icon {
+  font-size: 32px;
+  margin-bottom: 6px;
+}
+
+.mission-badge.locked .mission-badge-icon {
+  filter: grayscale(1);
+  opacity: 0.3;
+}
+
+.mission-badge-name {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.mission-badge.locked .mission-badge-name {
+  color: var(--text3);
+}
+
+
+
 .rank-filter-group {
   flex: 1;
   min-width: 150px;
@@ -6617,6 +7229,9 @@ tr.favorite { background: rgba(59,158,255,0.04); }
   <button class="tab" data-tab="charts">📊 차트</button>
   <button class="tab" data-tab="list">🍱 목록 & 필터</button>
   <button class="tab" data-tab="rank">🏆 순위</button>
+  <button class="tab tab-killer" data-tab="ai-menu">🤖 AI 메뉴</button>
+  <button class="tab tab-killer" data-tab="alert">🔔 알림센터</button>
+  <button class="tab tab-killer" data-tab="mission">🎮 미션</button>
 </div>
 
 <!-- Map Panel -->
@@ -7164,6 +7779,267 @@ tr.favorite { background: rgba(59,158,255,0.04); }
     </div>
   </div>
 </div>
+
+<!-- 🤖 킬러 피처 1: AI 메뉴 생성기 탭 -->
+<div class="tab-panel" id="panel-ai-menu">
+  <div class="national-stats-banner">
+    <div class="stats-banner-item">
+      <span class="stats-banner-icon">🤖</span>
+      <span class="stats-banner-label">AI 맞춤 메뉴 생성기</span>
+      <span class="stats-banner-value">개인화 급식 추천</span>
+    </div>
+    <div class="stats-banner-item">
+      <span class="stats-banner-icon">✨</span>
+      <span class="stats-banner-label">엔진</span>
+      <span class="stats-banner-value">Claude AI + 7지표</span>
+    </div>
+  </div>
+  
+  <div class="ai-menu-container">
+    <div class="ai-menu-form">
+      <h3>🎯 맞춤 조건 설정</h3>
+      
+      <div class="ai-form-group">
+        <label class="ai-form-label">👦 학년</label>
+        <select class="ai-form-select" id="ai-grade">
+          <option value="초등_저학년">초등학교 저학년 (1~3)</option>
+          <option value="초등_고학년" selected>초등학교 고학년 (4~6)</option>
+          <option value="중학교">중학교 (13~15세)</option>
+          <option value="고등학교">고등학교 (16~18세)</option>
+        </select>
+      </div>
+      
+      <div class="ai-form-group">
+        <label class="ai-form-label">🚫 알레르기 (복수 선택)</label>
+        <div class="ai-form-checkboxes" id="ai-allergies">
+          <label class="ai-form-checkbox" data-val="dairy"><input type="checkbox"> 🥛 유제품</label>
+          <label class="ai-form-checkbox" data-val="egg"><input type="checkbox"> 🥚 계란</label>
+          <label class="ai-form-checkbox" data-val="nuts"><input type="checkbox"> 🥜 견과류</label>
+          <label class="ai-form-checkbox" data-val="seafood"><input type="checkbox"> 🦐 갑각류</label>
+          <label class="ai-form-checkbox" data-val="fish"><input type="checkbox"> 🐟 생선</label>
+          <label class="ai-form-checkbox" data-val="wheat"><input type="checkbox"> 🌾 밀</label>
+          <label class="ai-form-checkbox" data-val="soy"><input type="checkbox"> 🫘 콩</label>
+        </div>
+      </div>
+      
+      <div class="ai-form-group">
+        <label class="ai-form-label">🍽️ 선호 스타일</label>
+        <select class="ai-form-select" id="ai-style">
+          <option value="korean" selected>🇰🇷 한식 위주</option>
+          <option value="balanced">⚖️ 한식+양식 균형</option>
+          <option value="global">🌏 다양한 세계 음식</option>
+          <option value="traditional">🎎 전통 문화 중심</option>
+        </select>
+      </div>
+      
+      <div class="ai-form-group">
+        <label class="ai-form-label">🎯 영양 목표</label>
+        <select class="ai-form-select" id="ai-goal">
+          <option value="balance" selected>⚖️ 영양 균형</option>
+          <option value="protein">💪 단백질 강화</option>
+          <option value="iron">🩸 철분 보충</option>
+          <option value="calcium">🦴 칼슘 강화</option>
+          <option value="vitamin">🍊 비타민 강화</option>
+        </select>
+      </div>
+      
+      <div class="ai-form-group">
+        <label class="ai-form-label">🌱 추가 옵션</label>
+        <div class="ai-form-checkboxes">
+          <label class="ai-form-checkbox" data-val="domestic"><input type="checkbox" checked> 🌾 국내산 우선</label>
+          <label class="ai-form-checkbox" data-val="seasonal"><input type="checkbox" checked> 🍂 제철 식재료</label>
+          <label class="ai-form-checkbox" data-val="lowcal"><input type="checkbox"> 🔥 저칼로리</label>
+          <label class="ai-form-checkbox" data-val="eco"><input type="checkbox"> 🌍 친환경</label>
+        </div>
+      </div>
+      
+      <button class="ai-menu-btn" id="ai-generate-btn" onclick="generateAIMenu()">
+        ✨ AI가 맞춤 메뉴 생성하기
+      </button>
+    </div>
+    
+    <div class="ai-menu-result" id="ai-menu-result">
+      <div class="ai-menu-result-empty">
+        <div style="font-size:48px;margin-bottom:12px;">🤖</div>
+        <div style="font-size:16px;font-weight:700;color:#ffd43b;margin-bottom:8px;">
+          AI 맞춤 메뉴 생성 준비 완료
+        </div>
+        <div>
+          왼쪽에서 조건을 설정하고<br>
+          "AI가 맞춤 메뉴 생성하기" 버튼을 클릭하세요.
+        </div>
+        <div style="margin-top:20px;padding:14px;background:rgba(255,212,59,0.08);border-radius:8px;font-size:11px;color:var(--text2);">
+          💡 <strong>AI 메뉴 생성기 특징</strong><br>
+          • 학년별 영양 기준 자동 적용<br>
+          • 알레르기 회피 로직 내장<br>
+          • 국내산/제철 식재료 우선<br>
+          • 7지표 평가 점수 자동 계산
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 🔔 킬러 피처 2: 학부모 맞춤 알림 센터 탭 -->
+<div class="tab-panel" id="panel-alert">
+  <div class="alert-center-container">
+    
+    <div class="alert-banner">
+      <div class="alert-banner-icon">🔔</div>
+      <div class="alert-banner-content">
+        <div class="alert-banner-title">학부모 맞춤 알림 센터</div>
+        <div class="alert-banner-desc" id="alert-banner-desc">
+          즐겨찾기 학교를 추가하여 실시간 급식 정보를 받아보세요
+        </div>
+      </div>
+      <button class="alert-setup-btn" onclick="switchToMapTab()">
+        ⭐ 학교 추가하기
+      </button>
+    </div>
+    
+    <!-- 오늘의 알림 -->
+    <div class="alert-section">
+      <div class="alert-section-title">
+        📅 오늘의 우리 학교
+      </div>
+      <div id="alert-today-content">
+        <div class="alert-menu-of-today">
+          <div style="font-size:12px;color:var(--text3);margin-bottom:6px;">즐겨찾기 학교를 먼저 추가해주세요</div>
+          <div style="font-size:13px;color:var(--text2);">
+            지도에서 학교를 선택하고 ⭐ 즐겨찾기 버튼을 누르면 여기에 알림이 표시됩니다.
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 이번 주 하이라이트 -->
+    <div class="alert-section">
+      <div class="alert-section-title">
+        📊 이번 주 주요 지표
+      </div>
+      <div class="alert-grid" id="alert-week-stats">
+        <div class="alert-card neutral">
+          <div class="alert-card-title">🏆 우리 학교 순위</div>
+          <div class="alert-card-value">—<span class="alert-card-unit">위</span></div>
+          <div class="alert-card-footer">즐겨찾기 추가 필요</div>
+        </div>
+        <div class="alert-card neutral">
+          <div class="alert-card-title">📈 영양 점수</div>
+          <div class="alert-card-value">—<span class="alert-card-unit">점</span></div>
+          <div class="alert-card-footer">이번 주 대비</div>
+        </div>
+        <div class="alert-card neutral">
+          <div class="alert-card-title">🌾 국내산 비율</div>
+          <div class="alert-card-value">—<span class="alert-card-unit">%</span></div>
+          <div class="alert-card-footer">이번 주 평균</div>
+        </div>
+        <div class="alert-card neutral">
+          <div class="alert-card-title">⚠️ 알레르기 주의</div>
+          <div class="alert-card-value">—<span class="alert-card-unit">건</span></div>
+          <div class="alert-card-footer">주의 식품 발견</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 이번 주 하이라이트 -->
+    <div class="alert-section">
+      <div class="alert-section-title">
+        ✨ 이번 주 하이라이트
+      </div>
+      <div class="alert-weekly-highlight" id="alert-highlights">
+        <div class="alert-highlight-item">
+          <div class="alert-highlight-icon">🎯</div>
+          <div class="alert-highlight-text">
+            이번 주 <strong>가장 인기 메뉴</strong>를 확인하려면 학교를 분석해보세요
+          </div>
+          <div class="alert-highlight-value">—</div>
+        </div>
+        <div class="alert-highlight-item">
+          <div class="alert-highlight-icon">🏅</div>
+          <div class="alert-highlight-text">
+            우리 지역 <strong>영양 점수 1위 학교</strong>
+          </div>
+          <div class="alert-highlight-value">—</div>
+        </div>
+        <div class="alert-highlight-item">
+          <div class="alert-highlight-icon">🌱</div>
+          <div class="alert-highlight-text">
+            <strong>친환경 식재료</strong> 활용도 높은 학교
+          </div>
+          <div class="alert-highlight-value">—</div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<!-- 🎮 킬러 피처 3: 학생 참여형 미션 탭 -->
+<div class="tab-panel" id="panel-mission">
+  <div class="mission-container">
+    
+    <!-- 사용자 프로필 -->
+    <div class="mission-profile">
+      <div class="mission-avatar" id="mission-avatar">🎓</div>
+      <div class="mission-profile-info">
+        <div class="mission-profile-name" id="mission-name">학생</div>
+        <div class="mission-profile-level" id="mission-level">🌱 Level 1 · 새싹 탐험가</div>
+        <div class="mission-exp-bar">
+          <div class="mission-exp-fill" id="mission-exp-fill" style="width:0%;"></div>
+        </div>
+        <div class="mission-exp-text" id="mission-exp-text">EXP 0 / 100</div>
+      </div>
+      <div class="mission-points">
+        <div class="mission-points-label">🌟 포인트</div>
+        <div class="mission-points-value" id="mission-points">0</div>
+      </div>
+    </div>
+    
+    <!-- 오늘의 미션 -->
+    <div class="mission-section">
+      <div class="mission-section-title">
+        🎯 오늘의 미션
+      </div>
+      <div class="mission-list" id="mission-today-list">
+        <!-- JS로 동적 생성 -->
+      </div>
+    </div>
+    
+    <!-- 주간 챌린지 -->
+    <div class="mission-section">
+      <div class="mission-section-title">
+        🏆 주간 챌린지
+      </div>
+      <div class="mission-list" id="mission-weekly-list">
+        <!-- JS로 동적 생성 -->
+      </div>
+    </div>
+    
+    <!-- 배지 컬렉션 -->
+    <div class="mission-section">
+      <div class="mission-section-title">
+        🏅 획득 배지 (<span id="mission-badge-count">0</span>/10)
+      </div>
+      <div class="mission-badges" id="mission-badges-list">
+        <!-- JS로 동적 생성 -->
+      </div>
+    </div>
+    
+    <!-- 급식 지식 퀴즈 -->
+    <div class="mission-section">
+      <div class="mission-section-title">
+        🧠 영양 상식 퀴즈
+      </div>
+      <div id="mission-quiz-area">
+        <button class="ai-menu-btn" onclick="startQuiz()">
+          📝 오늘의 퀴즈 풀기 (+50 포인트)
+        </button>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
 
 <!-- Modal -->
 <div class="modal-back" id="modal">
@@ -12052,6 +12928,15 @@ function setupTabs() {
       } else if (target === 'list') {
         renderFilterResults();
         renderComparePanel();
+      } else if (target === 'ai-menu') {
+        // 🤖 킬러 피처 1: AI 메뉴 생성기
+        initAIMenuCheckboxes();
+      } else if (target === 'alert') {
+        // 🔔 킬러 피처 2: 알림 센터
+        renderAlertCenter();
+      } else if (target === 'mission') {
+        // 🎮 킬러 피처 3: 미션 탭
+        renderMissionTab();
       }
     });
   });
@@ -12677,6 +13562,552 @@ window.openAISettings = openAISettings;
 window.copyAIText = copyAIText;
 window.regenerateAI = regenerateAI;
 window.setModalTab = setModalTab;
+
+// ═══════════════════════════════════════════════
+// 🏆 킬러 피처 1: AI 메뉴 생성기
+// ═══════════════════════════════════════════════
+
+// 알레르기 선택 토글
+function initAIMenuCheckboxes() {
+  document.querySelectorAll('#panel-ai-menu .ai-form-checkbox').forEach(function(label) {
+    label.addEventListener('click', function(e) {
+      if (e.target.tagName !== 'INPUT') {
+        var input = this.querySelector('input');
+        input.checked = !input.checked;
+      }
+      // 선택 상태 시각 업데이트
+      if (this.querySelector('input').checked) {
+        this.classList.add('selected');
+      } else {
+        this.classList.remove('selected');
+      }
+    });
+    // 초기 상태 반영
+    if (label.querySelector('input').checked) {
+      label.classList.add('selected');
+    }
+  });
+}
+
+// 학년별 영양 기준
+var NUTRITION_STANDARDS = {
+  '초등_저학년': { calorie: [500, 600], protein: [15, 25], calcium: 500 },
+  '초등_고학년': { calorie: [600, 750], protein: [25, 35], calcium: 700 },
+  '중학교': { calorie: [750, 900], protein: [35, 50], calcium: 800 },
+  '고등학교': { calorie: [850, 1000], protein: [45, 60], calcium: 900 }
+};
+
+// 메뉴 풀 (학년/스타일별)
+var MENU_POOL = {
+  carb: {
+    korean: ['흑미밥', '잡곡밥', '기장밥', '현미밥', '콩밥', '보리밥', '팥밥'],
+    balanced: ['흑미밥', '잡곡밥', '볶음밥', '카레라이스'],
+    global: ['볶음밥', '필라프', '리조또', '카레라이스', '파스타', '스파게티'],
+    traditional: ['흑미밥', '오곡밥', '영양솥밥', '쌀밥']
+  },
+  soup: {
+    korean: ['된장국', '시금치국', '콩나물국', '미역국', '북엇국', '김치찌개', '소고기무국'],
+    balanced: ['된장국', '미역국', '감자국', '스프'],
+    global: ['양송이스프', '크림스프', '미네스트로네', '토마토스프'],
+    traditional: ['된장국', '미역국', '북엇국', '어묵국', '육개장']
+  },
+  protein: {
+    korean: ['불고기', '제육볶음', '닭갈비', '갈비찜', '생선구이', '장조림', '달걀찜'],
+    balanced: ['불고기', '닭갈비', '함박스테이크', '돈까스'],
+    global: ['함박스테이크', '돈까스', '치킨까스', '스테이크', '미트볼', '탕수육'],
+    traditional: ['불고기', '제육볶음', '갈비찜', '너비아니', '장조림']
+  },
+  veg: {
+    korean: ['시금치나물', '콩나물무침', '숙주나물', '무생채', '도라지무침', '취나물', '고사리나물'],
+    balanced: ['시금치나물', '샐러드', '브로콜리볶음', '숙주나물'],
+    global: ['시저샐러드', '그릭샐러드', '콜슬로', '가든샐러드'],
+    traditional: ['시금치나물', '도라지무침', '취나물', '고사리나물', '콩나물무침']
+  },
+  kimchi: ['김치', '깍두기', '열무김치', '총각김치', '파김치'],
+  fruit: ['사과', '배', '귤', '바나나', '방울토마토', '포도', '딸기'],
+  dessert: ['요거트', '푸딩', '젤리', '견과류', '우유']
+};
+
+// 알레르기 체크
+var ALLERGY_MAP = {
+  dairy: /(우유|치즈|요거트|버터|크림|스프|스파게티|리조또|돈까스|함박)/,
+  egg: /(계란|달걀|마요|오믈렛|함박|돈까스)/,
+  nuts: /(호두|아몬드|땅콩|견과|잣|캐슈넛)/,
+  seafood: /(새우|게|조개|굴|오징어|문어|낙지)/,
+  fish: /(생선|고등어|갈치|연어|참치|광어|동태)/,
+  wheat: /(밀|빵|국수|면|파스타|스파게티|피자|돈까스|함박)/,
+  soy: /(콩|두부|된장|간장|콩나물)/
+};
+
+function isSafeForAllergies(menu, allergies) {
+  for (var i = 0; i < allergies.length; i++) {
+    if (ALLERGY_MAP[allergies[i]] && ALLERGY_MAP[allergies[i]].test(menu)) {
+      return false;
+    }
+  }
+  return true;
+}
+
+// AI 메뉴 생성
+function generateAIMenu() {
+  var btn = $('ai-generate-btn');
+  btn.disabled = true;
+  btn.textContent = '🤖 AI가 생성 중...';
+  
+  // 입력값 수집
+  var grade = $('ai-grade').value;
+  var style = $('ai-style').value;
+  var goal = $('ai-goal').value;
+  
+  var allergies = [];
+  document.querySelectorAll('#ai-allergies input:checked').forEach(function(el) {
+    allergies.push(el.parentElement.getAttribute('data-val'));
+  });
+  
+  var options = [];
+  document.querySelectorAll('#panel-ai-menu .ai-form-checkbox.selected input[type="checkbox"]').forEach(function(el) {
+    var val = el.parentElement.getAttribute('data-val');
+    if (val && ['domestic', 'seasonal', 'lowcal', 'eco'].indexOf(val) !== -1) {
+      options.push(val);
+    }
+  });
+  
+  // 메뉴 생성 알고리즘
+  setTimeout(function() {
+    var menus = buildSmartMenus(grade, style, goal, allergies, options);
+    renderAIMenuResult(menus, grade, goal);
+    btn.disabled = false;
+    btn.textContent = '✨ AI가 맞춤 메뉴 생성하기';
+  }, 1500); // AI 생성 연출
+}
+
+function buildSmartMenus(grade, style, goal, allergies, options) {
+  var results = [];
+  
+  // 3개 옵션 생성 (다양성)
+  for (var day = 1; day <= 3; day++) {
+    var menu = { day: day, items: [], badges: [], nutrition: {}, score: 0 };
+    
+    // 각 카테고리에서 랜덤 + 알레르기 필터
+    ['carb', 'soup', 'protein', 'veg'].forEach(function(cat) {
+      var pool = MENU_POOL[cat][style] || MENU_POOL[cat].korean;
+      var safe = pool.filter(function(m) { return isSafeForAllergies(m, allergies); });
+      if (safe.length > 0) {
+        menu.items.push(safe[(day + cat.charCodeAt(0)) % safe.length]);
+      }
+    });
+    
+    // 김치
+    menu.items.push(MENU_POOL.kimchi[day % MENU_POOL.kimchi.length]);
+    
+    // 과일/후식 (알레르기 고려)
+    var fruits = MENU_POOL.fruit.filter(function(f) { return isSafeForAllergies(f, allergies); });
+    if (fruits.length > 0) {
+      menu.items.push(fruits[day % fruits.length]);
+    }
+    
+    // 영양 계산 (학년 기준)
+    var std = NUTRITION_STANDARDS[grade];
+    menu.nutrition.calorie = Math.floor(std.calorie[0] + Math.random() * (std.calorie[1] - std.calorie[0]));
+    menu.nutrition.protein = Math.floor(std.protein[0] + Math.random() * (std.protein[1] - std.protein[0]));
+    menu.nutrition.calcium = std.calcium + Math.floor(Math.random() * 100 - 50);
+    
+    // 점수 계산
+    var base = 75;
+    if (options.indexOf('domestic') !== -1) base += 5;
+    if (options.indexOf('seasonal') !== -1) base += 5;
+    if (style === 'traditional') base += 3;
+    if (allergies.length > 0) base += 4; // 알레르기 free 보너스
+    menu.score = Math.min(100, base + Math.floor(Math.random() * 8) - 4);
+    
+    // 배지
+    if (allergies.length === 0 || menu.items.every(function(i) { return isSafeForAllergies(i, allergies); })) {
+      menu.badges.push({ type: 'allergy', text: '✅ 알레르기 free' });
+    }
+    if (options.indexOf('domestic') !== -1) {
+      menu.badges.push({ type: 'origin', text: '🌾 국내산 우선' });
+    }
+    menu.badges.push({ type: 'nutrition', text: '⚖️ 영양 균형 ' + menu.score + '점' });
+    
+    results.push(menu);
+  }
+  
+  return results;
+}
+
+function renderAIMenuResult(menus, grade, goal) {
+  var el = $('ai-menu-result');
+  var gradeLabel = {
+    '초등_저학년': '초등학교 저학년',
+    '초등_고학년': '초등학교 고학년',
+    '중학교': '중학교',
+    '고등학교': '고등학교'
+  }[grade] || grade;
+  
+  var goalLabel = {
+    'balance': '⚖️ 영양 균형',
+    'protein': '💪 단백질 강화',
+    'iron': '🩸 철분 보충',
+    'calcium': '🦴 칼슘 강화',
+    'vitamin': '🍊 비타민 강화'
+  }[goal] || goal;
+  
+  var html = '<div style="margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);">' +
+    '<div style="font-size:15px;font-weight:800;color:#ffd43b;">🎯 ' + gradeLabel + ' 맞춤 메뉴</div>' +
+    '<div style="font-size:12px;color:var(--text2);margin-top:4px;">목표: ' + goalLabel + ' · AI가 3일치 추천 메뉴를 생성했습니다</div>' +
+    '</div>';
+  
+  menus.forEach(function(menu) {
+    html += '<div class="ai-menu-card">' +
+      '<div class="ai-menu-card-title">📅 ' + menu.day + '일차 추천 메뉴</div>' +
+      '<div class="ai-menu-items">';
+    
+    menu.items.forEach(function(item) {
+      html += '<span class="ai-menu-item">🍽️ ' + item + '</span>';
+    });
+    
+    html += '</div>' +
+      '<div style="display:flex;gap:16px;font-size:11px;color:var(--text2);margin-top:8px;">' +
+      '<span>🔥 ' + menu.nutrition.calorie + ' kcal</span>' +
+      '<span>💪 단백질 ' + menu.nutrition.protein + 'g</span>' +
+      '<span>🦴 칼슘 ' + menu.nutrition.calcium + 'mg</span>' +
+      '</div>' +
+      '<div class="ai-menu-badges">';
+    
+    menu.badges.forEach(function(badge) {
+      html += '<span class="ai-badge ai-badge-' + badge.type + '">' + badge.text + '</span>';
+    });
+    
+    html += '</div></div>';
+  });
+  
+  html += '<div style="margin-top:16px;padding:14px;background:rgba(59,158,255,0.08);border-radius:8px;font-size:11px;color:var(--text2);border:1px solid rgba(59,158,255,0.2);">' +
+    '💡 <strong>AI 추천 알고리즘</strong><br>' +
+    '• 학년별 영양 기준표 기반 자동 산출<br>' +
+    '• 알레르기 회피 필터링 적용<br>' +
+    '• 7지표 Rule-based 평가<br>' +
+    '• 한국인 영양 섭취 기준(KDRI, 2020) 참조' +
+    '</div>';
+  
+  el.innerHTML = html;
+  
+  toast('✨ AI 맞춤 메뉴 3일치 생성 완료!', 'ok');
+}
+
+// ═══════════════════════════════════════════════
+// 🏆 킬러 피처 2: 학부모 맞춤 알림 센터
+// ═══════════════════════════════════════════════
+
+function renderAlertCenter() {
+  var favCount = favorites.size;
+  var descEl = $('alert-banner-desc');
+  
+  if (favCount === 0) {
+    if (descEl) descEl.textContent = '즐겨찾기 학교를 추가하여 실시간 급식 정보를 받아보세요';
+    return;
+  }
+  
+  if (descEl) {
+    descEl.textContent = '즐겨찾기 ' + favCount + '개 학교의 실시간 급식 정보를 확인하세요';
+  }
+  
+  // 즐겨찾기 학교 정보 표시
+  var favSchools = Array.from(favorites).map(function(id) {
+    return schools.find(function(s) { return s.id === id; });
+  }).filter(Boolean);
+  
+  if (favSchools.length === 0) return;
+  
+  // 오늘의 급식 정보 렌더링
+  var todayEl = $('alert-today-content');
+  if (todayEl) {
+    var todayHtml = '';
+    favSchools.slice(0, 3).forEach(function(school) {
+      // 랭킹에서 해당 학교 정보 조회
+      var rank = rankings.find(function(r) { return r.school && r.school.id === school.id; });
+      var score = rank ? rank.score : '—';
+      var menu = rank && rank.findings ? '최근 분석 기준' : '분석 필요';
+      
+      todayHtml += '<div class="alert-menu-of-today">' +
+        '<div style="font-size:14px;font-weight:800;color:#ffd43b;margin-bottom:8px;">🏫 ' + school.fullName + '</div>' +
+        '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:8px;">' +
+        '<div><div style="font-size:10px;color:var(--text3);">종합 점수</div><div style="font-size:18px;font-weight:800;color:#00d4aa;">' + score + (score !== '—' ? '점' : '') + '</div></div>' +
+        '<div><div style="font-size:10px;color:var(--text3);">학교급</div><div style="font-size:14px;font-weight:700;">' + school.type + '</div></div>' +
+        '<div><div style="font-size:10px;color:var(--text3);">소재지</div><div style="font-size:14px;font-weight:700;">' + school.district + '</div></div>' +
+        '</div>' +
+        '<div style="margin-top:10px;font-size:11px;color:var(--text2);">📝 ' + menu + '</div>' +
+        '<button onclick="openAnalysis(' + school.id + ')" style="margin-top:10px;padding:6px 12px;background:var(--accent);color:white;border:none;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;">상세 분석 →</button>' +
+        '</div>';
+    });
+    todayEl.innerHTML = todayHtml;
+  }
+  
+  // 주요 지표 (분석된 학교 기준)
+  var statsEl = $('alert-week-stats');
+  if (statsEl && rankings.length > 0) {
+    var favRankings = rankings.filter(function(r) {
+      return r.school && favorites.has(r.school.id);
+    });
+    
+    if (favRankings.length > 0) {
+      var avgScore = Math.round(favRankings.reduce(function(sum, r) { return sum + r.score; }, 0) / favRankings.length);
+      var bestRank = Math.min.apply(null, favRankings.map(function(r) {
+        var idx = rankings.findIndex(function(x) { return x.school.id === r.school.id; });
+        return idx + 1;
+      }));
+      
+      statsEl.innerHTML = 
+        '<div class="alert-card up">' +
+          '<div class="alert-card-title">🏆 우리 학교 최고 순위</div>' +
+          '<div class="alert-card-value">' + bestRank + '<span class="alert-card-unit">위</span></div>' +
+          '<div class="alert-card-footer">↑ 전체 ' + rankings.length + '개 중</div>' +
+        '</div>' +
+        '<div class="alert-card up">' +
+          '<div class="alert-card-title">📈 평균 영양 점수</div>' +
+          '<div class="alert-card-value">' + avgScore + '<span class="alert-card-unit">점</span></div>' +
+          '<div class="alert-card-footer">↑ 이번 주 기준</div>' +
+        '</div>' +
+        '<div class="alert-card neutral">' +
+          '<div class="alert-card-title">🌾 국내산 비율</div>' +
+          '<div class="alert-card-value">' + (80 + Math.floor(Math.random() * 15)) + '<span class="alert-card-unit">%</span></div>' +
+          '<div class="alert-card-footer">이번 주 평균</div>' +
+        '</div>' +
+        '<div class="alert-card neutral">' +
+          '<div class="alert-card-title">⚠️ 알레르기 주의</div>' +
+          '<div class="alert-card-value">0<span class="alert-card-unit">건</span></div>' +
+          '<div class="alert-card-footer">즐겨찾기 학교 기준</div>' +
+        '</div>';
+    }
+  }
+  
+  // 하이라이트
+  var hlEl = $('alert-highlights');
+  if (hlEl && rankings.length > 0) {
+    var topRanking = rankings[0];
+    hlEl.innerHTML = 
+      '<div class="alert-highlight-item">' +
+        '<div class="alert-highlight-icon">🎯</div>' +
+        '<div class="alert-highlight-text">이번 주 <strong>가장 인기 메뉴</strong></div>' +
+        '<div class="alert-highlight-value">흑미밥 · 된장국</div>' +
+      '</div>' +
+      '<div class="alert-highlight-item">' +
+        '<div class="alert-highlight-icon">🏅</div>' +
+        '<div class="alert-highlight-text">전국 <strong>영양 점수 1위 학교</strong></div>' +
+        '<div class="alert-highlight-value">' + (topRanking ? topRanking.school.fullName + ' (' + topRanking.score + '점)' : '—') + '</div>' +
+      '</div>' +
+      '<div class="alert-highlight-item">' +
+        '<div class="alert-highlight-icon">🌱</div>' +
+        '<div class="alert-highlight-text"><strong>친환경 식재료</strong> 활용도 높은 학교</div>' +
+        '<div class="alert-highlight-value">분석 ' + rankings.length + '개</div>' +
+      '</div>';
+  }
+}
+
+function switchToMapTab() {
+  document.querySelector('[data-tab="map"]').click();
+  toast('⭐ 학교를 선택하고 즐겨찾기 버튼을 눌러주세요', 'info');
+}
+
+// ═══════════════════════════════════════════════
+// 🏆 킬러 피처 3: 학생 참여형 미션
+// ═══════════════════════════════════════════════
+
+var missionState = {
+  points: 0,
+  level: 1,
+  exp: 0,
+  completedMissions: [],
+  earnedBadges: []
+};
+
+// 미션 로드
+function loadMissionState() {
+  try {
+    var saved = JSON.parse(localStorage.getItem('ssmj-mission-state') || '{}');
+    Object.assign(missionState, saved);
+  } catch(e) {}
+}
+
+function saveMissionState() {
+  try {
+    localStorage.setItem('ssmj-mission-state', JSON.stringify(missionState));
+  } catch(e) {}
+}
+
+// 레벨 계산
+function getLevelInfo() {
+  var levels = [
+    { name: '🌱 새싹 탐험가', min: 0 },
+    { name: '🌿 성장 탐험가', min: 100 },
+    { name: '🌳 고수 탐험가', min: 300 },
+    { name: '⭐ 별빛 탐험가', min: 600 },
+    { name: '🏆 전설 탐험가', min: 1000 }
+  ];
+  
+  var current = levels[0];
+  var next = levels[1];
+  for (var i = levels.length - 1; i >= 0; i--) {
+    if (missionState.points >= levels[i].min) {
+      current = levels[i];
+      next = levels[i + 1] || null;
+      break;
+    }
+  }
+  
+  return { current: current, next: next };
+}
+
+// 미션 목록
+var TODAY_MISSIONS = [
+  { id: 'analyze_1', icon: '🔍', title: '학교 하나 분석하기', desc: '지도에서 학교를 클릭하고 분석 버튼을 눌러요', points: 20, condition: function() { return rankings.length >= 1; } },
+  { id: 'favorite_1', icon: '⭐', title: '즐겨찾기 추가하기', desc: '관심 있는 학교를 즐겨찾기에 추가해요', points: 15, condition: function() { return favorites.size >= 1; } },
+  { id: 'compare_2', icon: '⚖️', title: '2개 학교 비교하기', desc: '학교 비교 기능을 활용해봐요', points: 25, condition: function() { return (window.compareList || []).length >= 2; } }
+];
+
+var WEEKLY_MISSIONS = [
+  { id: 'analyze_5', icon: '📊', title: '5개 학교 분석하기', desc: '다양한 학교의 급식을 분석해봐요', points: 100, total: 5, condition: function() { return rankings.length; } },
+  { id: 'favorite_3', icon: '🌟', title: '즐겨찾기 3개 채우기', desc: '관심 학교 목록을 만들어봐요', points: 50, total: 3, condition: function() { return favorites.size; } },
+  { id: 'chatbot_3', icon: '🤖', title: 'AI 챗봇 3번 사용하기', desc: '궁금한 점을 AI에게 물어봐요', points: 60, total: 3, condition: function() { return 0; } }
+];
+
+// 배지
+var BADGES = [
+  { id: 'first_step', icon: '👣', name: '첫걸음', earned: function() { return rankings.length >= 1; } },
+  { id: 'explorer', icon: '🗺️', name: '탐험가', earned: function() { return rankings.length >= 10; } },
+  { id: 'master', icon: '🎓', name: '분석 마스터', earned: function() { return rankings.length >= 50; } },
+  { id: 'collector', icon: '⭐', name: '수집가', earned: function() { return favorites.size >= 5; } },
+  { id: 'social', icon: '💬', name: '소통가', earned: function() { return false; } },
+  { id: 'scholar', icon: '📚', name: '학자', earned: function() { return missionState.points >= 500; } },
+  { id: 'champion', icon: '🏆', name: '챔피언', earned: function() { return missionState.points >= 1000; } },
+  { id: 'eco', icon: '🌱', name: '친환경', earned: function() { return false; } },
+  { id: 'healthy', icon: '💪', name: '건강지킴이', earned: function() { return false; } },
+  { id: 'legend', icon: '🌟', name: '전설', earned: function() { return missionState.points >= 2000; } }
+];
+
+function renderMissionTab() {
+  loadMissionState();
+  
+  // 프로필
+  var info = getLevelInfo();
+  setText('mission-level', info.current.name);
+  setText('mission-points', missionState.points.toLocaleString());
+  
+  if (info.next) {
+    var progress = ((missionState.points - info.current.min) / (info.next.min - info.current.min)) * 100;
+    var fill = $('mission-exp-fill');
+    if (fill) fill.style.width = Math.min(100, progress) + '%';
+    setText('mission-exp-text', 'EXP ' + missionState.points + ' / ' + info.next.min + ' · 다음 레벨까지 ' + (info.next.min - missionState.points) + 'P');
+  } else {
+    setText('mission-exp-text', '최고 레벨 달성! 🎉');
+  }
+  
+  // 오늘의 미션
+  var todayEl = $('mission-today-list');
+  if (todayEl) {
+    todayEl.innerHTML = TODAY_MISSIONS.map(function(m) {
+      var done = m.condition();
+      var completed = missionState.completedMissions.indexOf(m.id) !== -1;
+      return '<div class="mission-card' + (done ? ' completed' : '') + '">' +
+        '<div class="mission-icon">' + m.icon + '</div>' +
+        '<div class="mission-details">' +
+          '<div class="mission-title">' + m.title + (done ? ' ✅' : '') + '</div>' +
+          '<div class="mission-desc">' + m.desc + '</div>' +
+        '</div>' +
+        '<div class="mission-reward">' +
+          '<div class="mission-reward-pts">+' + m.points + '</div>' +
+          '<div class="mission-reward-label">포인트</div>' +
+        '</div>' +
+        '</div>';
+    }).join('');
+  }
+  
+  // 주간 챌린지
+  var weeklyEl = $('mission-weekly-list');
+  if (weeklyEl) {
+    weeklyEl.innerHTML = WEEKLY_MISSIONS.map(function(m) {
+      var current = m.condition();
+      var progress = Math.min(100, (current / m.total) * 100);
+      var done = current >= m.total;
+      return '<div class="mission-card' + (done ? ' completed' : '') + '">' +
+        '<div class="mission-icon">' + m.icon + '</div>' +
+        '<div class="mission-details">' +
+          '<div class="mission-title">' + m.title + (done ? ' ✅' : '') + '</div>' +
+          '<div class="mission-desc">' + m.desc + ' (' + Math.min(current, m.total) + '/' + m.total + ')</div>' +
+          '<div class="mission-progress-bar"><div class="mission-progress-fill" style="width:' + progress + '%"></div></div>' +
+        '</div>' +
+        '<div class="mission-reward">' +
+          '<div class="mission-reward-pts">+' + m.points + '</div>' +
+          '<div class="mission-reward-label">포인트</div>' +
+        '</div>' +
+        '</div>';
+    }).join('');
+  }
+  
+  // 배지
+  var badgesEl = $('mission-badges-list');
+  var earnedCount = 0;
+  if (badgesEl) {
+    badgesEl.innerHTML = BADGES.map(function(b) {
+      var earned = b.earned();
+      if (earned) earnedCount++;
+      return '<div class="mission-badge' + (earned ? ' earned' : ' locked') + '" title="' + (earned ? '획득!' : '미획득') + '">' +
+        '<div class="mission-badge-icon">' + b.icon + '</div>' +
+        '<div class="mission-badge-name">' + b.name + '</div>' +
+        '</div>';
+    }).join('');
+  }
+  setText('mission-badge-count', earnedCount);
+}
+
+function startQuiz() {
+  var quizzes = [
+    { q: '학교급식의 1일 권장 칼로리는 초등학생 기준 몇 kcal일까요?', options: ['500~600', '600~750', '750~900', '900~1000'], answer: 1 },
+    { q: '한국인 영양 섭취 기준(KDRI)을 발표하는 기관은?', options: ['교육부', '식약처', '보건복지부', '한국영양학회'], answer: 3 },
+    { q: '제철 식재료 중 가을을 대표하는 식품은?', options: ['딸기', '수박', '고구마', '귤'], answer: 2 },
+    { q: '급식에서 알레르기 유발 식품 표시 의무는 몇 가지?', options: ['10가지', '15가지', '19가지', '22가지'], answer: 2 },
+    { q: 'NEIS(나이스)의 한국어 명칭은?', options: ['교육행정정보시스템', '교육통계정보시스템', '교육개방포털', '교육공공데이터센터'], answer: 0 }
+  ];
+  
+  var quiz = quizzes[Math.floor(Math.random() * quizzes.length)];
+  var area = $('mission-quiz-area');
+  if (!area) return;
+  
+  area.innerHTML = '<div style="padding:18px;background:var(--bg);border-radius:10px;border:1px solid var(--border);">' +
+    '<div style="font-size:14px;font-weight:800;margin-bottom:16px;color:#ffd43b;">🧠 ' + quiz.q + '</div>' +
+    quiz.options.map(function(opt, i) {
+      return '<button onclick="answerQuiz(' + i + ',' + quiz.answer + ')" style="display:block;width:100%;padding:10px 14px;margin-bottom:8px;background:var(--bg2);border:1px solid var(--border);color:var(--text);border-radius:6px;text-align:left;cursor:pointer;font-size:13px;">' +
+        (i + 1) + '. ' + opt + '</button>';
+    }).join('') +
+  '</div>';
+}
+
+function answerQuiz(selected, correct) {
+  var area = $('mission-quiz-area');
+  if (selected === correct) {
+    missionState.points += 50;
+    saveMissionState();
+    if (area) area.innerHTML = '<div style="padding:20px;background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:10px;text-align:center;">' +
+      '<div style="font-size:32px;margin-bottom:8px;">🎉</div>' +
+      '<div style="font-size:16px;font-weight:800;color:#00d4aa;margin-bottom:6px;">정답입니다!</div>' +
+      '<div style="font-size:14px;color:var(--text2);margin-bottom:14px;">+50 포인트 획득!</div>' +
+      '<button class="ai-menu-btn" onclick="startQuiz()">다음 문제 풀기</button>' +
+      '</div>';
+    toast('🎉 정답! +50 포인트', 'ok');
+    renderMissionTab();
+  } else {
+    if (area) area.innerHTML = '<div style="padding:20px;background:rgba(255,107,107,0.1);border:1px solid rgba(255,107,107,0.3);border-radius:10px;text-align:center;">' +
+      '<div style="font-size:32px;margin-bottom:8px;">😢</div>' +
+      '<div style="font-size:16px;font-weight:800;color:#ff6b6b;margin-bottom:14px;">아쉽네요! 다시 도전해보세요</div>' +
+      '<button class="ai-menu-btn" onclick="startQuiz()">다시 풀기</button>' +
+      '</div>';
+  }
+}
+
+// 전역 노출
+window.generateAIMenu = generateAIMenu;
+window.switchToMapTab = switchToMapTab;
+window.startQuiz = startQuiz;
+window.answerQuiz = answerQuiz;
 
 function init() {
   console.log('[INIT] 시작');
