@@ -5636,6 +5636,296 @@ body.high-contrast .tab {
   .insight-hero-stats { align-items: center; }
 }
 
+/* 📱 학교 분석 팝업창 (모달) 모바일 반응형 */
+@media (max-width: 768px) {
+  /* 모달 컨테이너 */
+  .modal {
+    max-height: 92vh !important;
+    border-radius: 20px 20px 0 0 !important;
+    border-top: 3px solid var(--accent);
+    padding-bottom: env(safe-area-inset-bottom, 16px);
+  }
+  
+  /* 드래그 핸들바 (바텀시트 느낌) */
+  .modal::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+    margin: 8px auto 4px;
+    position: sticky;
+    top: 0;
+  }
+  
+  /* 모달 헤더 - 타이틀/메타 재배치 */
+  .modal-head {
+    padding: 10px 14px 12px !important;
+    gap: 8px !important;
+    flex-wrap: nowrap;
+  }
+  
+  .modal-label {
+    font-size: 9px !important;
+    margin-bottom: 2px !important;
+  }
+  
+  .modal-title {
+    font-size: 16px !important;
+    line-height: 1.3;
+    word-break: keep-all;
+  }
+  
+  .modal-meta {
+    font-size: 10px !important;
+    margin-top: 3px !important;
+    line-height: 1.4;
+  }
+  
+  /* 버튼(공유, 닫기) */
+  .modal-share-btn,
+  .modal-close {
+    width: 36px !important;
+    height: 36px !important;
+    padding: 0 !important;
+    font-size: 20px !important;
+    flex-shrink: 0;
+  }
+  
+  /* 탭바 스크롤 */
+  .tab-bar {
+    padding: 0 10px !important;
+    gap: 0 !important;
+    position: sticky;
+    top: 0;
+    background: var(--bg2);
+    z-index: 9;
+  }
+  
+  .tab-bar button {
+    padding: 10px 10px !important;
+    font-size: 11px !important;
+    min-width: auto !important;
+    min-height: 42px !important;
+  }
+  
+  /* 탭바에 우측 페이드 효과 (스크롤 힌트) */
+  .tab-bar::after {
+    content: '';
+    position: sticky;
+    right: 0;
+    width: 20px;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, var(--bg2));
+    pointer-events: none;
+    flex-shrink: 0;
+  }
+  
+  /* 모달 본문 */
+  .modal-body {
+    padding: 12px !important;
+  }
+  
+  /* 총점 카드 */
+  .score-overall {
+    padding: 16px 12px !important;
+    margin-bottom: 12px !important;
+    border-radius: 10px !important;
+  }
+  
+  .score-overall .num {
+    font-size: 40px !important;
+  }
+  
+  .score-overall .label {
+    font-size: 10px !important;
+  }
+  
+  .score-overall .lede {
+    font-size: 11px !important;
+    line-height: 1.5;
+    margin-top: 6px !important;
+  }
+  
+  /* 점수 바 (열량·다양성·신선도 등) - 컬럼 폭 재조정 */
+  .score-bar {
+    grid-template-columns: 54px 1fr 36px !important;
+    gap: 8px !important;
+    margin-bottom: 10px !important;
+    font-size: 11px !important;
+  }
+  
+  .score-bar-label {
+    font-size: 11px !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .score-bar-track { height: 8px !important; }
+  
+  .score-bar-value {
+    font-size: 11px !important;
+    font-weight: 700;
+  }
+  
+  /* 주요 발견 사항 */
+  .finding {
+    padding: 8px 10px !important;
+    font-size: 11px !important;
+    line-height: 1.5;
+    gap: 6px !important;
+    flex-wrap: wrap;
+  }
+  
+  /* 식단/시계열/월간 등 탭 콘텐츠 */
+  .meal-card {
+    padding: 10px !important;
+    margin-bottom: 10px !important;
+  }
+  
+  .meal-date {
+    font-size: 11px !important;
+  }
+  
+  .meal-menu {
+    font-size: 11px !important;
+    line-height: 1.6;
+  }
+  
+  /* 메뉴 알레르기 배지 */
+  .menu-allergy-badge {
+    font-size: 9px !important;
+    padding: 2px 5px !important;
+  }
+  
+  /* 카드 타이틀 (모달 내부) */
+  .modal-body .card {
+    padding: 12px !important;
+    margin-bottom: 12px !important;
+  }
+  
+  .modal-body .card-title {
+    font-size: 13px !important;
+    margin-bottom: 4px !important;
+  }
+  
+  .modal-body .card-desc {
+    font-size: 10px !important;
+  }
+  
+  /* 차트 박스 */
+  .modal-body .chart-box {
+    height: 220px !important;
+  }
+  
+  /* 월간 캘린더 */
+  .monthly-calendar {
+    font-size: 10px !important;
+  }
+  
+  .monthly-day {
+    padding: 3px !important;
+    min-height: 40px !important;
+    font-size: 9px !important;
+  }
+  
+  /* 가정 비교 */
+  .home-compare-grid {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+  
+  /* 친환경 */
+  .eco-score-circle {
+    width: 90px !important;
+    height: 90px !important;
+  }
+  
+  /* 커뮤니티 */
+  .community-input {
+    font-size: 12px !important;
+  }
+  
+  /* AI 해설 */
+  .ai-narrative {
+    font-size: 12px !important;
+    line-height: 1.7 !important;
+    padding: 12px !important;
+  }
+  
+  /* 원산지 테이블 */
+  .origin-table {
+    font-size: 10px !important;
+  }
+  
+  .origin-table th,
+  .origin-table td {
+    padding: 4px 6px !important;
+  }
+}
+
+/* 📱 초소형 모바일 (~380px) 추가 최적화 */
+@media (max-width: 380px) {
+  .modal-title {
+    font-size: 14px !important;
+  }
+  
+  .modal-meta {
+    font-size: 9px !important;
+  }
+  
+  .tab-bar button {
+    padding: 8px 7px !important;
+    font-size: 10px !important;
+  }
+  
+  .score-overall .num {
+    font-size: 34px !important;
+  }
+  
+  .score-bar {
+    grid-template-columns: 48px 1fr 32px !important;
+    gap: 6px !important;
+    font-size: 10px !important;
+  }
+  
+  .score-bar-label { font-size: 10px !important; }
+  .score-bar-value { font-size: 10px !important; }
+  
+  .finding { font-size: 10px !important; }
+  .modal-body { padding: 10px !important; }
+}
+
+/* 📐 가로 모드 (landscape) 대응 */
+@media (max-width: 900px) and (orientation: landscape) and (max-height: 500px) {
+  .modal {
+    max-height: 96vh !important;
+  }
+  
+  .score-overall {
+    padding: 10px !important;
+    margin-bottom: 8px !important;
+  }
+  
+  .score-overall .num {
+    font-size: 28px !important;
+  }
+  
+  .score-overall .lede {
+    display: none; /* 가로 모드에서는 숨김 */
+  }
+  
+  .modal-head {
+    padding: 8px 14px !important;
+  }
+  
+  .modal-title {
+    font-size: 14px !important;
+  }
+}
+
 /* 🔍 학교 검색창 (알레르기 필터 대체) */
 .map-filter-group.map-filter-search {
   flex: 2;
@@ -5730,11 +6020,13 @@ body.high-contrast .tab {
 .map-search-result-icon {
   font-size: 18px;
   flex-shrink: 0;
+  cursor: pointer;
 }
 
 .map-search-result-body {
   flex: 1;
   min-width: 0;
+  cursor: pointer;
 }
 
 .map-search-result-name {
@@ -5761,6 +6053,105 @@ body.high-contrast .tab {
   border-radius: 4px;
   font-size: 10px;
   font-weight: 700;
+}
+
+/* 🆕 검색 결과 우측 액션 버튼 그룹 */
+.map-search-result-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+
+.map-search-action-btn {
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(122, 144, 184, 0.12);
+  color: var(--text2);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  padding: 0;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.map-search-action-btn:hover {
+  transform: scale(1.15);
+  background: rgba(255, 212, 59, 0.2);
+}
+
+.map-search-action-btn.fav {
+  color: #7a90b8;
+}
+
+.map-search-action-btn.fav.active {
+  background: rgba(255, 212, 59, 0.22);
+  color: #ffd43b;
+  animation: starPulse 1.5s ease-in-out infinite;
+  box-shadow: 0 0 12px rgba(255, 212, 59, 0.35);
+}
+
+@keyframes starPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.map-search-action-btn.fav:hover {
+  color: #ffd43b;
+  background: rgba(255, 212, 59, 0.25);
+}
+
+.map-search-action-btn.analyze {
+  color: #00d4aa;
+  background: rgba(0, 212, 170, 0.1);
+}
+
+.map-search-action-btn.analyze:hover {
+  background: #00d4aa;
+  color: white;
+}
+
+/* ⭐ 즐겨찾기된 결과 행 강조 */
+.map-search-result-item.is-fav {
+  background: linear-gradient(90deg, 
+    rgba(255, 212, 59, 0.08) 0%, 
+    transparent 40%);
+  border-left: 3px solid #ffd43b;
+}
+
+.map-search-result-item.is-fav .map-search-result-name::before {
+  content: '⭐ ';
+  margin-right: 2px;
+}
+
+/* 검색 요약에 즐겨찾기 수 표시 */
+.map-search-summary-fav {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  background: rgba(255, 212, 59, 0.2);
+  color: #ffd43b;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 800;
+  margin-left: 6px;
+}
+
+/* 모바일 최적화 */
+@media (max-width: 640px) {
+  .map-search-action-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 15px;
+  }
 }
 
 .map-search-empty {
@@ -15021,9 +15412,17 @@ function renderSearchResults(results, query, totalCount) {
     return;
   }
   
-  // 검색 요약 헤더
+  // 🆕 검색 결과 중 즐겨찾기 수 집계
+  var favCount = 0;
+  results.forEach(function(s) {
+    if (favorites && favorites.has(s.id)) favCount++;
+  });
+  
+  // 검색 요약 헤더 (즐겨찾기 수 표시)
   var summary = '<div class="map-search-summary">' +
-    '<span>🔍 "' + escapeHTML(query) + '" 검색 결과</span>' +
+    '<span>🔍 "' + escapeHTML(query) + '" 검색 결과' +
+      (favCount > 0 ? '<span class="map-search-summary-fav">⭐ ' + favCount + '개 즐겨찾기</span>' : '') +
+    '</span>' +
     '<span class="map-search-summary-count">' + 
       (totalCount > 50 ? '50 / ' + totalCount : results.length) + 
     '건</span>' +
@@ -15055,10 +15454,19 @@ function renderSearchResults(results, query, totalCount) {
     var typeColor = s.type === '초등학교' ? '#3b9eff' : 
                     s.type === '중학교' ? '#00d4aa' : '#ffa94d';
     
-    return '<div class="map-search-result-item" data-idx="' + idx + '" ' +
-      'onclick="selectSearchResultByIdx(' + idx + ')">' +
-      '<div class="map-search-result-icon" style="color:' + typeColor + '">' + icon + '</div>' +
-      '<div class="map-search-result-body">' +
+    // 🆕 즐겨찾기 상태
+    var isFav = favorites && favorites.has(s.id);
+    var favClass = isFav ? ' is-fav' : '';
+    var favBtnClass = isFav ? 'active' : '';
+    var favIcon = isFav ? '⭐' : '☆';
+    var favTitle = isFav ? '즐겨찾기 해제' : '즐겨찾기 추가';
+    
+    return '<div class="map-search-result-item' + favClass + '" data-idx="' + idx + '" ' +
+      'data-school-id="' + s.id + '">' +
+      // 왼쪽: 아이콘 + 정보 (클릭 영역)
+      '<div class="map-search-result-icon" style="color:' + typeColor + '" ' +
+        'onclick="selectSearchResultByIdx(' + idx + ')">' + icon + '</div>' +
+      '<div class="map-search-result-body" onclick="selectSearchResultByIdx(' + idx + ')">' +
         '<div class="map-search-result-name">' + highlightedName + '</div>' +
         '<div class="map-search-result-meta">' +
           '<span>' + (s.type || '—') + '</span>' +
@@ -15067,11 +15475,158 @@ function renderSearchResults(results, query, totalCount) {
           officeBadge +
         '</div>' +
       '</div>' +
+      // 🆕 우측: 액션 버튼 (즐겨찾기 + 분석)
+      '<div class="map-search-result-actions">' +
+        '<button class="map-search-action-btn fav ' + favBtnClass + '" ' +
+          'data-action="fav" data-school-id="' + s.id + '" ' +
+          'title="' + favTitle + '" aria-label="' + favTitle + '">' +
+          favIcon +
+        '</button>' +
+        '<button class="map-search-action-btn analyze" ' +
+          'data-action="analyze" data-school-id="' + s.id + '" ' +
+          'title="분석 시작" aria-label="분석 시작">' +
+          '📊' +
+        '</button>' +
+      '</div>' +
       '</div>';
   }).join('');
   
   box.innerHTML = summary + items;
+  
+  // 🆕 액션 버튼 이벤트 바인딩
+  bindSearchResultActions();
 }
+
+// 🆕 검색 결과 액션 버튼 이벤트 바인딩
+function bindSearchResultActions() {
+  var box = $('map-search-results');
+  if (!box) return;
+  
+  box.querySelectorAll('.map-search-action-btn').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      
+      var action = this.getAttribute('data-action');
+      var schoolId = parseInt(this.getAttribute('data-school-id'));
+      var school = schools.find(function(s) { return s.id === schoolId; });
+      
+      if (!school) {
+        console.warn('[search] 학교를 찾을 수 없음:', schoolId);
+        return;
+      }
+      
+      if (action === 'fav') {
+        toggleFavFromSearch(schoolId, this);
+      } else if (action === 'analyze') {
+        analyzeFromSearch(school);
+      }
+    });
+  });
+}
+
+// 🆕 검색 결과에서 즐겨찾기 토글
+function toggleFavFromSearch(schoolId, btnEl) {
+  var isFav = favorites.has(schoolId);
+  
+  if (isFav) {
+    favorites.delete(schoolId);
+  } else {
+    favorites.add(schoolId);
+  }
+  
+  // localStorage 저장
+  try {
+    localStorage.setItem('ssmj-fav', JSON.stringify(Array.from(favorites)));
+  } catch(e) {}
+  
+  // UI 업데이트 (버튼 상태 + 행 스타일)
+  var nowFav = favorites.has(schoolId);
+  btnEl.classList.toggle('active', nowFav);
+  btnEl.textContent = nowFav ? '⭐' : '☆';
+  btnEl.setAttribute('title', nowFav ? '즐겨찾기 해제' : '즐겨찾기 추가');
+  btnEl.setAttribute('aria-label', nowFav ? '즐겨찾기 해제' : '즐겨찾기 추가');
+  
+  // 행 전체에 강조 스타일 토글
+  var row = btnEl.closest('.map-search-result-item');
+  if (row) row.classList.toggle('is-fav', nowFav);
+  
+  // 즐겨찾기 카운트 배지 업데이트
+  updateSearchSummaryFavCount();
+  
+  // 즐겨찾기 뱃지 업데이트 (헤더)
+  var favCountEl = $('badge-fav-count');
+  if (favCountEl) favCountEl.textContent = favorites.size;
+  
+  // 토스트 알림
+  var school = schools.find(function(s) { return s.id === schoolId; });
+  var schoolName = school ? (school.fullName || school.name) : '학교';
+  
+  if (nowFav) {
+    toast('⭐ ' + schoolName + ' 즐겨찾기 추가!', 'ok');
+  } else {
+    toast('즐겨찾기에서 제거됨', 'info');
+  }
+  
+  // 다른 탭들도 동기화 (마커 색상, 목록 등)
+  try {
+    if (typeof renderTable === 'function') renderTable();
+    if (typeof renderFilterResults === 'function') renderFilterResults();
+    if (typeof renderMap === 'function') renderMap();
+    if (typeof renderAlertCenter === 'function') renderAlertCenter();
+  } catch(e) {}
+}
+
+// 🆕 즐겨찾기 카운트 배지 동적 업데이트
+function updateSearchSummaryFavCount() {
+  var summaryEl = document.querySelector('.map-search-summary');
+  if (!summaryEl) return;
+  
+  // 현재 검색 결과 중 즐겨찾기 개수 재계산
+  var favCount = 0;
+  mapSearchState.results.forEach(function(s) {
+    if (favorites.has(s.id)) favCount++;
+  });
+  
+  // 기존 배지 제거 후 재생성
+  var existingBadge = summaryEl.querySelector('.map-search-summary-fav');
+  if (existingBadge) existingBadge.remove();
+  
+  if (favCount > 0) {
+    var badge = document.createElement('span');
+    badge.className = 'map-search-summary-fav';
+    badge.innerHTML = '⭐ ' + favCount + '개 즐겨찾기';
+    
+    // "검색 결과" 텍스트 뒤에 삽입
+    var firstSpan = summaryEl.querySelector('span');
+    if (firstSpan) firstSpan.appendChild(badge);
+  }
+}
+
+// 🆕 검색 결과에서 즉시 분석 시작
+function analyzeFromSearch(school) {
+  var input = $('map-f-search');
+  var resultsBox = $('map-search-results');
+  
+  // 검색 UI 닫기
+  if (input) input.value = school.fullName || school.name;
+  if (resultsBox) resultsBox.style.display = 'none';
+  
+  toast('📊 ' + (school.fullName || school.name) + ' 분석 시작...', 'info');
+  
+  // 분석 창 열기
+  if (typeof openAnalysis === 'function') {
+    openAnalysis(school.id);
+  } else {
+    // 폴백: 지도 이동
+    selectSearchResult(school);
+  }
+}
+
+// 전역 노출
+window.toggleFavFromSearch = toggleFavFromSearch;
+window.analyzeFromSearch = analyzeFromSearch;
+window.bindSearchResultActions = bindSearchResultActions;
 
 function highlightText(text, query) {
   if (!text || !query) return escapeHTML(text || '');
@@ -16768,7 +17323,85 @@ function initNewFeatures() {
   try { initEasterEgg(); } catch(e) { console.warn('[init] easter', e); }
   try { initAutoRefresh(); } catch(e) { console.warn('[init] refresh', e); }
   try { initAccessibility(); } catch(e) { console.warn('[init] a11y', e); }
-  console.log('[INIT] 신규 기능 8종 초기화 완료');
+  try { initMobileModalGestures(); } catch(e) { console.warn('[init] modal-gesture', e); }
+  console.log('[INIT] 신규 기능 초기화 완료');
+}
+
+// ═══════════════════════════════════════════════
+// 📱 모바일 모달 터치 제스처 (스와이프 다운 닫기)
+// ═══════════════════════════════════════════════
+
+function initMobileModalGestures() {
+  // 모바일에서만 동작
+  if (window.innerWidth > 768) return;
+  
+  var modal = $('modal');
+  if (!modal) return;
+  
+  var modalContent = modal.querySelector('.modal');
+  if (!modalContent) return;
+  
+  var startY = 0;
+  var currentY = 0;
+  var isDragging = false;
+  var threshold = 100; // 100px 이상 드래그 시 닫기
+  
+  modalContent.addEventListener('touchstart', function(e) {
+    // 모달 상단(헤더)에서만 드래그 허용 → 스크롤 방해 방지
+    var touch = e.touches[0];
+    var rect = modalContent.getBoundingClientRect();
+    if (touch.clientY - rect.top > 80) return; // 상단 80px 영역만
+    
+    startY = touch.clientY;
+    isDragging = true;
+  }, { passive: true });
+  
+  modalContent.addEventListener('touchmove', function(e) {
+    if (!isDragging) return;
+    currentY = e.touches[0].clientY;
+    var diff = currentY - startY;
+    if (diff > 0) {
+      modalContent.style.transform = 'translateY(' + diff + 'px)';
+      modalContent.style.transition = 'none';
+    }
+  }, { passive: true });
+  
+  modalContent.addEventListener('touchend', function() {
+    if (!isDragging) return;
+    isDragging = false;
+    var diff = currentY - startY;
+    modalContent.style.transition = 'transform 0.3s ease';
+    
+    if (diff > threshold) {
+      // 닫기
+      modalContent.style.transform = 'translateY(100%)';
+      setTimeout(function() {
+        modal.classList.remove('on');
+        modalContent.style.transform = '';
+        modalContent.style.transition = '';
+      }, 300);
+    } else {
+      // 원위치
+      modalContent.style.transform = '';
+    }
+    
+    startY = 0;
+    currentY = 0;
+  });
+  
+  // 리사이즈 시 제스처 재초기화
+  var resizeTimer;
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function() {
+      // 데스크톱으로 전환 시 transform 초기화
+      if (window.innerWidth > 768) {
+        modalContent.style.transform = '';
+      }
+    }, 200);
+  });
+  
+  console.log('[modal] 모바일 터치 제스처 활성화');
 }
 
 // 전역 노출
