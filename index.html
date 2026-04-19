@@ -5636,6 +5636,53 @@ body.high-contrast .tab {
   .insight-hero-stats { align-items: center; }
 }
 
+/* ⭐ 검색 하이라이트된 마커 라벨 (특별 스타일) */
+.marker-label.search-highlight-label {
+  background: linear-gradient(135deg, #ffd43b 0%, #ffa94d 100%) !important;
+  color: #0a0f1a !important;
+  font-weight: 900 !important;
+  font-size: 13px !important;
+  padding: 6px 12px !important;
+  border: 2px solid #ffd43b !important;
+  box-shadow: 0 4px 16px rgba(255, 212, 59, 0.6) !important;
+  animation: labelPulse 2s ease-in-out infinite !important;
+  z-index: 1000 !important;
+}
+
+@keyframes labelPulse {
+  0%, 100% { 
+    transform: scale(1);
+    box-shadow: 0 4px 16px rgba(255, 212, 59, 0.6);
+  }
+  50% { 
+    transform: scale(1.08);
+    box-shadow: 0 6px 24px rgba(255, 212, 59, 0.9);
+  }
+}
+
+/* 펄스 링 애니메이션 (SVG circleMarker) */
+.leaflet-interactive.search-highlight-ring {
+  animation: ringPulse 1.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes ringPulse {
+  0% { 
+    opacity: 0.9;
+    stroke-width: 3px;
+    r: 15;
+  }
+  50% { 
+    opacity: 0.4;
+    stroke-width: 1px;
+  }
+  100% { 
+    opacity: 0;
+    stroke-width: 0px;
+    r: 35;
+  }
+}
+
 /* 📱 학교 분석 팝업창 (모달) 모바일 반응형 */
 @media (max-width: 768px) {
   /* 모달 컨테이너 */
@@ -7544,6 +7591,200 @@ select option {
   border-radius: 10px;
   padding: 12px 14px;
   animation: msgFadeIn 0.3s ease;
+  position: relative;
+  transition: all 0.25s ease;
+}
+
+/* ✨ 내가 작성한 댓글 강조 (작성자 전용) */
+.comment-item.is-owner {
+  background: linear-gradient(135deg, 
+    rgba(255, 212, 59, 0.06) 0%, 
+    rgba(0, 212, 170, 0.04) 100%);
+  border-color: rgba(255, 212, 59, 0.35);
+  box-shadow: 0 2px 8px rgba(255, 212, 59, 0.08);
+}
+
+.comment-item.is-owner::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, #ffd43b, #ffa94d);
+  border-radius: 10px 0 0 10px;
+}
+
+/* ✨ 내 댓글 배지 */
+.comment-owner-badge {
+  display: inline-block;
+  padding: 2px 7px;
+  margin-left: 6px;
+  background: linear-gradient(135deg, #ffd43b, #ffa94d);
+  color: #0a0f1a;
+  border-radius: 10px;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.3px;
+  vertical-align: middle;
+  animation: ownerPulse 2s ease-in-out infinite;
+}
+
+@keyframes ownerPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 rgba(255, 212, 59, 0); }
+  50% { transform: scale(1.03); box-shadow: 0 0 8px rgba(255, 212, 59, 0.5); }
+}
+
+/* ✏️ 수정됨 배지 */
+.comment-edited-badge {
+  display: inline-block;
+  padding: 1px 6px;
+  margin-left: 6px;
+  background: rgba(156, 136, 255, 0.15);
+  color: #cc5de8;
+  border: 1px solid rgba(156, 136, 255, 0.3);
+  border-radius: 8px;
+  font-size: 9px;
+  font-weight: 700;
+  cursor: help;
+}
+
+/* 작성자 액션 버튼 (수정/삭제) */
+.comment-action-btn.owner-action {
+  padding: 4px 10px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  border-radius: 6px !important;
+  transition: all 0.2s !important;
+  margin-left: 4px;
+}
+
+.comment-action-btn.owner-action.edit {
+  background: rgba(59, 158, 255, 0.1) !important;
+  color: #3b9eff !important;
+  border: 1px solid rgba(59, 158, 255, 0.3) !important;
+}
+
+.comment-action-btn.owner-action.edit:hover {
+  background: #3b9eff !important;
+  color: white !important;
+  transform: translateY(-1px);
+}
+
+.comment-action-btn.owner-action.delete {
+  background: rgba(255, 107, 107, 0.1) !important;
+  color: #ff6b6b !important;
+  border: 1px solid rgba(255, 107, 107, 0.3) !important;
+}
+
+.comment-action-btn.owner-action.delete:hover {
+  background: #ff6b6b !important;
+  color: white !important;
+  transform: translateY(-1px);
+}
+
+/* 댓글 편집 모드 */
+.comment-item.editing {
+  border-color: #3b9eff;
+  box-shadow: 0 0 0 3px rgba(59, 158, 255, 0.15);
+}
+
+.comment-edit-box {
+  margin-top: 8px;
+}
+
+.comment-edit-textarea {
+  width: 100%;
+  min-height: 80px;
+  padding: 10px 12px;
+  background: var(--bg);
+  border: 1.5px solid #3b9eff;
+  border-radius: 8px;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.6;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.comment-edit-textarea:focus {
+  outline: none;
+  border-color: #00d4aa;
+  box-shadow: 0 0 0 3px rgba(0, 212, 170, 0.15);
+}
+
+.comment-edit-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.comment-edit-count {
+  font-size: 11px;
+  color: var(--text3);
+  font-family: var(--ff-mono);
+  font-weight: 700;
+}
+
+.comment-edit-buttons {
+  display: flex;
+  gap: 6px;
+}
+
+.comment-edit-btn {
+  padding: 7px 16px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.comment-edit-btn.cancel {
+  background: var(--bg);
+  color: var(--text2);
+  border-color: var(--border);
+}
+
+.comment-edit-btn.cancel:hover {
+  background: rgba(255, 107, 107, 0.15);
+  color: #ff6b6b;
+  border-color: rgba(255, 107, 107, 0.3);
+}
+
+.comment-edit-btn.save {
+  background: linear-gradient(135deg, #00d4aa, #3b9eff);
+  color: white;
+  font-weight: 800;
+}
+
+.comment-edit-btn.save:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 212, 170, 0.4);
+}
+
+/* 모바일 최적화 */
+@media (max-width: 640px) {
+  .comment-action-btn.owner-action {
+    padding: 3px 8px !important;
+    font-size: 10px !important;
+  }
+  .comment-action-btn.owner-action span { 
+    display: none; /* 모바일에서는 이모지만 */
+  }
+  .comment-edit-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .comment-edit-buttons {
+    justify-content: flex-end;
+  }
+  .comment-owner-badge { font-size: 8px; padding: 1px 5px; }
+  .comment-edited-badge { font-size: 8px; padding: 1px 4px; }
 }
 
 .comment-header {
@@ -10736,6 +10977,9 @@ function renderLeafletMap() {
   if (!map || !markerLayer) return;
   markerLayer.clearLayers();
   
+  // 🆕 검색/선택용 마커 참조 맵 초기화
+  window.mapMarkers = {};
+  
   var total = filtered.length;
   
   // 캔버스 렌더러 (성능 최적화)
@@ -10770,6 +11014,9 @@ function renderLeafletMap() {
     marker.on('click', function() { currentSchool = school; });
     
     markerLayer.addLayer(marker);
+    
+    // 🆕 전역 참조 저장 (검색/분석용)
+    window.mapMarkers[school.id] = marker;
   });
   
   updateLabelVisibility();
@@ -13633,6 +13880,215 @@ function getComments(schoolId) {
   } catch(e) { return []; }
 }
 
+// 🆕 사용자 고유 ID 생성/조회 (댓글 작성자 식별용)
+function getOrCreateUserId() {
+  var LS_USER_ID = 'ssmj-user-id';
+  try {
+    var uid = localStorage.getItem(LS_USER_ID);
+    if (!uid) {
+      uid = 'u_' + Date.now() + '_' + Math.random().toString(36).slice(2, 10);
+      localStorage.setItem(LS_USER_ID, uid);
+    }
+    return uid;
+  } catch(e) {
+    return 'u_anon_' + Date.now();
+  }
+}
+
+// 🆕 현재 사용자가 댓글 작성자인지 확인
+function isCommentOwner(comment) {
+  if (!comment) return false;
+  // userId 있는 경우 정확한 매칭
+  if (comment.userId) {
+    return comment.userId === getOrCreateUserId();
+  }
+  // 구버전 댓글(userId 없음): 닉네임으로 추정 (저장된 닉네임과 일치 시)
+  try {
+    var savedNickname = localStorage.getItem(LS_COMMENT_NICKNAME);
+    return savedNickname && savedNickname === comment.nickname;
+  } catch(e) {
+    return false;
+  }
+}
+
+// 🆕 댓글 수정
+function editComment(schoolId, commentId) {
+  var comments = getComments(schoolId);
+  var comment = comments.find(function(c) { return c.id === commentId; });
+  
+  if (!comment) {
+    toast('댓글을 찾을 수 없습니다', 'err');
+    return;
+  }
+  
+  if (!isCommentOwner(comment)) {
+    toast('⚠️ 본인이 작성한 댓글만 수정할 수 있습니다', 'warn');
+    return;
+  }
+  
+  // 인라인 수정 모드 전환
+  var itemEl = document.querySelector('.comment-item[data-comment-id="' + commentId + '"]');
+  if (!itemEl) return;
+  
+  var contentEl = itemEl.querySelector('.comment-content');
+  if (!contentEl) return;
+  
+  // 이미 편집 중이면 취소
+  if (itemEl.classList.contains('editing')) {
+    renderCommentList(schoolId);
+    return;
+  }
+  
+  itemEl.classList.add('editing');
+  
+  var originalContent = comment.content;
+  
+  // textarea로 교체
+  contentEl.outerHTML = 
+    '<div class="comment-edit-box">' +
+      '<textarea class="comment-edit-textarea" id="edit-textarea-' + commentId + '" maxlength="300">' + 
+        escapeHtml(originalContent) + 
+      '</textarea>' +
+      '<div class="comment-edit-footer">' +
+        '<span class="comment-edit-count" id="edit-count-' + commentId + '">' + originalContent.length + '/300</span>' +
+        '<div class="comment-edit-buttons">' +
+          '<button class="comment-edit-btn cancel" onclick="cancelEditComment(' + schoolId + ')">취소</button>' +
+          '<button class="comment-edit-btn save" onclick="saveEditedComment(' + schoolId + ', \'' + commentId + '\')">✅ 저장</button>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  
+  var textarea = $('edit-textarea-' + commentId);
+  var countEl = $('edit-count-' + commentId);
+  
+  if (textarea) {
+    textarea.focus();
+    // 커서를 끝으로 이동
+    textarea.selectionStart = textarea.selectionEnd = textarea.value.length;
+    
+    // 실시간 글자 수 카운트
+    textarea.addEventListener('input', function() {
+      if (countEl) countEl.textContent = this.value.length + '/300';
+      if (this.value.length > 280) {
+        countEl.style.color = '#ff6b6b';
+      } else {
+        countEl.style.color = '';
+      }
+    });
+    
+    // Ctrl+Enter로 저장
+    textarea.addEventListener('keydown', function(e) {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        e.preventDefault();
+        saveEditedComment(schoolId, commentId);
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        cancelEditComment(schoolId);
+      }
+    });
+  }
+}
+
+// 🆕 댓글 편집 저장
+function saveEditedComment(schoolId, commentId) {
+  var textarea = $('edit-textarea-' + commentId);
+  if (!textarea) return;
+  
+  var newContent = textarea.value.trim();
+  
+  if (!newContent) {
+    toast('⚠️ 내용을 입력해주세요', 'warn');
+    textarea.focus();
+    return;
+  }
+  if (newContent.length > 300) {
+    toast('⚠️ 내용은 300자 이내로 작성해주세요', 'warn');
+    return;
+  }
+  
+  // 욕설 필터
+  var badWords = ['시발', '개새끼', '병신', 'fuck', 'shit'];
+  var lowered = newContent.toLowerCase();
+  for (var i = 0; i < badWords.length; i++) {
+    if (lowered.indexOf(badWords[i]) !== -1) {
+      toast('⚠️ 부적절한 표현이 포함되어 있습니다', 'warn');
+      return;
+    }
+  }
+  
+  var comments = getComments(schoolId);
+  var idx = comments.findIndex(function(c) { return c.id === commentId; });
+  
+  if (idx === -1) {
+    toast('댓글을 찾을 수 없습니다', 'err');
+    return;
+  }
+  
+  if (!isCommentOwner(comments[idx])) {
+    toast('⚠️ 본인이 작성한 댓글만 수정할 수 있습니다', 'warn');
+    return;
+  }
+  
+  // 내용 업데이트
+  comments[idx].content = newContent;
+  comments[idx].editedAt = Date.now();
+  setComments(schoolId, comments);
+  
+  toast('✏️ 댓글이 수정되었습니다', 'ok');
+  renderCommentList(schoolId);
+}
+
+// 🆕 편집 취소
+function cancelEditComment(schoolId) {
+  renderCommentList(schoolId);
+}
+
+// 🆕 댓글 삭제
+function deleteComment(schoolId, commentId) {
+  var comments = getComments(schoolId);
+  var comment = comments.find(function(c) { return c.id === commentId; });
+  
+  if (!comment) {
+    toast('댓글을 찾을 수 없습니다', 'err');
+    return;
+  }
+  
+  if (!isCommentOwner(comment)) {
+    toast('⚠️ 본인이 작성한 댓글만 삭제할 수 있습니다', 'warn');
+    return;
+  }
+  
+  if (!confirm('정말로 이 댓글을 삭제하시겠습니까?\n\n삭제된 댓글은 복구할 수 없습니다.')) {
+    return;
+  }
+  
+  // 댓글 제거
+  var filtered = comments.filter(function(c) { return c.id !== commentId; });
+  setComments(schoolId, filtered);
+  
+  // 좋아요 데이터 정리 (커뮤니티에서 해당 댓글 좋아요 제거)
+  try {
+    var userCommentLikes = JSON.parse(localStorage.getItem(LS_USER_COMMENT_LIKES) || '{}');
+    delete userCommentLikes[commentId];
+    localStorage.setItem(LS_USER_COMMENT_LIKES, JSON.stringify(userCommentLikes));
+  } catch(e) {}
+  
+  // 카운트 갱신
+  var badge = $('comment-count-badge');
+  if (badge) badge.textContent = filtered.length;
+  var statEl = document.querySelector('.community-stat-value.comments');
+  if (statEl) statEl.textContent = filtered.length;
+  
+  toast('🗑️ 댓글이 삭제되었습니다', 'ok');
+  renderCommentList(schoolId);
+}
+
+// 전역 노출
+window.editComment = editComment;
+window.saveEditedComment = saveEditedComment;
+window.cancelEditComment = cancelEditComment;
+window.deleteComment = deleteComment;
+
 function setComments(schoolId, comments) {
   try {
     var all = JSON.parse(localStorage.getItem(LS_COMMENTS) || '{}');
@@ -13930,11 +14386,13 @@ function submitComment(schoolId) {
   
   var comment = {
     id: 'c_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8),
+    userId: getOrCreateUserId(),  // 🆕 작성자 고유 ID (수정/삭제 권한용)
     nickname: nickname,
     role: role,
     content: content,
     tags: communityCurrentTags.slice(),
     time: Date.now(),
+    editedAt: null,  // 🆕 수정 시각 (수정되었는지 표시용)
     likes: 0
   };
   
@@ -14027,15 +14485,39 @@ function renderCommentList(schoolId) {
       c.tags.map(function(t) { return '<span class="comment-tag-chip">#' + t + '</span>'; }).join('') +
       '</div>' : '';
     
-    return '<div class="comment-item">' +
+    // 🆕 작성자 여부 확인
+    var isOwner = isCommentOwner(c);
+    
+    // 🆕 수정됨 배지
+    var editedBadge = c.editedAt ? 
+      '<span class="comment-edited-badge" title="수정됨: ' + formatCommentTime(c.editedAt) + '">✏️ 수정됨</span>' : '';
+    
+    // 🆕 작성자 배지
+    var ownerBadge = isOwner ? '<span class="comment-owner-badge">✨ 내 댓글</span>' : '';
+    
+    // 🆕 작성자에게만 수정/삭제 버튼 표시
+    var ownerActions = isOwner ? 
+      '<button class="comment-action-btn owner-action edit" ' +
+        'onclick="editComment(' + schoolId + ', \'' + c.id + '\')" ' +
+        'title="댓글 수정">' +
+        '✏️ <span>수정</span>' +
+      '</button>' +
+      '<button class="comment-action-btn owner-action delete" ' +
+        'onclick="deleteComment(' + schoolId + ', \'' + c.id + '\')" ' +
+        'title="댓글 삭제">' +
+        '🗑️ <span>삭제</span>' +
+      '</button>' : '';
+    
+    return '<div class="comment-item' + (isOwner ? ' is-owner' : '') + '" data-comment-id="' + c.id + '">' +
       '<div class="comment-header">' +
       '<div class="comment-author-avatar ' + c.role + '">' + getRoleEmoji(c.role) + '</div>' +
       '<div class="comment-meta">' +
       '<div class="comment-author-name">' +
       escapeHtml(c.nickname) +
       '<span class="comment-role-badge ' + c.role + '">' + getRoleLabel(c.role) + '</span>' +
+      ownerBadge +
       '</div>' +
-      '<div class="comment-time">' + timeStr + '</div>' +
+      '<div class="comment-time">' + timeStr + editedBadge + '</div>' +
       '</div>' +
       '</div>' +
       '<div class="comment-content">' + escapeHtml(c.content) + '</div>' +
@@ -14045,6 +14527,7 @@ function renderCommentList(schoolId) {
       'onclick="toggleCommentLike(\'' + c.id + '\', ' + schoolId + ')">' +
       (userLiked ? '❤️' : '🤍') + ' <span>' + (c.likes || 0) + '</span>' +
       '</button>' +
+      ownerActions +
       '</div>' +
       '</div>';
   }).join('');
@@ -15675,28 +16158,142 @@ function selectSearchResult(school) {
   }
   if (resultsBox) resultsBox.style.display = 'none';
   
-  // 1. 지도에서 해당 학교로 이동 + 확대
-  if (window.mapInstance && school.lat && school.lng) {
-    window.mapInstance.setView([school.lat, school.lng], 16, {
+  // 🆕 지도 탭이 비활성이면 먼저 지도 탭으로 전환
+  var mapTab = document.querySelector('.tab[data-tab="map"]');
+  var isMapActive = mapTab && mapTab.classList.contains('active');
+  if (!isMapActive && mapTab) {
+    mapTab.click();
+  }
+  
+  // 🆕 학교가 currentOffice 밖이면 교육청 자동 전환 필요
+  if (school.officeCode && school.officeCode !== currentOffice && currentOffice !== 'ALL') {
+    toast('🏛️ ' + (EDU_OFFICES[school.officeCode] ? EDU_OFFICES[school.officeCode].short : school.officeCode) + ' 교육청으로 전환 중...', 'info');
+    if (typeof switchEduOffice === 'function') {
+      switchEduOffice(school.officeCode);
+      // 로드 완료 후 재시도
+      setTimeout(function() {
+        highlightSchoolOnMap(school);
+      }, 2500);
+      return;
+    }
+  }
+  
+  // 🆕 즉시 지도에 하이라이트 표시
+  highlightSchoolOnMap(school);
+  
+  // 토스트 알림
+  toast('🎯 ' + (school.fullName || school.name) + ' 찾았습니다!', 'ok');
+}
+
+// 🆕 지도에 학교 강조 표시 (중앙 이동 + 영구 라벨 + 펄스 링)
+function highlightSchoolOnMap(school) {
+  if (!school || !school.lat || !school.lng) {
+    console.warn('[highlight] 좌표 없음:', school);
+    return;
+  }
+  
+  // 1. 지도 중앙으로 부드럽게 이동 (줌 16)
+  if (window.mapInstance) {
+    window.mapInstance.flyTo([school.lat, school.lng], 16, {
       animate: true,
-      duration: 1
+      duration: 1.2
     });
   }
   
-  // 2. 학교 마커 팝업 열기
+  // 지도 이동 완료 후 효과 적용
   setTimeout(function() {
-    if (window.mapMarkers && window.mapMarkers[school.id]) {
-      window.mapMarkers[school.id].openPopup();
+    var marker = window.mapMarkers && window.mapMarkers[school.id];
+    
+    // 2. 영구 라벨 강제 표시 (검색한 학교만)
+    if (marker) {
+      // 기존 툴팁 제거
+      if (marker.getTooltip()) {
+        marker.unbindTooltip();
+      }
+      
+      // 🌟 강조 라벨 바인딩
+      var labelClass = school.type === '초등학교' ? 'label-primary' : 
+                       school.type === '중학교' ? 'label-success' : 'label-warning';
+      
+      marker.bindTooltip(
+        '🎯 ' + shortName(school.fullName || school.name),
+        {
+          permanent: true,
+          direction: 'right',
+          offset: [10, 0],
+          className: 'marker-label ' + labelClass + ' search-highlight-label',
+          opacity: 1
+        }
+      );
+      marker.openTooltip();
+      
+      // 3. 팝업 오픈
+      marker.openPopup();
+      
+      // 4. 펄스 링 추가 (검색 하이라이트 표시)
+      addSearchHighlightRing(school);
+    } else {
+      console.warn('[highlight] 마커 없음:', school.id);
     }
-  }, 800);
+  }, 1200);
+}
+
+// 🆕 검색 하이라이트 펄스 링 추가
+function addSearchHighlightRing(school) {
+  if (!window.mapInstance) return;
   
-  // 3. 토스트 알림
-  toast('🎯 ' + (school.fullName || school.name) + ' 찾았습니다!', 'ok');
+  // 기존 하이라이트 링 제거
+  if (window.searchHighlightRing) {
+    try { window.mapInstance.removeLayer(window.searchHighlightRing); } catch(e) {}
+    window.searchHighlightRing = null;
+  }
+  if (window.searchHighlightRing2) {
+    try { window.mapInstance.removeLayer(window.searchHighlightRing2); } catch(e) {}
+    window.searchHighlightRing2 = null;
+  }
+  
+  // 🎯 외부 펄스 링 (애니메이션용 CSS)
+  var ring = L.circleMarker([school.lat, school.lng], {
+    radius: 20,
+    fillColor: '#ffd43b',
+    color: '#ffd43b',
+    weight: 3,
+    opacity: 0.9,
+    fillOpacity: 0.15,
+    className: 'search-highlight-ring',
+    interactive: false
+  });
+  ring.addTo(window.mapInstance);
+  window.searchHighlightRing = ring;
+  
+  // 🎯 내부 골드 링 (고정)
+  var ring2 = L.circleMarker([school.lat, school.lng], {
+    radius: 10,
+    fillColor: 'transparent',
+    color: '#ffd43b',
+    weight: 2.5,
+    opacity: 1,
+    fillOpacity: 0,
+    interactive: false
+  });
+  ring2.addTo(window.mapInstance);
+  window.searchHighlightRing2 = ring2;
+  
+  // 20초 후 자동 제거
+  setTimeout(function() {
+    try {
+      if (window.searchHighlightRing) window.mapInstance.removeLayer(window.searchHighlightRing);
+      if (window.searchHighlightRing2) window.mapInstance.removeLayer(window.searchHighlightRing2);
+      window.searchHighlightRing = null;
+      window.searchHighlightRing2 = null;
+    } catch(e) {}
+  }, 20000);
 }
 
 // 전역 노출
 window.selectSearchResultByIdx = selectSearchResultByIdx;
 window.selectSearchResult = selectSearchResult;
+window.highlightSchoolOnMap = highlightSchoolOnMap;
 
 
 
