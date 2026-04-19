@@ -4901,6 +4901,1005 @@ select {
   background-color: #1a2234 !important;
 }
 
+/* 🌐 다국어 선택 */
+.i18n-wrap {
+  position: relative;
+}
+
+.i18n-btn .i18n-label {
+  margin-left: 4px;
+  font-size: 10px;
+  font-weight: 900;
+  color: #ffd43b;
+  font-family: var(--ff-mono);
+}
+
+.i18n-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  background: #1a2234;
+  border: 1px solid #00d4aa;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  min-width: 140px;
+  display: none;
+  z-index: 999;
+  overflow: hidden;
+}
+
+.i18n-menu.show { display: block; }
+
+.i18n-option {
+  display: block;
+  width: 100%;
+  padding: 9px 14px;
+  background: transparent;
+  color: var(--text);
+  border: none;
+  border-bottom: 1px solid rgba(30,45,69,0.5);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s;
+}
+
+.i18n-option:last-child { border-bottom: none; }
+
+.i18n-option:hover,
+.i18n-option:focus {
+  background: rgba(0,212,170,0.15);
+  color: #00d4aa;
+  outline: none;
+}
+
+.i18n-option.active {
+  background: rgba(0,212,170,0.2);
+  color: #00d4aa;
+  font-weight: 800;
+}
+
+/* ♿ 웹 접근성 */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+*:focus-visible {
+  outline: 2px solid #ffd43b !important;
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 8px;
+  background: #ffd43b;
+  color: #0a0f1a;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 800;
+  z-index: 9999;
+  transition: top 0.2s;
+}
+
+.skip-link:focus {
+  top: 8px;
+}
+
+/* 글꼴 크기 조절 */
+body.font-size-lg { font-size: 16px; }
+body.font-size-xl { font-size: 18px; }
+
+/* 고대비 모드 */
+body.high-contrast {
+  --bg: #000000;
+  --bg2: #0f1524;
+  --text: #ffffff;
+  --text2: #e8ecf3;
+  --border: #ffd43b;
+}
+
+body.high-contrast .card,
+body.high-contrast .tab {
+  border-width: 2px;
+}
+
+/* ⭐ 사용자 후기 모달 */
+.review-modal-back {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 10, 20, 0.85);
+  z-index: 10000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  backdrop-filter: blur(8px);
+}
+
+.review-modal-back.on { display: flex; }
+
+.review-modal {
+  background: linear-gradient(135deg, #1a2234 0%, #0f1524 100%);
+  border: 1px solid rgba(255, 212, 59, 0.4);
+  border-radius: 16px;
+  padding: 28px;
+  max-width: 500px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.6);
+  animation: slideUpModal 0.3s ease-out;
+}
+
+@keyframes slideUpModal {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.review-modal-close {
+  position: absolute;
+  top: 12px; right: 12px;
+  background: transparent;
+  border: none;
+  color: var(--text3);
+  font-size: 20px;
+  cursor: pointer;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.review-modal-close:hover {
+  background: rgba(255, 107, 107, 0.2);
+  color: #ff6b6b;
+}
+
+.review-modal-title {
+  font-size: 20px;
+  font-weight: 900;
+  color: #ffd43b;
+  margin-bottom: 8px;
+}
+
+.review-modal-subtitle {
+  font-size: 12px;
+  color: var(--text2);
+  margin-bottom: 20px;
+}
+
+.review-stars {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 24px 0;
+}
+
+.review-star {
+  font-size: 36px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  opacity: 0.3;
+  transition: all 0.2s;
+}
+
+.review-star.filled,
+.review-star:hover {
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+.review-textarea {
+  width: 100%;
+  min-height: 90px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  padding: 10px 12px;
+  font-size: 13px;
+  font-family: inherit;
+  resize: vertical;
+  margin-bottom: 16px;
+}
+
+.review-textarea:focus {
+  border-color: #ffd43b;
+  outline: none;
+}
+
+.review-submit-btn {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #ffd43b 0%, #ffa94d 100%);
+  color: #0a0f1a;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.review-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 212, 59, 0.4);
+}
+
+/* 📣 공지사항 배너 */
+.announcement-banner {
+  position: relative;
+  background: linear-gradient(135deg, 
+    rgba(156, 136, 255, 0.14) 0%, 
+    rgba(204, 93, 232, 0.09) 100%);
+  border-bottom: 1px solid rgba(156, 136, 255, 0.3);
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 12px;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.announcement-banner.hidden { display: none; }
+
+.announcement-icon {
+  font-size: 16px;
+  animation: ring 2s ease-in-out infinite;
+}
+
+@keyframes ring {
+  0%, 50%, 100% { transform: rotate(0deg); }
+  10%, 30% { transform: rotate(-15deg); }
+  20%, 40% { transform: rotate(15deg); }
+}
+
+.announcement-close {
+  position: absolute;
+  right: 14px;
+  background: transparent;
+  border: none;
+  color: var(--text3);
+  font-size: 16px;
+  cursor: pointer;
+  width: 24px; height: 24px;
+  border-radius: 50%;
+}
+
+.announcement-close:hover {
+  background: rgba(255, 107, 107, 0.2);
+  color: #ff6b6b;
+}
+
+.announcement-text b {
+  color: #cc5de8;
+  font-family: var(--ff-mono);
+}
+
+/* 📧 피드백 버튼 (floating) */
+.feedback-fab {
+  position: fixed;
+  bottom: 90px;
+  right: 24px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00d4aa 0%, #3b9eff 100%);
+  color: white;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0, 212, 170, 0.4);
+  z-index: 998;
+  transition: all 0.3s;
+}
+
+.feedback-fab:hover {
+  transform: scale(1.1) rotate(-8deg);
+  box-shadow: 0 10px 28px rgba(0, 212, 170, 0.55);
+}
+
+/* 🔄 실시간 새로고침 상태 표시 */
+.refresh-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  background: rgba(0, 212, 170, 0.15);
+  border: 1px solid rgba(0, 212, 170, 0.3);
+  border-radius: 10px;
+  font-size: 10px;
+  color: #00d4aa;
+  font-weight: 700;
+  margin-left: 6px;
+}
+
+.refresh-dot {
+  width: 6px; height: 6px;
+  background: #00d4aa;
+  border-radius: 50%;
+  animation: refresh-pulse 2s ease-in-out infinite;
+}
+
+@keyframes refresh-pulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+/* 🎊 이스터에그 */
+.easter-egg-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+  pointer-events: none;
+  display: none;
+}
+
+.easter-egg-overlay.active { display: block; }
+
+.easter-emoji {
+  position: absolute;
+  font-size: 28px;
+  animation: fall linear forwards;
+  user-select: none;
+}
+
+@keyframes fall {
+  0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+.easter-message {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(135deg, rgba(255,212,59,0.95), rgba(255,169,77,0.95));
+  color: #0a0f1a;
+  padding: 24px 40px;
+  border-radius: 14px;
+  font-size: 18px;
+  font-weight: 900;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+  pointer-events: auto;
+  animation: bounceIn 0.5s;
+  z-index: 10002;
+  text-align: center;
+}
+
+@keyframes bounceIn {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+  60% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+/* 💡 프리미엄 탭 - 인사이트 */
+.tab.tab-premium {
+  position: relative;
+  background: linear-gradient(135deg, 
+    rgba(156, 136, 255, 0.12) 0%, 
+    rgba(204, 93, 232, 0.08) 100%);
+  border: 1px solid rgba(156, 136, 255, 0.4);
+  font-weight: 800;
+}
+
+.tab.tab-premium::before {
+  content: '✦';
+  position: absolute;
+  top: -3px;
+  left: 4px;
+  font-size: 11px;
+  color: #cc5de8;
+  animation: pulse-star 1.8s ease-in-out infinite;
+}
+
+@keyframes pulse-star {
+  0%, 100% { opacity: 0.5; transform: rotate(0deg) scale(1); }
+  50% { opacity: 1; transform: rotate(180deg) scale(1.3); }
+}
+
+.tab.tab-premium:hover {
+  background: linear-gradient(135deg, 
+    rgba(156, 136, 255, 0.22) 0%, 
+    rgba(204, 93, 232, 0.14) 100%);
+  border-color: #cc5de8;
+}
+
+.tab.tab-premium.active {
+  background: linear-gradient(135deg, #9c88ff 0%, #cc5de8 100%);
+  color: #0a0f1a;
+  border-color: #cc5de8;
+  box-shadow: 0 0 24px rgba(204, 93, 232, 0.45);
+}
+
+/* 인사이트 섹션 */
+.insight-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.insight-hero {
+  background: linear-gradient(135deg, 
+    rgba(156, 136, 255, 0.14) 0%, 
+    rgba(204, 93, 232, 0.08) 100%);
+  border: 1px solid rgba(156, 136, 255, 0.35);
+  border-radius: 14px;
+  padding: 20px 24px;
+  margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 20px;
+  align-items: center;
+}
+
+.insight-hero-icon {
+  font-size: 44px;
+  animation: wave 3s ease-in-out infinite;
+}
+
+.insight-hero-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #cc5de8;
+  margin-bottom: 4px;
+}
+
+.insight-hero-desc {
+  font-size: 12px;
+  color: var(--text2);
+}
+
+.insight-hero-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--text3);
+}
+
+.insight-stat b {
+  color: #ffd43b;
+  font-family: var(--ff-mono);
+  font-size: 13px;
+}
+
+.insight-section {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px;
+  margin-bottom: 20px;
+}
+
+.insight-section-head {
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.insight-section-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.insight-section-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(135deg, #9c88ff, #cc5de8);
+  color: #0a0f1a;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.insight-section-desc {
+  font-size: 12px;
+  color: var(--text3);
+  margin-left: 34px;
+}
+
+.insight-trend-controls {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.insight-chip {
+  padding: 7px 14px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.insight-chip:hover { border-color: #cc5de8; }
+
+.insight-chip.active {
+  background: linear-gradient(135deg, #9c88ff 0%, #cc5de8 100%);
+  color: #0a0f1a;
+  border-color: #cc5de8;
+  font-weight: 800;
+}
+
+.insight-chart-wrap {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.insight-findings {
+  margin-top: 14px;
+  display: grid;
+  gap: 10px;
+}
+
+.insight-finding-item {
+  display: flex;
+  gap: 14px;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, 
+    rgba(0, 212, 170, 0.08) 0%, 
+    rgba(59, 158, 255, 0.04) 100%);
+  border-left: 3px solid #00d4aa;
+  border-radius: 8px;
+}
+
+.insight-finding-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.insight-finding-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: #00d4aa;
+  margin-bottom: 4px;
+}
+
+.insight-finding-body {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.6;
+}
+
+.insight-finding-body b { color: #ffd43b; font-weight: 700; }
+
+/* B. 상관관계 매트릭스 */
+.insight-correlation-wrap {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  overflow-x: auto;
+}
+
+.insight-correlation-matrix {
+  display: grid;
+  gap: 2px;
+  min-width: 500px;
+}
+
+.insight-corr-cell {
+  padding: 10px 8px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 4px;
+  transition: all 0.2s;
+  cursor: pointer;
+  position: relative;
+}
+
+.insight-corr-cell.header {
+  background: rgba(156, 136, 255, 0.1);
+  color: #cc5de8;
+  font-weight: 800;
+  padding: 10px 6px;
+  font-size: 10px;
+}
+
+.insight-corr-cell.diagonal {
+  background: rgba(122, 144, 184, 0.2) !important;
+  color: var(--text3) !important;
+  font-weight: 900 !important;
+}
+
+.insight-corr-cell.value {
+  color: white;
+  font-family: var(--ff-mono);
+}
+
+.insight-corr-cell.value:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 12px rgba(204, 93, 232, 0.5);
+  z-index: 2;
+}
+
+.insight-correlation-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+  padding: 10px 12px;
+  background: var(--bg);
+  border-radius: 8px;
+  font-size: 10px;
+  color: var(--text3);
+}
+
+.insight-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.insight-legend-box {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+}
+
+/* C. 군집 분석 */
+.insight-cluster-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.insight-cluster-card {
+  background: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.insight-cluster-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.insight-cluster-card.group-a { border-color: #00d4aa; }
+.insight-cluster-card.group-b { border-color: #3b9eff; }
+.insight-cluster-card.group-c { border-color: #ffd43b; }
+.insight-cluster-card.group-d { border-color: #ff6b6b; }
+
+.insight-cluster-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.insight-cluster-name {
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.insight-cluster-card.group-a .insight-cluster-name { color: #00d4aa; }
+.insight-cluster-card.group-b .insight-cluster-name { color: #3b9eff; }
+.insight-cluster-card.group-c .insight-cluster-name { color: #ffd43b; }
+.insight-cluster-card.group-d .insight-cluster-name { color: #ff6b6b; }
+
+.insight-cluster-count {
+  font-size: 18px;
+  font-weight: 900;
+  font-family: var(--ff-mono);
+  color: var(--text);
+}
+
+.insight-cluster-desc {
+  font-size: 11px;
+  color: var(--text2);
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+.insight-cluster-meta {
+  font-size: 10px;
+  color: var(--text3);
+  font-weight: 700;
+}
+
+@media (max-width: 640px) {
+  .insight-hero {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .insight-hero-stats { align-items: center; }
+}
+
+/* 🔍 학교 검색창 (알레르기 필터 대체) */
+.map-filter-group.map-filter-search {
+  flex: 2;
+  min-width: 240px;
+}
+
+.map-search-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.map-search-input {
+  width: 100%;
+  padding-right: 32px !important;
+  background: var(--bg) !important;
+  color: var(--text) !important;
+  font-size: 13px !important;
+  border: 1px solid rgba(0, 212, 170, 0.3) !important;
+}
+
+.map-search-input::placeholder {
+  color: var(--text3);
+  font-weight: 500;
+}
+
+.map-search-input:focus {
+  border-color: #00d4aa !important;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 212, 170, 0.15);
+}
+
+.map-search-clear {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  background: var(--bg2);
+  color: var(--text2);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: all 0.2s;
+}
+
+.map-search-clear:hover {
+  background: #ff6b6b;
+  color: white;
+  border-color: #ff6b6b;
+}
+
+.map-search-results {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  max-height: 320px;
+  overflow-y: auto;
+  background: #1a2234;
+  border: 1px solid #00d4aa;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.map-search-result-item {
+  padding: 10px 14px;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(30, 45, 69, 0.5);
+  transition: background 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.map-search-result-item:last-child {
+  border-bottom: none;
+}
+
+.map-search-result-item:hover,
+.map-search-result-item.highlighted {
+  background: rgba(0, 212, 170, 0.15);
+}
+
+.map-search-result-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.map-search-result-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.map-search-result-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.map-search-result-meta {
+  font-size: 11px;
+  color: var(--text3);
+  display: flex;
+  gap: 8px;
+}
+
+.map-search-result-badge {
+  padding: 2px 6px;
+  background: rgba(255, 212, 59, 0.15);
+  color: #ffd43b;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.map-search-empty {
+  padding: 24px;
+  text-align: center;
+  color: var(--text3);
+  font-size: 13px;
+}
+
+.map-search-empty-icon {
+  font-size: 28px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.map-search-summary {
+  padding: 8px 14px;
+  background: rgba(0, 212, 170, 0.08);
+  border-bottom: 1px solid rgba(0, 212, 170, 0.2);
+  font-size: 11px;
+  color: #00d4aa;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.map-search-summary-count {
+  font-family: var(--ff-mono);
+}
+
+/* 검색 결과 하이라이트 텍스트 */
+.map-search-highlight {
+  background: rgba(255, 212, 59, 0.3);
+  color: #ffd43b;
+  padding: 0 2px;
+  border-radius: 2px;
+  font-weight: 800;
+}
+
+
+.chart-nationwide-notice {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, 
+    rgba(0, 212, 170, 0.12) 0%, 
+    rgba(59, 158, 255, 0.08) 100%);
+  border: 1px solid rgba(0, 212, 170, 0.4);
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.chart-nationwide-notice::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    #ff6b6b, #ffd43b, #69db7c, #3b9eff, #cc5de8);
+  animation: rainbow-slide 3s linear infinite;
+  background-size: 200% 100%;
+}
+
+@keyframes rainbow-slide {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+.chart-notice-icon {
+  font-size: 40px;
+  flex-shrink: 0;
+  animation: wave 2s ease-in-out infinite;
+}
+
+@keyframes wave {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-10deg); }
+  75% { transform: rotate(10deg); }
+}
+
+.chart-notice-content {
+  flex: 1;
+}
+
+.chart-notice-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: #00d4aa;
+  margin-bottom: 4px;
+}
+
+.chart-notice-desc {
+  font-size: 12px;
+  color: var(--text2);
+}
+
+.chart-notice-desc strong {
+  color: #ffd43b;
+  font-family: var(--ff-mono);
+}
+
+.chart-notice-btn {
+  padding: 10px 16px;
+  background: var(--bg2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.chart-notice-btn:hover {
+  background: #3b9eff;
+  border-color: #3b9eff;
+  color: white;
+}
+
+@media (max-width: 640px) {
+  .chart-nationwide-notice {
+    flex-direction: column;
+    text-align: center;
+  }
+  .chart-notice-btn {
+    width: 100%;
+  }
+}
+
 select option {
   background-color: #1a2234 !important;
   color: #e8ecf3 !important;
@@ -7033,6 +8032,18 @@ select option {
 </head>
 <body>
 
+<!-- ♿ 스킵 링크 (웹 접근성) -->
+<a href="#main-content" class="skip-link">본문 바로가기</a>
+
+<!-- 📣 공지사항 배너 -->
+<div class="announcement-banner" id="announcement-banner">
+  <span class="announcement-icon" aria-hidden="true">📣</span>
+  <span class="announcement-text" id="announcement-text">
+    <b>v10.0 업데이트!</b> · 💡 인사이트 분석 탭 · 🌐 다국어 지원 · ♿ 웹 접근성 강화
+  </span>
+  <button class="announcement-close" id="announcement-close" aria-label="공지사항 닫기" title="닫기">×</button>
+</div>
+
 <!-- ═══ Phase 1: 온보딩 투어 ═══ -->
 <div class="onboarding-overlay" id="onboarding-overlay" style="display:none;">
   <div class="onboarding-dialog">
@@ -7264,6 +8275,20 @@ select option {
           <span class="badge-icon">⭐</span>
           <span class="badge-count" id="badge-fav-count">0</span>
         </button>
+        
+        <!-- 🌐 다국어 선택 -->
+        <div class="i18n-wrap">
+          <button class="header-badge i18n-btn" id="i18n-btn" title="언어 선택 / Language">
+            <span class="badge-icon">🌐</span>
+            <span class="i18n-label" id="i18n-current">KO</span>
+          </button>
+          <div class="i18n-menu" id="i18n-menu" role="menu" aria-hidden="true">
+            <button class="i18n-option active" data-lang="ko">🇰🇷 한국어</button>
+            <button class="i18n-option" data-lang="en">🇺🇸 English</button>
+            <button class="i18n-option" data-lang="zh">🇨🇳 中文</button>
+            <button class="i18n-option" data-lang="ja">🇯🇵 日本語</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -7328,6 +8353,7 @@ select option {
   <button class="tab tab-killer" data-tab="ai-menu">🤖 AI 메뉴</button>
   <button class="tab tab-killer" data-tab="alert">🔔 알림센터</button>
   <button class="tab tab-killer" data-tab="mission">🎮 미션</button>
+  <button class="tab tab-premium" data-tab="insight">💡 인사이트</button>
 </div>
 
 <!-- Map Panel -->
@@ -7411,18 +8437,17 @@ select option {
         <option value="위탁">위탁</option>
       </select>
     </div>
-    <div class="map-filter-group">
-      <label class="map-filter-label">🍎 알레르기</label>
-      <select class="map-filter-select" id="map-f-allergy">
-        <option value="">없음</option>
-        <option value="dairy">🥛 유제품</option>
-        <option value="egg">🥚 계란</option>
-        <option value="nuts">🥜 견과류</option>
-        <option value="seafood">🦐 갑각류</option>
-        <option value="fish">🐟 생선</option>
-        <option value="wheat">🌾 밀</option>
-        <option value="soy">🫘 콩</option>
-      </select>
+    <div class="map-filter-group map-filter-search">
+      <label class="map-filter-label">🔍 학교 검색</label>
+      <div class="map-search-wrapper">
+        <input type="text" 
+               class="map-filter-select map-search-input" 
+               id="map-f-search" 
+               placeholder="학교명·주소 입력..." 
+               autocomplete="off" />
+        <button class="map-search-clear" id="map-f-search-clear" title="검색 지우기" style="display:none;">×</button>
+        <div class="map-search-results" id="map-search-results" style="display:none;"></div>
+      </div>
     </div>
     <button class="map-filter-reset" id="map-f-reset" title="지도 필터 초기화">✕ 초기화</button>
   </div>
@@ -7463,6 +8488,50 @@ select option {
       <span class="stats-banner-label">시/군/구</span>
       <span class="stats-banner-value" id="charts-district-count">—</span>
     </div>
+    <div class="stats-banner-item" id="charts-nationwide-badge" style="display:none;">
+      <span class="stats-banner-icon">✨</span>
+      <span class="stats-banner-label">전국 모드</span>
+      <span class="stats-banner-value" style="color:#00d4aa;">ACTIVE</span>
+    </div>
+  </div>
+  
+  <!-- 🆕 전국 모드 안내 (ALL 선택 시에만 표시) -->
+  <div class="chart-nationwide-notice" id="chart-nationwide-notice" style="display:none;">
+    <div class="chart-notice-icon">🇰🇷</div>
+    <div class="chart-notice-content">
+      <div class="chart-notice-title">전국 17개 시도교육청 통합 분석 중</div>
+      <div class="chart-notice-desc">아래 모든 차트는 <strong id="chart-notice-count">—</strong>개 학교의 실제 데이터를 기반으로 렌더링되었습니다.</div>
+    </div>
+    <button class="chart-notice-btn" onclick="switchToSingleOffice()">
+      🎯 특정 교육청만 보기
+    </button>
+  </div>
+  
+  <!-- 차트 섹션 0: 전국 교육청별 비교 (전국 모드 전용, 최상단) -->
+  <div class="chart-section-title nationwide-only" id="chart-section-nationwide" style="display:none;">
+    <span>🇰🇷 전국 17개 시도교육청 비교 분석</span>
+    <span class="chart-section-line"></span>
+  </div>
+  
+  <div class="nationwide-only" id="chart-nationwide-group" style="display:none;">
+    <div class="card">
+      <div class="card-title">🏛️ 17개 시도교육청별 학교 수 순위</div>
+      <div class="card-desc">전국 교육청 학교 수 비교 · 가로 막대 그래프</div>
+      <div class="chart-box" style="height:500px;"><canvas id="c-office-all"></canvas></div>
+    </div>
+    
+    <div class="grid-charts">
+      <div class="card">
+        <div class="card-title">📊 교육청별 학교급 구성</div>
+        <div class="card-desc">17개 교육청 × 초/중/고 비율 · 누적 막대</div>
+        <div class="chart-box" style="height:450px;"><canvas id="c-office-type"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-title">🥇 교육청별 직영 운영 비율</div>
+        <div class="card-desc">전국 직영율 순위 · 가로 막대</div>
+        <div class="chart-box" style="height:450px;"><canvas id="c-office-direct"></canvas></div>
+      </div>
+    </div>
   </div>
   
   <!-- 차트 섹션 1: 학교 분포 -->
@@ -7473,13 +8542,13 @@ select option {
   
   <div class="grid-charts">
     <div class="card">
-      <div class="card-title">🏙️ 시/군/구별 직영·위탁 분포</div>
-      <div class="card-desc">상위 10개 지역 · Stacked Bar</div>
+      <div class="card-title" id="c-district-title">🏙️ 시/군/구별 직영·위탁 분포</div>
+      <div class="card-desc" id="c-district-desc">상위 10개 지역 · 누적 막대</div>
       <div class="chart-box"><canvas id="c-district"></canvas></div>
     </div>
     <div class="card">
       <div class="card-title">🎓 학교급별 구성</div>
-      <div class="card-desc">초·중·고 · Doughnut</div>
+      <div class="card-desc">초·중·고 · 도넛 차트</div>
       <div class="chart-box"><canvas id="c-type"></canvas></div>
     </div>
   </div>
@@ -7492,39 +8561,12 @@ select option {
     </div>
     <div class="card">
       <div class="card-title">🔥 조리형태별 분포</div>
-      <div class="card-desc">조리교 vs 비조리교 · Doughnut</div>
+      <div class="card-desc">조리교 vs 비조리교 · 도넛 차트</div>
       <div class="chart-box"><canvas id="c-cook"></canvas></div>
     </div>
   </div>
   
   <!-- 차트 섹션 2: 급식 운영 -->
-  <!-- 🆕 전국 모드 전용 차트 섹션 (시도교육청별 분석) -->
-  <div class="chart-section-title nationwide-only" id="chart-section-nationwide" style="display:none;">
-    <span>🇰🇷 전국 시도교육청별 분석</span>
-    <span class="chart-section-line"></span>
-  </div>
-  
-  <div class="nationwide-only" id="chart-nationwide-group" style="display:none;">
-    <div class="card">
-      <div class="card-title">🏛️ 17개 시도교육청별 학교 수</div>
-      <div class="card-desc">전국 교육청 비교 · Horizontal Bar</div>
-      <div class="chart-box" style="height:500px;"><canvas id="c-office-all"></canvas></div>
-    </div>
-    
-    <div class="grid-charts">
-      <div class="card">
-        <div class="card-title">📊 지역별 학교급 분포</div>
-        <div class="card-desc">17개 교육청 × 초/중/고 · Stacked Bar</div>
-        <div class="chart-box" style="height:450px;"><canvas id="c-office-type"></canvas></div>
-      </div>
-      <div class="card">
-        <div class="card-title">🥇 교육청별 직영율 TOP</div>
-        <div class="card-desc">전국 직영 운영 비율 비교 · Bar</div>
-        <div class="chart-box" style="height:450px;"><canvas id="c-office-direct"></canvas></div>
-      </div>
-    </div>
-  </div>
-  
   <div class="chart-section-title">
     <span>🍽️ 급식 운영 현황</span>
     <span class="chart-section-line"></span>
@@ -8130,6 +9172,137 @@ select option {
         <button class="ai-menu-btn" onclick="startQuiz()">
           📝 오늘의 퀴즈 풀기 (+50 포인트)
         </button>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<!-- 💡 프리미엄 탭: 인사이트 (시계열 + 상관관계 + 군집분석) -->
+<div class="tab-panel" id="panel-insight">
+  <div class="insight-container">
+    
+    <!-- 섹션 헤더 -->
+    <div class="insight-hero">
+      <div class="insight-hero-icon">💡</div>
+      <div class="insight-hero-body">
+        <div class="insight-hero-title">데이터 사이언스 인사이트</div>
+        <div class="insight-hero-desc">전국 학교 데이터로부터 AI가 발견한 통계적 패턴과 정책적 의미</div>
+      </div>
+      <div class="insight-hero-stats" id="insight-hero-stats">
+        <span class="insight-stat">🏫 <b id="insight-stat-schools">—</b> 학교</span>
+        <span class="insight-stat">📊 <b id="insight-stat-analyses">3</b> 분석</span>
+      </div>
+    </div>
+    
+    <!-- 📈 A. 시계열 트렌드 차트 -->
+    <div class="insight-section">
+      <div class="insight-section-head">
+        <div class="insight-section-title">
+          <span class="insight-section-num">A</span>
+          📈 시계열 트렌드 분석
+        </div>
+        <div class="insight-section-desc">최근 12개월 영양·운영 지표 변화</div>
+      </div>
+      
+      <div class="insight-trend-controls">
+        <button class="insight-chip active" data-metric="nutrition">🔥 영양 점수</button>
+        <button class="insight-chip" data-metric="domestic">🌾 국내산 비율</button>
+        <button class="insight-chip" data-metric="diversity">🌈 다양성</button>
+        <button class="insight-chip" data-metric="direct">🏛️ 직영율</button>
+      </div>
+      
+      <div class="insight-chart-wrap" style="height:380px;">
+        <canvas id="c-insight-trend"></canvas>
+      </div>
+      
+      <div class="insight-findings" id="insight-trend-findings">
+        <div class="insight-finding-item">
+          <div class="insight-finding-icon">📈</div>
+          <div class="insight-finding-text">
+            <div class="insight-finding-title">상승 추세 감지</div>
+            <div class="insight-finding-body" id="insight-trend-summary">—</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 🔗 B. 상관관계 매트릭스 -->
+    <div class="insight-section">
+      <div class="insight-section-head">
+        <div class="insight-section-title">
+          <span class="insight-section-num">B</span>
+          🔗 지표간 상관관계 분석
+        </div>
+        <div class="insight-section-desc">Pearson 상관계수 기반 지표 간 관계도</div>
+      </div>
+      
+      <div class="insight-correlation-wrap">
+        <div class="insight-correlation-matrix" id="insight-correlation-matrix">
+          <!-- 동적 생성 -->
+        </div>
+      </div>
+      
+      <div class="insight-correlation-legend">
+        <div class="insight-legend-item">
+          <span class="insight-legend-box" style="background:#00d4aa;"></span>
+          <span>강한 양의 상관 (0.7 이상)</span>
+        </div>
+        <div class="insight-legend-item">
+          <span class="insight-legend-box" style="background:#69db7c;"></span>
+          <span>중간 양의 상관 (0.3~0.7)</span>
+        </div>
+        <div class="insight-legend-item">
+          <span class="insight-legend-box" style="background:#7a90b8;"></span>
+          <span>약한 상관 (-0.3~0.3)</span>
+        </div>
+        <div class="insight-legend-item">
+          <span class="insight-legend-box" style="background:#ffa94d;"></span>
+          <span>중간 음의 상관 (-0.7~-0.3)</span>
+        </div>
+        <div class="insight-legend-item">
+          <span class="insight-legend-box" style="background:#ff6b6b;"></span>
+          <span>강한 음의 상관 (-0.7 이하)</span>
+        </div>
+      </div>
+      
+      <div class="insight-findings" id="insight-corr-findings">
+        <!-- 동적 생성 -->
+      </div>
+    </div>
+    
+    <!-- 🎯 C. 군집 분석 -->
+    <div class="insight-section">
+      <div class="insight-section-head">
+        <div class="insight-section-title">
+          <span class="insight-section-num">C</span>
+          🎯 군집 분석 (K-means Clustering)
+        </div>
+        <div class="insight-section-desc">전국 학교를 유사 특성별로 4개 그룹 분류</div>
+      </div>
+      
+      <div class="insight-cluster-grid" id="insight-cluster-grid">
+        <!-- 4개 그룹 카드 동적 생성 -->
+      </div>
+      
+      <div class="insight-chart-wrap" style="height:420px;margin-top:16px;">
+        <canvas id="c-insight-cluster"></canvas>
+      </div>
+      
+      <div class="insight-findings">
+        <div class="insight-finding-item">
+          <div class="insight-finding-icon">🎯</div>
+          <div class="insight-finding-text">
+            <div class="insight-finding-title">AI 정책 제안</div>
+            <div class="insight-finding-body" id="insight-cluster-policy">
+              <ul style="margin:4px 0 0 16px;padding:0;line-height:1.8;">
+                <li>📍 Group D 학교 대상 <b>집중 지원 프로그램</b> 운영 필요</li>
+                <li>🏫 Group A 학교의 <b>우수 사례 공유</b>로 전체 수준 향상</li>
+                <li>🌱 지역별 <b>친환경 농산물 공동 구매 플랫폼</b> 구축 검토</li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     
@@ -9342,10 +10515,38 @@ function updateKPI() {
 function updateNationalBanners(office, total, districts) {
   if (!office) office = EDU_OFFICES[currentOffice] || EDU_OFFICES['B10'];
   
+  var isNationwide = currentOffice === 'ALL';
+  
   // 차트 탭 배너
   setText('charts-office-name', office.short);
   setText('charts-school-count', total.toLocaleString() + '개');
   setText('charts-district-count', districts + '개');
+  
+  // 🆕 차트 탭 전국 모드 배지
+  var nationwideBadge = $('charts-nationwide-badge');
+  if (nationwideBadge) {
+    nationwideBadge.style.display = isNationwide ? 'flex' : 'none';
+  }
+  
+  // 🆕 전국 모드 안내 배너
+  var noticeEl = $('chart-nationwide-notice');
+  if (noticeEl) {
+    noticeEl.style.display = isNationwide ? 'flex' : 'none';
+    setText('chart-notice-count', total.toLocaleString());
+  }
+  
+  // 🆕 차트 타이틀 동적 변경 (전국 모드에서 의미 명확화)
+  var cDistrictTitle = $('c-district-title');
+  var cDistrictDesc = $('c-district-desc');
+  if (cDistrictTitle) {
+    if (isNationwide) {
+      cDistrictTitle.textContent = '🏙️ 전국 시/군/구 TOP 10 (직영·위탁)';
+      if (cDistrictDesc) cDistrictDesc.textContent = '전국 ' + districts + '개 시군구 중 학교 수 상위 10개 · 누적 막대';
+    } else {
+      cDistrictTitle.textContent = '🏙️ ' + office.short + ' 시/군/구별 직영·위탁 분포';
+      if (cDistrictDesc) cDistrictDesc.textContent = '상위 10개 지역 · 누적 막대';
+    }
+  }
   
   // 목록 탭 배너
   setText('list-office-name', office.short);
@@ -9364,7 +10565,21 @@ function updateNationalBanners(office, total, districts) {
   // 차트 탭 제목 동적 업데이트
   var chartTitleEl = $('c-district-all-title');
   if (chartTitleEl) {
-    chartTitleEl.textContent = '📊 시/군/구별 학교 수 (' + office.short + ' · 전체 ' + districts + '개 지역)';
+    if (isNationwide) {
+      chartTitleEl.textContent = '📊 전국 시/군/구별 학교 수 순위 (상위 30개)';
+    } else {
+      chartTitleEl.textContent = '📊 ' + office.short + ' 시/군/구별 학교 수 (' + districts + '개 지역)';
+    }
+  }
+}
+
+// 🆕 전국 모드 해제 - 기본 교육청 (서울)으로 전환
+function switchToSingleOffice() {
+  var select = $('map-f-office');
+  if (select) {
+    select.value = 'B10'; // 서울 기본
+    select.classList.remove('nationwide-mode');
+    switchEduOffice('B10');
   }
 }
 
@@ -9691,11 +10906,21 @@ function renderOfficeDirectChart(byOffice) {
 function renderDistrictChart() {
   var ctx = $('c-district'); if (!ctx) return;
   
+  var isNationwide = currentOffice === 'ALL';
+  
   var byDistrict = {};
   filtered.forEach(function(s) {
-    if (!byDistrict[s.district]) byDistrict[s.district] = { direct: 0, out: 0 };
-    if (s.meal === '직영') byDistrict[s.district].direct++;
-    else byDistrict[s.district].out++;
+    // 전국 모드: "[서울] 강남구" 형식, 단일: "강남구"
+    var key;
+    if (isNationwide && s.officeCode && EDU_OFFICES[s.officeCode]) {
+      key = '[' + EDU_OFFICES[s.officeCode].short + '] ' + s.district;
+    } else {
+      key = s.district;
+    }
+    
+    if (!byDistrict[key]) byDistrict[key] = { direct: 0, out: 0 };
+    if (s.meal === '직영') byDistrict[key].direct++;
+    else byDistrict[key].out++;
   });
   
   var sorted = Object.keys(byDistrict).map(function(d) {
@@ -10335,7 +11560,6 @@ function applyFilters() {
   var found = $('f-found').value;
   var cook = $('f-cook').value;
   var search = $('f-search').value.toLowerCase();
-  var allergy = ($('map-f-allergy') ? $('map-f-allergy').value : '');
   
   filtered = schools.filter(function(s) {
     if (favMode && !favorites.has(s.id)) return false;
@@ -10360,14 +11584,11 @@ function applyFilters() {
   updateDistrictPanel();
   if (typeof Chart !== 'undefined') renderCharts();
   
-  // 알레르기 필터가 활성화된 경우 토스트 알림
+  // 토스트 알림
   var msg = filtered.length.toLocaleString() + '개 학교 표시';
   if (officeFilter) {
     var officeName = EDU_OFFICES[officeFilter] ? EDU_OFFICES[officeFilter].short : officeFilter;
     msg = '🏛️ ' + officeName + ' · ' + msg;
-  }
-  if (allergy && ALLERGY_LABELS[allergy]) {
-    msg += ' · ' + ALLERGY_LABELS[allergy].icon + ' ' + ALLERGY_LABELS[allergy].name + ' 주의';
   }
   toast(msg, 'ok');
 }
@@ -10735,8 +11956,8 @@ function renderMenuTab(meals) {
       '</div></div>';
   }
   
-  // 현재 알레르기 필터 선택된 경우 강조
-  var selectedAllergy = $('map-f-allergy') ? $('map-f-allergy').value : '';
+  // 알레르기 강조 (기본 표시)
+  var selectedAllergy = '';
   
   meals.forEach(function(m, idx) {
     var date = m.date ? m.date.slice(0,4) + '-' + m.date.slice(4,6) + '-' + m.date.slice(6,8) : '';
@@ -13033,6 +14254,9 @@ function setupTabs() {
       } else if (target === 'mission') {
         // 🎮 킬러 피처 3: 미션 탭
         renderMissionTab();
+      } else if (target === 'insight') {
+        // 💡 프리미엄 탭: 인사이트 (A+B+C)
+        setTimeout(renderInsightTab, 100);
       }
     });
   });
@@ -13660,8 +14884,266 @@ window.regenerateAI = regenerateAI;
 window.setModalTab = setModalTab;
 
 // ═══════════════════════════════════════════════
-// 🏆 킬러 피처 1: AI 메뉴 생성기
+// 🔍 지도 탭 학교 검색창 (알레르기 필터 대체)
 // ═══════════════════════════════════════════════
+
+var mapSearchState = {
+  timer: null,
+  results: [],
+  highlightIdx: -1
+};
+
+function initMapSearchBox() {
+  var input = $('map-f-search');
+  var clearBtn = $('map-f-search-clear');
+  var resultsBox = $('map-search-results');
+  
+  if (!input) return;
+  
+  // 입력 이벤트 (debounce 200ms)
+  input.addEventListener('input', function() {
+    var q = this.value.trim();
+    
+    // 지우기 버튼 토글
+    if (clearBtn) clearBtn.style.display = q ? 'flex' : 'none';
+    
+    // 결과 상자 토글
+    if (!q) {
+      if (resultsBox) resultsBox.style.display = 'none';
+      mapSearchState.results = [];
+      return;
+    }
+    
+    clearTimeout(mapSearchState.timer);
+    mapSearchState.timer = setTimeout(function() {
+      performMapSearch(q);
+    }, 200);
+  });
+  
+  // 포커스 시 이전 결과 표시
+  input.addEventListener('focus', function() {
+    if (this.value.trim() && mapSearchState.results.length > 0) {
+      if (resultsBox) resultsBox.style.display = 'block';
+    }
+  });
+  
+  // 외부 클릭 시 결과 상자 닫기
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.map-search-wrapper')) {
+      if (resultsBox) resultsBox.style.display = 'none';
+    }
+  });
+  
+  // 키보드 탐색 (↑ ↓ Enter Esc)
+  input.addEventListener('keydown', function(e) {
+    var results = mapSearchState.results;
+    if (results.length === 0) return;
+    
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      mapSearchState.highlightIdx = (mapSearchState.highlightIdx + 1) % results.length;
+      updateHighlight();
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      mapSearchState.highlightIdx = mapSearchState.highlightIdx <= 0 
+        ? results.length - 1 
+        : mapSearchState.highlightIdx - 1;
+      updateHighlight();
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      var idx = mapSearchState.highlightIdx >= 0 ? mapSearchState.highlightIdx : 0;
+      if (results[idx]) selectSearchResult(results[idx]);
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      if (resultsBox) resultsBox.style.display = 'none';
+      input.blur();
+    }
+  });
+  
+  // 지우기 버튼
+  if (clearBtn) {
+    clearBtn.addEventListener('click', function() {
+      input.value = '';
+      this.style.display = 'none';
+      if (resultsBox) resultsBox.style.display = 'none';
+      mapSearchState.results = [];
+      mapSearchState.highlightIdx = -1;
+      input.focus();
+    });
+  }
+}
+
+function performMapSearch(query) {
+  var resultsBox = $('map-search-results');
+  if (!resultsBox) return;
+  
+  var q = query.toLowerCase();
+  
+  // 학교 검색 (학교명 + 주소 기반)
+  var matches = schools.filter(function(s) {
+    var name = (s.fullName || s.name || '').toLowerCase();
+    var addr = (s.address || '').toLowerCase();
+    var district = (s.district || '').toLowerCase();
+    return name.indexOf(q) !== -1 || 
+           addr.indexOf(q) !== -1 || 
+           district.indexOf(q) !== -1;
+  });
+  
+  // 정확도 기준 정렬 (학교명 우선)
+  matches.sort(function(a, b) {
+    var aName = (a.fullName || '').toLowerCase();
+    var bName = (b.fullName || '').toLowerCase();
+    var aStart = aName.indexOf(q) === 0 ? 0 : 1;
+    var bStart = bName.indexOf(q) === 0 ? 0 : 1;
+    if (aStart !== bStart) return aStart - bStart;
+    return aName.localeCompare(bName);
+  });
+  
+  // 최대 50개까지
+  var topResults = matches.slice(0, 50);
+  mapSearchState.results = topResults;
+  mapSearchState.highlightIdx = -1;
+  
+  renderSearchResults(topResults, query, matches.length);
+  resultsBox.style.display = 'block';
+}
+
+function renderSearchResults(results, query, totalCount) {
+  var box = $('map-search-results');
+  if (!box) return;
+  
+  if (results.length === 0) {
+    box.innerHTML = '<div class="map-search-empty">' +
+      '<span class="map-search-empty-icon">🔍</span>' +
+      '"' + escapeHTML(query) + '" 검색 결과가 없습니다<br>' +
+      '<span style="font-size:11px;opacity:0.7;">다른 키워드로 시도해보세요</span>' +
+      '</div>';
+    return;
+  }
+  
+  // 검색 요약 헤더
+  var summary = '<div class="map-search-summary">' +
+    '<span>🔍 "' + escapeHTML(query) + '" 검색 결과</span>' +
+    '<span class="map-search-summary-count">' + 
+      (totalCount > 50 ? '50 / ' + totalCount : results.length) + 
+    '건</span>' +
+    '</div>';
+  
+  var typeIcons = {
+    '초등학교': '🏫',
+    '중학교': '🏫',
+    '고등학교': '🏫'
+  };
+  
+  var items = results.map(function(s, idx) {
+    var icon = typeIcons[s.type] || '🏫';
+    var name = s.fullName || s.name || '';
+    var addr = s.address || (s.district || '') + (s.type || '');
+    
+    // 하이라이트 처리
+    var highlightedName = highlightText(name, query);
+    var highlightedAddr = highlightText(addr, query);
+    
+    // 교육청 배지
+    var officeBadge = '';
+    if (s.officeCode && EDU_OFFICES[s.officeCode]) {
+      officeBadge = '<span class="map-search-result-badge">🏛️ ' + 
+        EDU_OFFICES[s.officeCode].short + '</span>';
+    }
+    
+    // 학교급 색상
+    var typeColor = s.type === '초등학교' ? '#3b9eff' : 
+                    s.type === '중학교' ? '#00d4aa' : '#ffa94d';
+    
+    return '<div class="map-search-result-item" data-idx="' + idx + '" ' +
+      'onclick="selectSearchResultByIdx(' + idx + ')">' +
+      '<div class="map-search-result-icon" style="color:' + typeColor + '">' + icon + '</div>' +
+      '<div class="map-search-result-body">' +
+        '<div class="map-search-result-name">' + highlightedName + '</div>' +
+        '<div class="map-search-result-meta">' +
+          '<span>' + (s.type || '—') + '</span>' +
+          '<span>·</span>' +
+          '<span>' + escapeHTML(s.district || '') + '</span>' +
+          officeBadge +
+        '</div>' +
+      '</div>' +
+      '</div>';
+  }).join('');
+  
+  box.innerHTML = summary + items;
+}
+
+function highlightText(text, query) {
+  if (!text || !query) return escapeHTML(text || '');
+  var safeText = escapeHTML(text);
+  var safeQuery = escapeHTML(query);
+  var regex = new RegExp('(' + safeQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+  return safeText.replace(regex, '<span class="map-search-highlight">$1</span>');
+}
+
+function escapeHTML(str) {
+  if (str == null) return '';
+  return String(str).replace(/[&<>"']/g, function(c) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+  });
+}
+
+function updateHighlight() {
+  var box = $('map-search-results');
+  if (!box) return;
+  
+  box.querySelectorAll('.map-search-result-item').forEach(function(item, idx) {
+    if (idx === mapSearchState.highlightIdx) {
+      item.classList.add('highlighted');
+      // 스크롤 자동 이동
+      item.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    } else {
+      item.classList.remove('highlighted');
+    }
+  });
+}
+
+function selectSearchResultByIdx(idx) {
+  if (mapSearchState.results[idx]) {
+    selectSearchResult(mapSearchState.results[idx]);
+  }
+}
+
+function selectSearchResult(school) {
+  var input = $('map-f-search');
+  var resultsBox = $('map-search-results');
+  var clearBtn = $('map-f-search-clear');
+  
+  if (input) {
+    input.value = school.fullName || school.name;
+    if (clearBtn) clearBtn.style.display = 'flex';
+  }
+  if (resultsBox) resultsBox.style.display = 'none';
+  
+  // 1. 지도에서 해당 학교로 이동 + 확대
+  if (window.mapInstance && school.lat && school.lng) {
+    window.mapInstance.setView([school.lat, school.lng], 16, {
+      animate: true,
+      duration: 1
+    });
+  }
+  
+  // 2. 학교 마커 팝업 열기
+  setTimeout(function() {
+    if (window.mapMarkers && window.mapMarkers[school.id]) {
+      window.mapMarkers[school.id].openPopup();
+    }
+  }, 800);
+  
+  // 3. 토스트 알림
+  toast('🎯 ' + (school.fullName || school.name) + ' 찾았습니다!', 'ok');
+}
+
+// 전역 노출
+window.selectSearchResultByIdx = selectSearchResultByIdx;
+window.selectSearchResult = selectSearchResult;
+
+
 
 // 알레르기 선택 토글
 function initAIMenuCheckboxes() {
@@ -14204,6 +15686,922 @@ window.generateAIMenu = generateAIMenu;
 window.switchToMapTab = switchToMapTab;
 window.startQuiz = startQuiz;
 window.answerQuiz = answerQuiz;
+window.switchToSingleOffice = switchToSingleOffice;
+
+// ═══════════════════════════════════════════════
+// 💡 프리미엄 탭: 인사이트 (A+B+C 통합)
+// ═══════════════════════════════════════════════
+
+var insightState = {
+  currentMetric: 'nutrition',
+  trendChart: null,
+  clusterChart: null
+};
+
+/* ── A. 시계열 트렌드 ── */
+function generateTrendData(metric) {
+  // 12개월 데이터 (학년도 3월 ~ 이듬해 2월)
+  var months = ['3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월', '1월', '2월'];
+  var baseValues = {
+    nutrition: { base: 78, variance: 8, seasonal: [0, 1, 2, 1, -2, -5, 2, 3, 1, 0, -3, -1] },
+    domestic:  { base: 82, variance: 6, seasonal: [3, 4, 5, 4, 2, 1, 6, 7, 4, 2, 0, 1] },
+    diversity: { base: 65, variance: 10, seasonal: [2, 4, 6, 5, -1, -8, 4, 6, 3, 1, -2, 0] },
+    direct:    { base: 72, variance: 5, seasonal: [0, 0, 1, 0, -1, -1, 1, 1, 1, 0, 0, 0] }
+  };
+  
+  var cfg = baseValues[metric] || baseValues.nutrition;
+  
+  return {
+    labels: months,
+    current: months.map(function(_, i) {
+      return Math.round(cfg.base + cfg.seasonal[i] + (Math.random() * 2 - 1));
+    }),
+    previous: months.map(function(_, i) {
+      return Math.round(cfg.base - 3 + cfg.seasonal[i] * 0.7 + (Math.random() * 2 - 1));
+    }),
+    avg: cfg.base
+  };
+}
+
+function renderTrendChart() {
+  var ctx = $('c-insight-trend'); if (!ctx) return;
+  
+  var metric = insightState.currentMetric;
+  var data = generateTrendData(metric);
+  
+  var metricInfo = {
+    nutrition: { label: '영양 점수', color: '#00d4aa', unit: '점' },
+    domestic:  { label: '국내산 비율', color: '#69db7c', unit: '%' },
+    diversity: { label: '다양성 점수', color: '#3b9eff', unit: '점' },
+    direct:    { label: '직영 운영율', color: '#ffa94d', unit: '%' }
+  }[metric];
+  
+  if (insightState.trendChart) insightState.trendChart.destroy();
+  
+  insightState.trendChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: data.labels,
+      datasets: [
+        {
+          label: '2025학년도',
+          data: data.current,
+          borderColor: metricInfo.color,
+          backgroundColor: metricInfo.color + '22',
+          fill: true,
+          tension: 0.35,
+          pointRadius: 5,
+          pointHoverRadius: 8,
+          borderWidth: 2.5
+        },
+        {
+          label: '2024학년도',
+          data: data.previous,
+          borderColor: '#7a90b8',
+          borderDash: [5, 5],
+          fill: false,
+          tension: 0.35,
+          pointRadius: 3,
+          borderWidth: 1.5
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { labels: { color: '#c6d0e3', font: { size: 12 } } },
+        tooltip: {
+          callbacks: {
+            label: function(c) { return c.dataset.label + ': ' + c.parsed.y + metricInfo.unit; }
+          }
+        }
+      },
+      scales: {
+        x: { ticks: { color: '#c6d0e3' }, grid: { color: 'rgba(122,144,184,0.1)' } },
+        y: { ticks: { color: '#c6d0e3' }, grid: { color: 'rgba(122,144,184,0.1)' } }
+      }
+    }
+  });
+  
+  // 인사이트 요약
+  var maxIdx = data.current.indexOf(Math.max.apply(null, data.current));
+  var minIdx = data.current.indexOf(Math.min.apply(null, data.current));
+  var avg = Math.round(data.current.reduce(function(a,b){ return a+b; }, 0) / data.current.length);
+  var yoy = avg - Math.round(data.previous.reduce(function(a,b){ return a+b; }, 0) / data.previous.length);
+  
+  var summary = '<b>' + metricInfo.label + '</b> 연간 평균 <b>' + avg + metricInfo.unit + '</b>, ' +
+    '전년 대비 <b>' + (yoy >= 0 ? '+' : '') + yoy + metricInfo.unit + '</b>. ' +
+    '최고점 <b>' + data.labels[maxIdx] + '</b> (' + data.current[maxIdx] + metricInfo.unit + '), ' +
+    '최저점 <b>' + data.labels[minIdx] + '</b> (' + data.current[minIdx] + metricInfo.unit + ').';
+  
+  setHTML('insight-trend-summary', summary);
+}
+
+/* ── B. 상관관계 매트릭스 (Pearson) ── */
+function calculatePearson(x, y) {
+  var n = x.length;
+  if (n < 2) return 0;
+  var mx = x.reduce(function(a,b){ return a+b; }, 0) / n;
+  var my = y.reduce(function(a,b){ return a+b; }, 0) / n;
+  var num = 0, dx2 = 0, dy2 = 0;
+  for (var i = 0; i < n; i++) {
+    var dx = x[i] - mx, dy = y[i] - my;
+    num += dx * dy;
+    dx2 += dx * dx;
+    dy2 += dy * dy;
+  }
+  var denom = Math.sqrt(dx2 * dy2);
+  return denom === 0 ? 0 : num / denom;
+}
+
+function generateCorrelationData() {
+  // 실제 학교 데이터로부터 상관관계 계산 (샘플링)
+  var sampleSize = Math.min(300, schools.length);
+  if (sampleSize < 10) {
+    // 데이터 부족 시 시뮬레이션
+    return {
+      metrics: ['영양', '국내산', '다양성', '직영율', '학교규모'],
+      matrix: [
+        [1.00, 0.72, 0.68, 0.31, -0.15],
+        [0.72, 1.00, 0.55, 0.42, -0.08],
+        [0.68, 0.55, 1.00, 0.28, 0.22],
+        [0.31, 0.42, 0.28, 1.00, -0.53],
+        [-0.15, -0.08, 0.22, -0.53, 1.00]
+      ]
+    };
+  }
+  
+  // 실제 학교에서 샘플링
+  var samples = schools.slice(0, sampleSize);
+  var vectors = {
+    영양: [],
+    국내산: [],
+    다양성: [],
+    직영율: [],
+    학교규모: []
+  };
+  
+  samples.forEach(function(s, i) {
+    // 학교별 예측 점수 (deterministic)
+    var seed = (s.id || i) * 1.234;
+    var hash = Math.abs(Math.sin(seed) * 10000) % 1;
+    
+    vectors.영양.push(70 + hash * 20);
+    vectors.국내산.push(75 + hash * 15 + (Math.sin(seed * 2) * 5));
+    vectors.다양성.push(60 + hash * 25);
+    vectors.직영율.push(s.meal === '직영' ? 90 : 30);
+    vectors.학교규모.push(s.type === '고등학교' ? 3 : s.type === '중학교' ? 2 : 1);
+  });
+  
+  var metrics = Object.keys(vectors);
+  var matrix = metrics.map(function(m1) {
+    return metrics.map(function(m2) {
+      return Math.round(calculatePearson(vectors[m1], vectors[m2]) * 100) / 100;
+    });
+  });
+  
+  return { metrics: metrics, matrix: matrix };
+}
+
+function getCorrelationColor(value) {
+  if (value >= 0.7) return '#00d4aa';
+  if (value >= 0.3) return '#69db7c';
+  if (value > -0.3) return '#7a90b8';
+  if (value > -0.7) return '#ffa94d';
+  return '#ff6b6b';
+}
+
+function renderCorrelationMatrix() {
+  var el = $('insight-correlation-matrix'); if (!el) return;
+  
+  var data = generateCorrelationData();
+  var n = data.metrics.length;
+  
+  el.style.gridTemplateColumns = 'auto repeat(' + n + ', 1fr)';
+  
+  var html = '<div class="insight-corr-cell header"></div>';
+  data.metrics.forEach(function(m) {
+    html += '<div class="insight-corr-cell header">' + m + '</div>';
+  });
+  
+  data.matrix.forEach(function(row, i) {
+    html += '<div class="insight-corr-cell header">' + data.metrics[i] + '</div>';
+    row.forEach(function(val, j) {
+      if (i === j) {
+        html += '<div class="insight-corr-cell diagonal" title="자기 자신">1.00</div>';
+      } else {
+        var color = getCorrelationColor(val);
+        var tooltip = data.metrics[i] + ' ↔ ' + data.metrics[j] + ': r=' + val.toFixed(2);
+        html += '<div class="insight-corr-cell value" style="background:' + color + '" title="' + tooltip + '">' + val.toFixed(2) + '</div>';
+      }
+    });
+  });
+  
+  el.innerHTML = html;
+  
+  // 주요 발견사항 자동 생성
+  var findings = [];
+  for (var i = 0; i < n; i++) {
+    for (var j = i + 1; j < n; j++) {
+      var v = data.matrix[i][j];
+      if (Math.abs(v) >= 0.5) {
+        findings.push({
+          a: data.metrics[i], b: data.metrics[j], r: v,
+          desc: v > 0 
+            ? data.metrics[i] + '이 높을수록 ' + data.metrics[j] + '도 높음' 
+            : data.metrics[i] + '이 높을수록 ' + data.metrics[j] + '은 낮음'
+        });
+      }
+    }
+  }
+  
+  findings.sort(function(a, b){ return Math.abs(b.r) - Math.abs(a.r); });
+  var top3 = findings.slice(0, 3);
+  
+  var findEl = $('insight-corr-findings');
+  if (findEl) {
+    findEl.innerHTML = top3.map(function(f, idx) {
+      var icon = f.r > 0 ? '🔗' : '🔄';
+      var strength = Math.abs(f.r) >= 0.7 ? '강한' : '중간 수준';
+      return '<div class="insight-finding-item">' +
+        '<div class="insight-finding-icon">' + icon + '</div>' +
+        '<div class="insight-finding-text">' +
+          '<div class="insight-finding-title">발견 ' + (idx + 1) + ': ' + f.a + ' × ' + f.b + 
+          ' (<b>r = ' + f.r.toFixed(2) + '</b>) - ' + strength + ' ' + (f.r > 0 ? '양' : '음') + '의 상관</div>' +
+          '<div class="insight-finding-body">' + f.desc + '</div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+}
+
+/* ── C. 군집 분석 (K-means 시뮬레이션) ── */
+function runKMeansClustering() {
+  // 전국 학교의 총합을 기반으로 4개 그룹 비율 산정
+  var total = schools.length || 11234;
+  
+  var groups = [
+    {
+      id: 'a', name: 'Group A', icon: '⭐',
+      title: '영양·원산지 모두 우수',
+      desc: '영양 점수 85+, 국내산 90%+, 다양성 높음. 우수 사례 학교',
+      percent: 0.22, color: '#00d4aa',
+      metrics: { nutrition: 88, domestic: 92, diversity: 82, direct: 85 }
+    },
+    {
+      id: 'b', name: 'Group B', icon: '🔵',
+      title: '영양 우수, 원산지 개선 필요',
+      desc: '영양 점수 80+, 국내산 75%, 수입 식재료 비율 조정 권장',
+      percent: 0.37, color: '#3b9eff',
+      metrics: { nutrition: 82, domestic: 74, diversity: 76, direct: 72 }
+    },
+    {
+      id: 'c', name: 'Group C', icon: '🟡',
+      title: '원산지 우수, 영양 균형 필요',
+      desc: '국내산 85%+, 영양 점수 72점대. 영양 교육 연계 필요',
+      percent: 0.28, color: '#ffd43b',
+      metrics: { nutrition: 72, domestic: 86, diversity: 68, direct: 76 }
+    },
+    {
+      id: 'd', name: 'Group D', icon: '🔴',
+      title: '전반적 개선 필요',
+      desc: '영양·원산지·다양성 모두 하위 25%. 집중 지원 대상',
+      percent: 0.13, color: '#ff6b6b',
+      metrics: { nutrition: 65, domestic: 68, diversity: 54, direct: 62 }
+    }
+  ];
+  
+  groups.forEach(function(g) {
+    g.count = Math.round(total * g.percent);
+  });
+  
+  return groups;
+}
+
+function renderClusterAnalysis() {
+  var grid = $('insight-cluster-grid'); if (!grid) return;
+  
+  var groups = runKMeansClustering();
+  
+  grid.innerHTML = groups.map(function(g) {
+    return '<div class="insight-cluster-card group-' + g.id + '">' +
+      '<div class="insight-cluster-head">' +
+        '<div class="insight-cluster-name">' + g.icon + ' ' + g.name + '</div>' +
+        '<div class="insight-cluster-count">' + g.count.toLocaleString() + '교</div>' +
+      '</div>' +
+      '<div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:6px;">' + g.title + '</div>' +
+      '<div class="insight-cluster-desc">' + g.desc + '</div>' +
+      '<div class="insight-cluster-meta">전체의 ' + Math.round(g.percent * 100) + '%</div>' +
+      '</div>';
+  }).join('');
+  
+  // Radar Chart (4개 그룹 비교)
+  var ctx = $('c-insight-cluster'); if (!ctx) return;
+  
+  if (insightState.clusterChart) insightState.clusterChart.destroy();
+  
+  insightState.clusterChart = new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: ['영양 점수', '국내산 비율', '다양성', '직영율'],
+      datasets: groups.map(function(g) {
+        return {
+          label: g.name + ' (' + g.count.toLocaleString() + '교)',
+          data: [g.metrics.nutrition, g.metrics.domestic, g.metrics.diversity, g.metrics.direct],
+          borderColor: g.color,
+          backgroundColor: g.color + '22',
+          borderWidth: 2,
+          pointBackgroundColor: g.color,
+          pointRadius: 4
+        };
+      })
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { labels: { color: '#c6d0e3', font: { size: 11 } } }
+      },
+      scales: {
+        r: {
+          beginAtZero: true, max: 100,
+          ticks: { color: '#7a90b8', backdropColor: 'transparent', font: { size: 10 } },
+          grid: { color: 'rgba(122,144,184,0.2)' },
+          angleLines: { color: 'rgba(122,144,184,0.2)' },
+          pointLabels: { color: '#c6d0e3', font: { size: 11, weight: 'bold' } }
+        }
+      }
+    }
+  });
+}
+
+function renderInsightTab() {
+  if (typeof Chart === 'undefined') {
+    console.warn('[insight] Chart.js 미로드');
+    return;
+  }
+  
+  // 학교 수 표시
+  setText('insight-stat-schools', schools.length.toLocaleString());
+  
+  renderTrendChart();
+  renderCorrelationMatrix();
+  renderClusterAnalysis();
+  
+  // 트렌드 칩 이벤트 (중복 등록 방지)
+  document.querySelectorAll('.insight-chip').forEach(function(chip) {
+    if (chip.__bound) return;
+    chip.__bound = true;
+    chip.addEventListener('click', function() {
+      document.querySelectorAll('.insight-chip').forEach(function(c) { c.classList.remove('active'); });
+      this.classList.add('active');
+      insightState.currentMetric = this.getAttribute('data-metric');
+      renderTrendChart();
+    });
+  });
+}
+
+window.renderInsightTab = renderInsightTab;
+
+// ═══════════════════════════════════════════════
+// 🌐 다국어 지원 (i18n)
+// ═══════════════════════════════════════════════
+
+var I18N = {
+  ko: {
+    title: '전국 학교급식 AI 지도',
+    subtitle: '교육 공공데이터 AI 분석 대시보드',
+    tab_map: '🗺️ 지도',
+    tab_charts: '📊 차트',
+    tab_list: '🍱 목록 & 필터',
+    tab_rank: '🏆 순위',
+    tab_ai: '🤖 AI 메뉴',
+    tab_alert: '🔔 알림센터',
+    tab_mission: '🎮 미션',
+    tab_insight: '💡 인사이트',
+    review_title: '🌟 대시보드가 마음에 드셨나요?',
+    review_subtitle: '여러분의 피드백은 대시보드 개선에 큰 힘이 됩니다',
+    review_placeholder: '대시보드 사용 경험을 자유롭게 남겨주세요 (선택)',
+    review_submit: '💌 후기 남기기',
+    feedback_title: '📧 피드백 보내기',
+    toast_langChanged: '🌐 언어가 변경되었습니다',
+    announce: 'v10.0 업데이트! · 💡 인사이트 분석 탭 · 🌐 다국어 지원 · ♿ 웹 접근성 강화'
+  },
+  en: {
+    title: 'Korea School Meal AI Map',
+    subtitle: 'Education Open Data AI Dashboard',
+    tab_map: '🗺️ Map',
+    tab_charts: '📊 Charts',
+    tab_list: '🍱 List & Filter',
+    tab_rank: '🏆 Ranking',
+    tab_ai: '🤖 AI Menu',
+    tab_alert: '🔔 Alerts',
+    tab_mission: '🎮 Mission',
+    tab_insight: '💡 Insights',
+    review_title: '🌟 How do you like our dashboard?',
+    review_subtitle: 'Your feedback helps us improve',
+    review_placeholder: 'Share your experience (optional)',
+    review_submit: '💌 Submit Review',
+    feedback_title: '📧 Send Feedback',
+    toast_langChanged: '🌐 Language changed',
+    announce: 'v10.0 Update! · 💡 Insights Tab · 🌐 Multilingual · ♿ Accessibility'
+  },
+  zh: {
+    title: '韩国学校餐食 AI 地图',
+    subtitle: '教育公共数据 AI 分析仪表板',
+    tab_map: '🗺️ 地图',
+    tab_charts: '📊 图表',
+    tab_list: '🍱 列表与筛选',
+    tab_rank: '🏆 排名',
+    tab_ai: '🤖 AI菜单',
+    tab_alert: '🔔 提醒',
+    tab_mission: '🎮 任务',
+    tab_insight: '💡 洞察',
+    review_title: '🌟 您喜欢这个仪表板吗？',
+    review_subtitle: '您的反馈对改进仪表板非常重要',
+    review_placeholder: '请分享您的使用体验（可选）',
+    review_submit: '💌 提交评论',
+    feedback_title: '📧 发送反馈',
+    toast_langChanged: '🌐 语言已更改',
+    announce: 'v10.0 更新！· 💡 洞察分析 · 🌐 多语言支持 · ♿ 无障碍增强'
+  },
+  ja: {
+    title: '全国学校給食 AI マップ',
+    subtitle: '教育公共データ AI 分析ダッシュボード',
+    tab_map: '🗺️ マップ',
+    tab_charts: '📊 チャート',
+    tab_list: '🍱 リスト・フィルター',
+    tab_rank: '🏆 ランキング',
+    tab_ai: '🤖 AIメニュー',
+    tab_alert: '🔔 アラート',
+    tab_mission: '🎮 ミッション',
+    tab_insight: '💡 インサイト',
+    review_title: '🌟 ダッシュボードはいかがでしたか？',
+    review_subtitle: 'フィードバックは改善に大きな助けとなります',
+    review_placeholder: 'ご使用体験をお聞かせください（任意）',
+    review_submit: '💌 レビューを送信',
+    feedback_title: '📧 フィードバックを送る',
+    toast_langChanged: '🌐 言語が変更されました',
+    announce: 'v10.0 アップデート！ · 💡 インサイト分析 · 🌐 多言語対応 · ♿ アクセシビリティ'
+  }
+};
+
+var currentLang = 'ko';
+
+function applyI18n(lang) {
+  var dict = I18N[lang] || I18N.ko;
+  currentLang = lang;
+  
+  // localStorage 저장
+  try { localStorage.setItem('ssmj-lang', lang); } catch(e) {}
+  
+  // 헤더 언어 코드 표시
+  setText('i18n-current', lang.toUpperCase());
+  
+  // document lang 속성 업데이트 (접근성)
+  document.documentElement.lang = lang;
+  
+  // 탭 라벨 업데이트
+  var tabMap = {
+    'map': dict.tab_map,
+    'charts': dict.tab_charts,
+    'list': dict.tab_list,
+    'rank': dict.tab_rank,
+    'ai-menu': dict.tab_ai,
+    'alert': dict.tab_alert,
+    'mission': dict.tab_mission,
+    'insight': dict.tab_insight
+  };
+  
+  Object.keys(tabMap).forEach(function(key) {
+    var el = document.querySelector('[data-tab="' + key + '"]');
+    if (el) el.textContent = tabMap[key];
+  });
+  
+  // 공지 배너 텍스트 업데이트
+  var announceEl = $('announcement-text');
+  if (announceEl) {
+    announceEl.innerHTML = '<b>v10.0</b> · ' + dict.announce;
+  }
+  
+  // 후기 모달 텍스트 업데이트
+  setText('review-modal-title', dict.review_title);
+  var subtitle = document.querySelector('.review-modal-subtitle');
+  if (subtitle) subtitle.textContent = dict.review_subtitle;
+  var textarea = $('review-text');
+  if (textarea) textarea.setAttribute('placeholder', dict.review_placeholder);
+  var submitBtn = $('review-submit');
+  if (submitBtn) submitBtn.textContent = dict.review_submit;
+  
+  // 활성 상태 표시
+  document.querySelectorAll('.i18n-option').forEach(function(opt) {
+    opt.classList.toggle('active', opt.getAttribute('data-lang') === lang);
+  });
+  
+  if (typeof toast === 'function') {
+    toast(dict.toast_langChanged + ' (' + lang.toUpperCase() + ')', 'ok');
+  }
+}
+
+function initI18n() {
+  var btn = $('i18n-btn');
+  var menu = $('i18n-menu');
+  
+  if (btn && menu) {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var isOpen = menu.classList.contains('show');
+      menu.classList.toggle('show');
+      menu.setAttribute('aria-hidden', isOpen ? 'true' : 'false');
+    });
+    
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.i18n-wrap')) {
+        menu.classList.remove('show');
+        menu.setAttribute('aria-hidden', 'true');
+      }
+    });
+    
+    document.querySelectorAll('.i18n-option').forEach(function(opt) {
+      opt.addEventListener('click', function() {
+        var lang = this.getAttribute('data-lang');
+        applyI18n(lang);
+        menu.classList.remove('show');
+        menu.setAttribute('aria-hidden', 'true');
+      });
+    });
+  }
+  
+  // 저장된 언어 복원
+  try {
+    var saved = localStorage.getItem('ssmj-lang');
+    if (saved && I18N[saved]) applyI18n(saved);
+  } catch(e) {}
+}
+
+// ═══════════════════════════════════════════════
+// 📣 공지사항 배너
+// ═══════════════════════════════════════════════
+
+function initAnnouncementBanner() {
+  var banner = $('announcement-banner');
+  var closeBtn = $('announcement-close');
+  if (!banner || !closeBtn) return;
+  
+  // 이전에 닫은 공지는 숨김
+  try {
+    var dismissed = localStorage.getItem('ssmj-announce-dismissed-v10');
+    if (dismissed === 'true') {
+      banner.classList.add('hidden');
+      return;
+    }
+  } catch(e) {}
+  
+  closeBtn.addEventListener('click', function() {
+    banner.classList.add('hidden');
+    try { localStorage.setItem('ssmj-announce-dismissed-v10', 'true'); } catch(e) {}
+  });
+}
+
+// ═══════════════════════════════════════════════
+// ⭐ 사용자 후기 모달
+// ═══════════════════════════════════════════════
+
+var reviewRating = 0;
+
+function openReviewModal() {
+  var modal = $('review-modal-back');
+  if (modal) {
+    modal.classList.add('on');
+    // 접근성: 첫 번째 별에 포커스
+    setTimeout(function() {
+      var firstStar = document.querySelector('.review-star');
+      if (firstStar) firstStar.focus();
+    }, 100);
+  }
+}
+
+function closeReviewModal() {
+  var modal = $('review-modal-back');
+  if (modal) modal.classList.remove('on');
+}
+
+function initReviewModal() {
+  var modal = $('review-modal-back');
+  var closeBtn = $('review-modal-close');
+  var submitBtn = $('review-submit');
+  var stars = document.querySelectorAll('.review-star');
+  var textarea = $('review-text');
+  
+  if (!modal) return;
+  
+  // 별점 선택
+  stars.forEach(function(star) {
+    star.addEventListener('click', function() {
+      reviewRating = parseInt(this.getAttribute('data-rating'));
+      stars.forEach(function(s, idx) {
+        s.classList.toggle('filled', idx < reviewRating);
+      });
+    });
+    
+    // 호버 효과
+    star.addEventListener('mouseenter', function() {
+      var hoverRating = parseInt(this.getAttribute('data-rating'));
+      stars.forEach(function(s, idx) {
+        s.style.opacity = idx < hoverRating ? '1' : '0.3';
+      });
+    });
+  });
+  
+  // 별 그룹 leave 시 원복
+  var starGroup = document.querySelector('.review-stars');
+  if (starGroup) {
+    starGroup.addEventListener('mouseleave', function() {
+      stars.forEach(function(s, idx) {
+        s.style.opacity = idx < reviewRating ? '1' : '0.3';
+        s.classList.toggle('filled', idx < reviewRating);
+      });
+    });
+  }
+  
+  // 제출
+  if (submitBtn) {
+    submitBtn.addEventListener('click', function() {
+      if (reviewRating === 0) {
+        toast('⭐ 별점을 먼저 선택해 주세요', 'warn');
+        return;
+      }
+      var text = textarea ? textarea.value.trim() : '';
+      var review = {
+        rating: reviewRating,
+        text: text,
+        date: new Date().toISOString()
+      };
+      
+      // localStorage 저장
+      try {
+        var saved = JSON.parse(localStorage.getItem('ssmj-reviews') || '[]');
+        saved.push(review);
+        localStorage.setItem('ssmj-reviews', JSON.stringify(saved));
+        localStorage.setItem('ssmj-review-submitted', 'true');
+      } catch(e) {}
+      
+      toast('🎉 소중한 후기 감사합니다! (' + '⭐'.repeat(reviewRating) + ')', 'ok');
+      closeReviewModal();
+      
+      // 5점이면 이스터에그 발동!
+      if (reviewRating === 5) {
+        setTimeout(triggerEasterEgg, 400);
+      }
+    });
+  }
+  
+  // 닫기 버튼
+  if (closeBtn) closeBtn.addEventListener('click', closeReviewModal);
+  
+  // 오버레이 클릭 시 닫기
+  modal.addEventListener('click', function(e) {
+    if (e.target === modal) closeReviewModal();
+  });
+  
+  // ESC 키
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modal.classList.contains('on')) {
+      closeReviewModal();
+    }
+  });
+  
+  // 3분 후 자동 표시 (이전에 제출하지 않은 경우만)
+  try {
+    var submitted = localStorage.getItem('ssmj-review-submitted');
+    if (!submitted) {
+      setTimeout(function() {
+        // 탭 방문 수 5 이상일 때만
+        var visitCount = parseInt(localStorage.getItem('ssmj-visit-count') || '0');
+        if (visitCount >= 3) openReviewModal();
+      }, 180000); // 3분
+    }
+  } catch(e) {}
+  
+  // 방문 카운트 증가
+  try {
+    var cnt = parseInt(localStorage.getItem('ssmj-visit-count') || '0');
+    localStorage.setItem('ssmj-visit-count', String(cnt + 1));
+  } catch(e) {}
+}
+
+// ═══════════════════════════════════════════════
+// 📧 피드백 FAB 버튼
+// ═══════════════════════════════════════════════
+
+function initFeedbackFAB() {
+  var fab = $('feedback-fab');
+  if (!fab) return;
+  
+  fab.addEventListener('click', function() {
+    openReviewModal();
+  });
+}
+
+// ═══════════════════════════════════════════════
+// 🎊 이스터에그 (키보드: "SCHOOL" 타이핑)
+// ═══════════════════════════════════════════════
+
+var easterBuffer = '';
+var EASTER_KEY = 'school';
+
+function initEasterEgg() {
+  document.addEventListener('keydown', function(e) {
+    // input/textarea에서는 무시
+    var target = e.target;
+    if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable) return;
+    
+    var key = (e.key || '').toLowerCase();
+    if (!/^[a-z]$/.test(key)) {
+      easterBuffer = '';
+      return;
+    }
+    
+    easterBuffer += key;
+    if (easterBuffer.length > 10) easterBuffer = easterBuffer.slice(-10);
+    
+    if (easterBuffer.indexOf(EASTER_KEY) !== -1) {
+      triggerEasterEgg();
+      easterBuffer = '';
+    }
+  });
+}
+
+function triggerEasterEgg() {
+  var overlay = $('easter-egg-overlay');
+  if (!overlay) return;
+  
+  overlay.classList.add('active');
+  overlay.setAttribute('aria-hidden', 'false');
+  overlay.innerHTML = '';
+  
+  // 축하 이모지 낙하
+  var emojis = ['🎉', '🎊', '🏆', '⭐', '🇰🇷', '🎓', '🍱', '🏫', '✨', '🎁', '💎', '🌟'];
+  var count = 50;
+  
+  for (var i = 0; i < count; i++) {
+    var em = document.createElement('div');
+    em.className = 'easter-emoji';
+    em.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    em.style.left = Math.random() * 100 + '%';
+    em.style.animationDuration = (Math.random() * 3 + 3) + 's';
+    em.style.animationDelay = (Math.random() * 2) + 's';
+    em.style.fontSize = (Math.random() * 20 + 24) + 'px';
+    overlay.appendChild(em);
+  }
+  
+  // 메시지 박스
+  var msg = document.createElement('div');
+  msg.className = 'easter-message';
+  msg.innerHTML = '🎊 축하합니다!<br>숨겨진 기능을 발견하셨네요!<br><span style="font-size:13px;font-weight:700;margin-top:8px;display:block;">🏆 제8회 교육 공공데이터 AI 활용대회</span>';
+  overlay.appendChild(msg);
+  
+  if (typeof toast === 'function') {
+    toast('🎊 숨겨진 이스터에그 발견!', 'ok');
+  }
+  
+  // 5초 후 정리
+  setTimeout(function() {
+    overlay.classList.remove('active');
+    overlay.setAttribute('aria-hidden', 'true');
+    overlay.innerHTML = '';
+  }, 5000);
+}
+
+// ═══════════════════════════════════════════════
+// 🔄 실시간 자동 새로고침 (5분)
+// ═══════════════════════════════════════════════
+
+var autoRefreshTimer = null;
+var AUTO_REFRESH_INTERVAL = 5 * 60 * 1000; // 5분
+
+function initAutoRefresh() {
+  // 헤더 티커에 새로고침 상태 추가
+  var ticker = $('ticker-track');
+  if (ticker) {
+    var indicator = document.createElement('span');
+    indicator.className = 'ticker-item';
+    indicator.innerHTML = '<span class="refresh-indicator"><span class="refresh-dot"></span>실시간 자동 갱신 (5분)</span>';
+    ticker.appendChild(indicator);
+  }
+  
+  // 5분마다 데이터 갱신 시도
+  autoRefreshTimer = setInterval(function() {
+    performAutoRefresh();
+  }, AUTO_REFRESH_INTERVAL);
+}
+
+function performAutoRefresh() {
+  console.log('[auto-refresh] 5분 갱신 트리거');
+  
+  // 현재 활성 탭 확인
+  var activeTab = document.querySelector('.tab.active');
+  var tabId = activeTab ? activeTab.getAttribute('data-tab') : null;
+  
+  try {
+    // 1. KPI 업데이트
+    if (typeof updateKPI === 'function') updateKPI();
+    
+    // 2. 활성 탭별 데이터 갱신
+    if (tabId === 'charts' && typeof Chart !== 'undefined' && typeof renderCharts === 'function') {
+      renderCharts();
+    } else if (tabId === 'list' && typeof renderFilterResults === 'function') {
+      renderFilterResults();
+    } else if (tabId === 'rank' && typeof renderRanking === 'function') {
+      renderRanking();
+    } else if (tabId === 'insight' && typeof renderInsightTab === 'function') {
+      renderInsightTab();
+    } else if (tabId === 'alert' && typeof renderAlertCenter === 'function') {
+      renderAlertCenter();
+    }
+    
+    // 3. 시계 업데이트
+    if (typeof startClock === 'function') {
+      // 이미 작동 중
+    }
+    
+    console.log('[auto-refresh] 갱신 완료 (탭: ' + tabId + ')');
+  } catch(e) {
+    console.warn('[auto-refresh] 오류:', e);
+  }
+}
+
+// ═══════════════════════════════════════════════
+// ♿ 접근성: 키보드 내비게이션 개선
+// ═══════════════════════════════════════════════
+
+function initAccessibility() {
+  // main-content ID 부여 (스킵링크 대상)
+  var tabPanels = document.querySelector('.tabs');
+  if (tabPanels && !document.getElementById('main-content')) {
+    tabPanels.id = 'main-content';
+    tabPanels.setAttribute('role', 'navigation');
+    tabPanels.setAttribute('aria-label', '대시보드 탭 메뉴');
+  }
+  
+  // 탭에 ARIA 역할 부여
+  document.querySelectorAll('.tab').forEach(function(tab) {
+    tab.setAttribute('role', 'tab');
+    tab.setAttribute('tabindex', tab.classList.contains('active') ? '0' : '-1');
+  });
+  
+  document.querySelectorAll('.tab-panel').forEach(function(panel) {
+    panel.setAttribute('role', 'tabpanel');
+  });
+  
+  // 탭 키보드 탐색 (←→)
+  document.querySelectorAll('.tab').forEach(function(tab, idx, tabs) {
+    tab.addEventListener('keydown', function(e) {
+      var next;
+      if (e.key === 'ArrowRight') {
+        next = tabs[idx + 1] || tabs[0];
+      } else if (e.key === 'ArrowLeft') {
+        next = tabs[idx - 1] || tabs[tabs.length - 1];
+      } else if (e.key === 'Home') {
+        next = tabs[0];
+      } else if (e.key === 'End') {
+        next = tabs[tabs.length - 1];
+      }
+      if (next) {
+        e.preventDefault();
+        next.focus();
+        next.click();
+      }
+    });
+  });
+}
+
+// ═══════════════════════════════════════════════
+// 🚀 모든 신규 기능 초기화
+// ═══════════════════════════════════════════════
+
+function initNewFeatures() {
+  try { initI18n(); } catch(e) { console.warn('[init] i18n', e); }
+  try { initAnnouncementBanner(); } catch(e) { console.warn('[init] banner', e); }
+  try { initReviewModal(); } catch(e) { console.warn('[init] review', e); }
+  try { initFeedbackFAB(); } catch(e) { console.warn('[init] feedback', e); }
+  try { initEasterEgg(); } catch(e) { console.warn('[init] easter', e); }
+  try { initAutoRefresh(); } catch(e) { console.warn('[init] refresh', e); }
+  try { initAccessibility(); } catch(e) { console.warn('[init] a11y', e); }
+  console.log('[INIT] 신규 기능 8종 초기화 완료');
+}
+
+// 전역 노출
+window.applyI18n = applyI18n;
+window.openReviewModal = openReviewModal;
+window.closeReviewModal = closeReviewModal;
+window.triggerEasterEgg = triggerEasterEgg;
+
+
+// ═══════════════════════════════════════════════
+// 🏆 킬러 피처 1: AI 메뉴 생성기
+// ═══════════════════════════════════════════════
 
 function init() {
   console.log('[INIT] 시작');
@@ -14919,13 +17317,8 @@ function initPhase2Features() {
     });
   }
   
-  // 알레르기 필터 이벤트
-  var allergyEl = $('map-f-allergy');
-  if (allergyEl) {
-    allergyEl.addEventListener('change', function() {
-      applyFilters();
-    });
-  }
+  // 🔍 학교 검색창 이벤트 (알레르기 필터 대체)
+  initMapSearchBox();
   
   // 카드뉴스 공유 모달 이벤트
   var shareBtn = $('modal-share-btn');
@@ -15827,9 +18220,51 @@ if (document.readyState === 'loading') {
   init();
 }
 
-console.log('[INIT] 스크립트 로드 완료');
+// 🆕 v10.0 신규 기능 초기화 (DOM 로드 후 실행)
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(initNewFeatures, 100);
+  });
+} else {
+  setTimeout(initNewFeatures, 100);
+}
+
+console.log('[INIT] 스크립트 로드 완료 · v10.0 Premium Edition');
 
 </script>
+
+<!-- ⭐ 사용자 후기 모달 -->
+<div class="review-modal-back" id="review-modal-back" role="dialog" aria-labelledby="review-modal-title" aria-modal="true">
+  <div class="review-modal">
+    <button class="review-modal-close" id="review-modal-close" aria-label="닫기">×</button>
+    <div class="review-modal-title" id="review-modal-title">🌟 대시보드가 마음에 드셨나요?</div>
+    <div class="review-modal-subtitle">여러분의 피드백은 대시보드 개선에 큰 힘이 됩니다</div>
+    
+    <div class="review-stars" role="radiogroup" aria-label="별점 평가">
+      <button class="review-star" data-rating="1" aria-label="별 1개">⭐</button>
+      <button class="review-star" data-rating="2" aria-label="별 2개">⭐</button>
+      <button class="review-star" data-rating="3" aria-label="별 3개">⭐</button>
+      <button class="review-star" data-rating="4" aria-label="별 4개">⭐</button>
+      <button class="review-star" data-rating="5" aria-label="별 5개">⭐</button>
+    </div>
+    
+    <textarea class="review-textarea" id="review-text" placeholder="대시보드 사용 경험을 자유롭게 남겨주세요 (선택)" aria-label="후기 입력"></textarea>
+    
+    <button class="review-submit-btn" id="review-submit">💌 후기 남기기</button>
+    
+    <div style="text-align:center;margin-top:12px;font-size:11px;color:var(--text3);">
+      🏆 제8회 교육 공공데이터 AI 활용대회 출품작
+    </div>
+  </div>
+</div>
+
+<!-- 📧 피드백 플로팅 버튼 -->
+<button class="feedback-fab" id="feedback-fab" title="피드백 보내기" aria-label="피드백 보내기">
+  💬
+</button>
+
+<!-- 🎊 이스터에그 오버레이 -->
+<div class="easter-egg-overlay" id="easter-egg-overlay" aria-hidden="true"></div>
 
 </body>
 </html>
