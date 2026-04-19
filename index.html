@@ -4895,6 +4895,102 @@ tr.favorite { background: rgba(59,158,255,0.04); }
   flex-wrap: wrap;
 }
 
+/* 🎨 SELECT OPTION 강제 스타일 - 다크 테마 가시성 확보 */
+select {
+  color: #e8ecf3 !important;
+  background-color: #1a2234 !important;
+}
+
+select option {
+  background-color: #1a2234 !important;
+  color: #e8ecf3 !important;
+  padding: 8px 12px !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+}
+
+select option:hover,
+select option:focus,
+select option:checked,
+select option:active {
+  background-color: #3b9eff !important;
+  color: #ffffff !important;
+}
+
+/* 황금색 강조 드롭다운의 option */
+.map-filter-group.map-filter-office select option,
+.filter-group.filter-group-office select option,
+.rank-filter-group.rank-filter-office select option {
+  background-color: #1a2234 !important;
+  color: #ffd43b !important;
+  font-weight: 700 !important;
+}
+
+.map-filter-group.map-filter-office select option:hover,
+.map-filter-group.map-filter-office select option:checked,
+.filter-group.filter-group-office select option:hover,
+.filter-group.filter-group-office select option:checked,
+.rank-filter-group.rank-filter-office select option:hover,
+.rank-filter-group.rank-filter-office select option:checked {
+  background-color: #ffd43b !important;
+  color: #0a0f1a !important;
+  font-weight: 800 !important;
+}
+
+/* 첫 번째 "전국" 옵션 특별 강조 */
+.map-filter-group.map-filter-office select option:first-child,
+.filter-group.filter-group-office select option:first-child,
+.rank-filter-group.rank-filter-office select option:first-child {
+  background: linear-gradient(135deg, #1a2234 0%, #2a3045 100%) !important;
+  color: #ffffff !important;
+  font-weight: 800 !important;
+  border-bottom: 1px solid rgba(255, 212, 59, 0.3) !important;
+}
+
+/* Firefox용 추가 지원 */
+@-moz-document url-prefix() {
+  select option {
+    background-color: #1a2234;
+    color: #e8ecf3;
+  }
+}
+
+/* 🎨 시도교육청 드롭다운 전용 강화 스타일 */
+#map-f-office,
+#f-office,
+#rank-f-office {
+  color: #ffffff !important;
+  background-color: #1a2234 !important;
+  font-weight: 700 !important;
+  text-shadow: 0 0 1px rgba(0,0,0,0.5);
+}
+
+/* 선택된 값 표시 시 황금색 */
+#map-f-office option[value="ALL"]:checked,
+#map-f-office option[value="ALL"] {
+  background: linear-gradient(135deg, #ffd43b 0%, #ffa94d 100%) !important;
+  color: #0a0f1a !important;
+  font-weight: 900 !important;
+}
+
+/* Safari/Chrome option 렌더링 강제 */
+select option {
+  -webkit-appearance: none;
+  appearance: none;
+  color: #ffffff !important;
+  background-color: #1a2234 !important;
+}
+
+/* 고대비 모드 대응 */
+@media (prefers-contrast: high) {
+  select option {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+  }
+}
+
+
+
 /* 🏆 킬러 피처 탭 - 대상 수상 3대 무기 */
 .tab.tab-killer {
   position: relative;
@@ -7273,23 +7369,23 @@ tr.favorite { background: rgba(59,158,255,0.04); }
       <label class="map-filter-label">🏛️ 시도교육청</label>
       <select class="map-filter-select" id="map-f-office">
         <option value="ALL">🇰🇷 전국 (모든 시도교육청)</option>
-        <option value="B10">🏙️ 서울특별시</option>
-        <option value="C10">🌊 부산광역시</option>
-        <option value="D10">🏙️ 대구광역시</option>
-        <option value="E10">✈️ 인천광역시</option>
-        <option value="F10">🌸 광주광역시</option>
-        <option value="G10">🏛️ 대전광역시</option>
-        <option value="H10">⚓ 울산광역시</option>
-        <option value="I10">🏛️ 세종특별자치시</option>
-        <option value="J10">🏘️ 경기도</option>
-        <option value="K10">⛰️ 강원특별자치도</option>
-        <option value="M10">🌾 충청북도</option>
-        <option value="N10">🏞️ 충청남도</option>
-        <option value="P10">🌾 전북특별자치도</option>
-        <option value="Q10">🌊 전라남도</option>
-        <option value="R10">⛰️ 경상북도</option>
-        <option value="S10">🍎 경상남도</option>
-        <option value="T10">🏝️ 제주특별자치도</option>
+        <option value="B10">🏙️ B10 · 서울특별시</option>
+        <option value="C10">🌊 C10 · 부산광역시</option>
+        <option value="D10">🏙️ D10 · 대구광역시</option>
+        <option value="E10">✈️ E10 · 인천광역시</option>
+        <option value="F10">🌸 F10 · 광주광역시</option>
+        <option value="G10">🏛️ G10 · 대전광역시</option>
+        <option value="H10">⚓ H10 · 울산광역시</option>
+        <option value="I10">🏛️ I10 · 세종특별자치시</option>
+        <option value="J10">🏘️ J10 · 경기도</option>
+        <option value="K10">⛰️ K10 · 강원특별자치도</option>
+        <option value="M10">🌾 M10 · 충청북도</option>
+        <option value="N10">🏞️ N10 · 충청남도</option>
+        <option value="P10">🌾 P10 · 전북특별자치도</option>
+        <option value="Q10">🌊 Q10 · 전라남도</option>
+        <option value="R10">⛰️ R10 · 경상북도</option>
+        <option value="S10">🍎 S10 · 경상남도</option>
+        <option value="T10">🏝️ T10 · 제주특별자치도</option>
       </select>
     </div>
     <div class="map-filter-group">
@@ -7523,23 +7619,23 @@ tr.favorite { background: rgba(59,158,255,0.04); }
           <div class="filter-label">🏛️ 시도교육청</div>
           <select class="filter-select" id="f-office">
             <option value="">🇰🇷 전국 (전체)</option>
-            <option value="B10">🏙️ 서울특별시</option>
-            <option value="C10">🌊 부산광역시</option>
-            <option value="D10">🏙️ 대구광역시</option>
-            <option value="E10">✈️ 인천광역시</option>
-            <option value="F10">🌸 광주광역시</option>
-            <option value="G10">🏛️ 대전광역시</option>
-            <option value="H10">⚓ 울산광역시</option>
-            <option value="I10">🏛️ 세종특별자치시</option>
-            <option value="J10">🏘️ 경기도</option>
-            <option value="K10">⛰️ 강원특별자치도</option>
-            <option value="M10">🌾 충청북도</option>
-            <option value="N10">🏞️ 충청남도</option>
-            <option value="P10">🌾 전북특별자치도</option>
-            <option value="Q10">🌊 전라남도</option>
-            <option value="R10">⛰️ 경상북도</option>
-            <option value="S10">🍎 경상남도</option>
-            <option value="T10">🏝️ 제주특별자치도</option>
+            <option value="B10">🏙️ B10 · 서울특별시</option>
+            <option value="C10">🌊 C10 · 부산광역시</option>
+            <option value="D10">🏙️ D10 · 대구광역시</option>
+            <option value="E10">✈️ E10 · 인천광역시</option>
+            <option value="F10">🌸 F10 · 광주광역시</option>
+            <option value="G10">🏛️ G10 · 대전광역시</option>
+            <option value="H10">⚓ H10 · 울산광역시</option>
+            <option value="I10">🏛️ I10 · 세종특별자치시</option>
+            <option value="J10">🏘️ J10 · 경기도</option>
+            <option value="K10">⛰️ K10 · 강원특별자치도</option>
+            <option value="M10">🌾 M10 · 충청북도</option>
+            <option value="N10">🏞️ N10 · 충청남도</option>
+            <option value="P10">🌾 P10 · 전북특별자치도</option>
+            <option value="Q10">🌊 Q10 · 전라남도</option>
+            <option value="R10">⛰️ R10 · 경상북도</option>
+            <option value="S10">🍎 S10 · 경상남도</option>
+            <option value="T10">🏝️ T10 · 제주특별자치도</option>
           </select>
         </div>
         <div class="filter-group">
@@ -7675,23 +7771,23 @@ tr.favorite { background: rgba(59,158,255,0.04); }
       <label class="rank-filter-label">🏛️ 시도교육청</label>
       <select class="rank-filter-select" id="rank-f-office">
         <option value="">🇰🇷 전국 (전체 순위)</option>
-        <option value="B10">🏙️ 서울특별시</option>
-        <option value="C10">🌊 부산광역시</option>
-        <option value="D10">🏙️ 대구광역시</option>
-        <option value="E10">✈️ 인천광역시</option>
-        <option value="F10">🌸 광주광역시</option>
-        <option value="G10">🏛️ 대전광역시</option>
-        <option value="H10">⚓ 울산광역시</option>
-        <option value="I10">🏛️ 세종특별자치시</option>
-        <option value="J10">🏘️ 경기도</option>
-        <option value="K10">⛰️ 강원특별자치도</option>
-        <option value="M10">🌾 충청북도</option>
-        <option value="N10">🏞️ 충청남도</option>
-        <option value="P10">🌾 전북특별자치도</option>
-        <option value="Q10">🌊 전라남도</option>
-        <option value="R10">⛰️ 경상북도</option>
-        <option value="S10">🍎 경상남도</option>
-        <option value="T10">🏝️ 제주특별자치도</option>
+        <option value="B10">🏙️ B10 · 서울특별시</option>
+        <option value="C10">🌊 C10 · 부산광역시</option>
+        <option value="D10">🏙️ D10 · 대구광역시</option>
+        <option value="E10">✈️ E10 · 인천광역시</option>
+        <option value="F10">🌸 F10 · 광주광역시</option>
+        <option value="G10">🏛️ G10 · 대전광역시</option>
+        <option value="H10">⚓ H10 · 울산광역시</option>
+        <option value="I10">🏛️ I10 · 세종특별자치시</option>
+        <option value="J10">🏘️ J10 · 경기도</option>
+        <option value="K10">⛰️ K10 · 강원특별자치도</option>
+        <option value="M10">🌾 M10 · 충청북도</option>
+        <option value="N10">🏞️ N10 · 충청남도</option>
+        <option value="P10">🌾 P10 · 전북특별자치도</option>
+        <option value="Q10">🌊 Q10 · 전라남도</option>
+        <option value="R10">⛰️ R10 · 경상북도</option>
+        <option value="S10">🍎 S10 · 경상남도</option>
+        <option value="T10">🏝️ T10 · 제주특별자치도</option>
       </select>
     </div>
     <div class="rank-filter-group">
@@ -10224,7 +10320,7 @@ function updateOfficeFilterCounts() {
     var count = officeCount[code] || 0;
     var countStr = count > 0 ? ' (' + count.toLocaleString() + '교)' : ' (데이터 없음)';
     optionsHtml += '<option value="' + code + '">' + 
-      emojis[code] + ' ' + office.name.replace('교육청', '') + countStr + '</option>';
+      emojis[code] + ' ' + code + ' · ' + office.name.replace('교육청', '') + countStr + '</option>';
   });
   
   fOffice.innerHTML = optionsHtml;
