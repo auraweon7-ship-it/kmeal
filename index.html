@@ -15579,14 +15579,46 @@ function renderMenuTab(meals) {
   // 알레르기 강조 (기본 표시)
   var selectedAllergy = '';
   
-  meals.forEach(function(m, idx) {
-    var date = m.date ? m.date.slice(0,4) + '-' + m.date.slice(4,6) + '-' + m.date.slice(6,8) : '';
-    var dayNames = ['일', '월', '화', '수', '목', '금', '토'];
-    var dayName = '';
-    if (m.date) {
-      var d = new Date(+m.date.slice(0,4), +m.date.slice(4,6)-1, +m.date.slice(6,8));
-      dayName = dayNames[d.getDay()];
+  // 안전한 날짜 파싱 함수
+  function parseDate(dateStr) {
+    if (!dateStr) return { formatted: '', dayName: '' };
+    
+    // 숫자만 추출
+    var digits = String(dateStr).replace(/\D/g, '');
+    
+    // 최소 8자리 필요 (YYYYMMDD)
+    if (digits.length < 8) {
+      return { formatted: '', dayName: '' };
     }
+    
+    // 앞 8자리만 사용
+    digits = digits.slice(0, 8);
+    
+    var year = digits.slice(0, 4);
+    var month = digits.slice(4, 6);
+    var day = digits.slice(6, 8);
+    
+    // 유효성 검사
+    var y = parseInt(year);
+    var m = parseInt(month);
+    var d = parseInt(day);
+    
+    if (y < 2000 || y > 2100 || m < 1 || m > 12 || d < 1 || d > 31) {
+      return { formatted: '', dayName: '' };
+    }
+    
+    var formatted = year + '-' + month + '-' + day;
+    var date = new Date(y, m - 1, d);
+    var dayNames = ['일', '월', '화', '수', '목', '금', '토'];
+    var dayName = dayNames[date.getDay()];
+    
+    return { formatted: formatted, dayName: dayName };
+  }
+  
+  meals.forEach(function(m, idx) {
+    var parsedDate = parseDate(m.date);
+    var date = parsedDate.formatted;
+    var dayName = parsedDate.dayName;
     
     var mealId = 'meal-' + idx;
     var originTableId = 'origin-' + idx;
@@ -15756,8 +15788,11 @@ function renderTimelineTab(meals) {
 
 function drawTimelineCharts(meals) {
   var sorted = meals.slice().sort(function(a, b) { return a.date.localeCompare(b.date); });
-  var labels = sorted.map(function(m) { 
-    return m.date.slice(4, 6) + '/' + m.date.slice(6, 8); 
+  var labels = sorted.map(function(m) {
+    if (!m.date) return '';
+    var digits = String(m.date).replace(/\D/g, '');
+    if (digits.length < 8) return '';
+    return digits.slice(4, 6) + '/' + digits.slice(6, 8);
   });
   var cals = sorted.map(function(m) { return m.calorie || null; });
   var diversity = sorted.map(function(m) {
@@ -15839,8 +15874,15 @@ function renderMonthlyTab(ev, meals) {
   // 요일별 평균 계산
   var dayOfWeek = { 0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [] };
   meals.forEach(function(m) {
-    var d = new Date(+m.date.slice(0,4), +m.date.slice(4,6)-1, +m.date.slice(6,8));
-    if (m.calorie) dayOfWeek[d.getDay()].push(m.calorie);
+    if (!m.date || !m.calorie) return;
+    var digits = String(m.date).replace(/\D/g, '');
+    if (digits.length < 8) return;
+    var y = parseInt(digits.slice(0, 4));
+    var month = parseInt(digits.slice(4, 6));
+    var day = parseInt(digits.slice(6, 8));
+    if (y < 2000 || y > 2100 || month < 1 || month > 12 || day < 1 || day > 31) return;
+    var d = new Date(y, month - 1, day);
+    dayOfWeek[d.getDay()].push(m.calorie);
   });
   
   var dayNames = ['일', '월', '화', '수', '목', '금', '토'];
@@ -17618,7 +17660,13 @@ function callClaudeAPI(school, ev, meals) {
   
   // 최근 7일 식단 요약
   var menuSummary = meals.slice(0, 7).map(function(m) {
-    var date = m.date.slice(4,6) + '/' + m.date.slice(6,8);
+    var date = '';
+    if (m.date) {
+      var digits = String(m.date).replace(/\D/g, '');
+      if (digits.length >= 8) {
+        date = digits.slice(4, 6) + '/' + digits.slice(6, 8);
+      }
+    }
     return date + ': ' + (m.menuList || []).slice(0,5).join(', ') + 
            (m.calorie ? ' (' + m.calorie + 'kcal)' : '');
   }).join('\n');
