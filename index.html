@@ -888,16 +888,365 @@ body {
   }
 }
 
+/* 🆕 지도 + 학교 목록 사이드패널 그리드 */
+.map-with-sidebar {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 12px;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.map-with-sidebar.sidebar-collapsed {
+  grid-template-columns: 1fr 48px;
+}
+
 #map {
   width: 100%; height: 600px;
   border-radius: 12px; overflow: hidden;
   border: 1px solid var(--border);
   background: var(--bg2);
-  margin-bottom: 12px;
+  margin-bottom: 0;            /* 그리드 안에서는 마진 제거 */
   position: relative;
   display: flex; align-items: center; justify-content: center;
   flex-direction: column;
   color: var(--text2);
+}
+
+/* 우측 사이드패널 */
+.map-sidebar {
+  height: 600px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.map-sidebar-head {
+  padding: 12px 14px;
+  background: linear-gradient(135deg, rgba(0, 212, 170, 0.1), rgba(59, 158, 255, 0.05));
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.map-sidebar-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.map-sidebar-icon {
+  font-size: 16px;
+}
+
+.map-sidebar-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 22px;
+  padding: 0 8px;
+  background: linear-gradient(135deg, #00d4aa, #3b9eff);
+  color: #fff;
+  border-radius: 11px;
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.map-sidebar-toggle {
+  background: rgba(122, 144, 184, 0.15);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.map-sidebar-toggle:hover {
+  background: var(--accent);
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* 접힌 상태 */
+.map-sidebar.collapsed {
+  width: 48px;
+}
+
+.map-sidebar.collapsed .map-sidebar-summary,
+.map-sidebar.collapsed .map-sidebar-sort,
+.map-sidebar.collapsed .map-sidebar-list,
+.map-sidebar.collapsed .map-sidebar-footer,
+.map-sidebar.collapsed .map-sidebar-title-text,
+.map-sidebar.collapsed .map-sidebar-count {
+  display: none;
+}
+
+.map-sidebar.collapsed .map-sidebar-toggle::before {
+  content: '◀';
+}
+
+.map-sidebar.collapsed .map-sidebar-head {
+  padding: 12px 8px;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* 학교급 요약 칩 */
+.map-sidebar-summary {
+  padding: 8px 12px;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  background: rgba(13, 21, 37, 0.4);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.map-sidebar-chip {
+  padding: 3px 8px;
+  background: rgba(122, 144, 184, 0.12);
+  border: 1px solid rgba(122, 144, 184, 0.25);
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text2);
+  white-space: nowrap;
+}
+
+.map-sidebar-chip.elem { color: #3b9eff; border-color: rgba(59,158,255,0.35); }
+.map-sidebar-chip.mid { color: #00d4aa; border-color: rgba(0,212,170,0.35); }
+.map-sidebar-chip.high { color: #ffa94d; border-color: rgba(255,169,77,0.35); }
+
+/* 정렬 영역 */
+.map-sidebar-sort {
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  font-size: 11px;
+  color: var(--text3);
+}
+
+.map-sidebar-sort label {
+  font-weight: 700;
+}
+
+.map-sidebar-sort select {
+  flex: 1;
+  padding: 5px 8px;
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  font-size: 11px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.map-sidebar-sort select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* 목록 (스크롤) */
+.map-sidebar-list {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 4px 0;
+}
+
+.map-sidebar-list::-webkit-scrollbar { width: 6px; }
+.map-sidebar-list::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+.map-sidebar-list::-webkit-scrollbar-thumb {
+  background: rgba(0, 212, 170, 0.3);
+  border-radius: 3px;
+}
+.map-sidebar-list::-webkit-scrollbar-thumb:hover { background: rgba(0, 212, 170, 0.5); }
+
+/* 학교 아이템 */
+.map-sidebar-item {
+  display: grid;
+  grid-template-columns: 24px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(30, 45, 69, 0.5);
+  transition: all 0.15s;
+}
+
+.map-sidebar-item:hover {
+  background: rgba(0, 212, 170, 0.08);
+}
+
+.map-sidebar-item:last-child {
+  border-bottom: none;
+}
+
+.map-sidebar-item.is-fav {
+  background: linear-gradient(90deg, rgba(255,212,59,0.08), transparent 50%);
+  border-left: 3px solid #ffd43b;
+}
+
+.map-sidebar-item.is-fav:hover {
+  background: linear-gradient(90deg, rgba(255,212,59,0.15), rgba(0,212,170,0.05));
+}
+
+.map-sidebar-item-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin: 0 auto;
+  border: 1.5px solid #070b14;
+  flex-shrink: 0;
+}
+
+.map-sidebar-item-body {
+  min-width: 0;
+}
+
+.map-sidebar-item-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
+}
+
+.map-sidebar-item-meta {
+  font-size: 10px;
+  color: var(--text3);
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.map-sidebar-item-meta span {
+  white-space: nowrap;
+}
+
+.map-sidebar-item-meta .meta-dot {
+  opacity: 0.5;
+}
+
+.map-sidebar-item-fav {
+  background: transparent;
+  border: none;
+  color: rgba(122, 144, 184, 0.5);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.map-sidebar-item-fav:hover {
+  color: #ffd43b;
+  transform: scale(1.2);
+}
+
+.map-sidebar-item-fav.active {
+  color: #ffd43b;
+  text-shadow: 0 0 8px rgba(255, 212, 59, 0.6);
+}
+
+/* 빈 상태 */
+.map-sidebar-empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 20px;
+  text-align: center;
+  color: var(--text3);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.map-sidebar-empty-icon {
+  font-size: 36px;
+  margin-bottom: 12px;
+  opacity: 0.4;
+}
+
+/* 푸터 */
+.map-sidebar-footer {
+  padding: 8px 12px;
+  border-top: 1px solid var(--border);
+  font-size: 10px;
+  color: var(--text3);
+  text-align: center;
+  background: rgba(13, 21, 37, 0.4);
+  font-family: var(--ff-mono);
+  flex-shrink: 0;
+}
+
+/* 모바일 반응형 - 사이드패널을 지도 아래로 이동 */
+@media (max-width: 1024px) {
+  .map-with-sidebar {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .map-with-sidebar.sidebar-collapsed {
+    grid-template-columns: 1fr;
+  }
+  
+  .map-sidebar {
+    height: 320px;
+  }
+  
+  .map-sidebar.collapsed {
+    width: 100%;
+    height: 48px;
+  }
+  
+  .map-sidebar.collapsed .map-sidebar-head {
+    flex-direction: row;
+    padding: 12px 14px;
+  }
+  
+  .map-sidebar.collapsed .map-sidebar-title-text,
+  .map-sidebar.collapsed .map-sidebar-count {
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 640px) {
+  .map-sidebar {
+    height: 280px;
+  }
+  
+  .map-sidebar-item {
+    padding: 7px 10px;
+  }
+  
+  .map-sidebar-item-name { font-size: 11px; }
+  .map-sidebar-item-meta { font-size: 9px; }
 }
 
 .leaflet-container {
@@ -905,50 +1254,105 @@ body {
   font-family: inherit;
 }
 
+/* 🗾 Leaflet 한글 라벨 레이어 (행정구역 동까지 가독성 강화) */
+.leaflet-labels-layer {
+  filter: brightness(1.25) contrast(1.3) saturate(0.9);
+  mix-blend-mode: lighten;             /* 다크 배경 위에서 글자 잘 보이게 */
+}
+
+/* OSM 한글 라벨 레이어 - 다크 톤에 어울리게 색상 반전 + 톤 다운 */
+.leaflet-osm-kor-labels {
+  filter: invert(0.92) hue-rotate(180deg) brightness(1.05) contrast(1.1) saturate(0.4);
+  mix-blend-mode: lighten;
+  transition: opacity 0.4s ease;
+  pointer-events: none;                /* 마우스 이벤트 통과 → 마커 클릭 가능 */
+}
+
+/* 줌인 시 행정구역 라벨 강조 (지도 컨트롤 영역) */
+.leaflet-container .leaflet-tile-pane {
+  filter: brightness(0.95);
+}
+
+/* 🖱️ Leaflet 마커 호버 인터랙션 (마우스 커서) */
+.leaflet-interactive {
+  cursor: pointer;
+  transition: stroke-width 0.15s ease, fill-opacity 0.15s ease;
+}
+
+.leaflet-canvas-icon-layer {
+  cursor: pointer;
+}
+
+/* 🌙 Leaflet 팝업 다크 테마 강제 적용 (가독성 최우선) */
 .leaflet-popup-content-wrapper {
-  background: var(--card);
-  color: var(--text);
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.6);
-  padding: 0;
+  background: #1a2234 !important;          /* 다크 네이비 배경 강제 */
+  color: #e8ecf3 !important;               /* 밝은 글자색 강제 */
+  border-radius: 12px !important;
+  border: 1px solid rgba(0, 212, 170, 0.35) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7) !important;
+  padding: 0 !important;
 }
 
 .leaflet-popup-content {
   margin: 0 !important;
-  font-size: 13px;
-  line-height: 1.5;
-  min-width: 220px;
+  font-size: 13px !important;
+  line-height: 1.5 !important;
+  min-width: 240px !important;
+  color: #e8ecf3 !important;
 }
 
-.leaflet-popup-tip { background: var(--card); }
+/* 팝업 꼬리(삼각형)도 다크 배경 */
+.leaflet-popup-tip {
+  background: #1a2234 !important;
+  border: 1px solid rgba(0, 212, 170, 0.35) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* 닫기 버튼 (X) 가독성 */
+.leaflet-popup-close-button {
+  color: #c6d0e3 !important;
+  font-size: 22px !important;
+  font-weight: 700 !important;
+  padding: 6px 10px 0 0 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  transition: all 0.2s ease;
+}
+
+.leaflet-popup-close-button:hover {
+  color: #ff6b6b !important;
+  transform: scale(1.15);
+}
 
 /* 🆕 팝업 카드 컨테이너 */
 .popup-card {
-  padding: 12px 14px;
-  line-height: 1.5;
-  font-family: inherit;
+  padding: 14px 16px !important;
+  line-height: 1.5 !important;
+  font-family: inherit !important;
+  color: #e8ecf3 !important;
 }
 
 /* 🆕 팝업 헤더: 학교명 + 즐겨찾기 버튼 */
 .popup-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 10px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid rgba(122, 144, 184, 0.2);
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  margin-bottom: 12px !important;
+  padding-bottom: 10px !important;
+  padding-right: 24px !important;          /* 닫기 버튼 공간 확보 */
+  border-bottom: 1px solid rgba(122, 144, 184, 0.25) !important;
 }
 
 .popup-title {
-  font-size: 14px;
-  font-weight: 800;
-  color: var(--text);
-  line-height: 1.3;
-  flex: 1;
-  min-width: 0;
-  word-break: keep-all;
+  font-size: 15px !important;              /* 14 → 15 키움 */
+  font-weight: 800 !important;
+  color: #ffffff !important;               /* 순수 흰색으로 강조 */
+  line-height: 1.3 !important;
+  flex: 1 !important;
+  min-width: 0 !important;
+  word-break: keep-all !important;
+  letter-spacing: -0.2px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 /* ⭐ 즐겨찾기 버튼 */
@@ -1014,44 +1418,47 @@ body {
 }
 
 .popup-info-line {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  margin-bottom: 6px;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 6px !important;
+  margin-bottom: 8px !important;
 }
 
 .popup-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  padding: 3px 8px;
-  background: rgba(30, 45, 69, 0.5);
-  border: 1px solid rgba(122, 144, 184, 0.3);
-  border-radius: 10px;
-  font-size: 10px;
-  font-weight: 700;
-  color: var(--text2);
-  white-space: nowrap;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  padding: 4px 10px !important;          /* 패딩 증가 */
+  background: rgba(13, 21, 37, 0.7) !important;
+  border: 1.5px solid rgba(122, 144, 184, 0.4) !important;
+  border-radius: 12px !important;
+  font-size: 11px !important;             /* 10 → 11 키움 */
+  font-weight: 700 !important;
+  color: #c6d0e3 !important;              /* 명확한 밝은 회색 */
+  white-space: nowrap !important;
+  letter-spacing: -0.1px;
 }
 
 .popup-office-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 3px 8px;
-  background: rgba(255, 212, 59, 0.15);
-  color: #ffd43b;
-  border: 1px solid rgba(255, 212, 59, 0.3);
-  border-radius: 10px;
-  font-size: 10px;
-  font-weight: 800;
-  white-space: nowrap;
+  display: inline-flex !important;
+  align-items: center !important;
+  padding: 4px 10px !important;
+  background: rgba(255, 212, 59, 0.18) !important;
+  color: #ffd43b !important;
+  border: 1.5px solid rgba(255, 212, 59, 0.4) !important;
+  border-radius: 12px !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  white-space: nowrap !important;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
 }
 
 .popup-info-meta {
-  font-size: 11px;
-  color: var(--text3);
-  margin-top: 6px;
-  line-height: 1.6;
+  font-size: 12px !important;             /* 11 → 12 키움 */
+  color: #b8c2d4 !important;              /* text3 → 더 밝게 */
+  margin-top: 8px !important;
+  line-height: 1.7 !important;
+  font-weight: 500;
 }
 
 /* 🆕 액션 버튼 그룹 */
@@ -9394,19 +9801,63 @@ select option {
     <button class="map-filter-reset" id="map-f-reset" title="지도 필터 초기화">✕ 초기화</button>
   </div>
   
-  <div id="map">
-    <div style="text-align:center;">
-      <span class="spinner" style="margin-bottom:12px;"></span>
-      <div style="font-size:12px;">지도 로딩 중...</div>
+  <!-- 🆕 지도 + 학교 목록 사이드패널 그리드 -->
+  <div class="map-with-sidebar">
+    <div id="map">
+      <div style="text-align:center;">
+        <span class="spinner" style="margin-bottom:12px;"></span>
+        <div style="font-size:12px;">지도 로딩 중...</div>
+      </div>
     </div>
+    
+    <!-- 🆕 우측 학교 목록 사이드패널 -->
+    <aside class="map-sidebar" id="map-sidebar" aria-label="필터된 학교 목록">
+      <div class="map-sidebar-head">
+        <div class="map-sidebar-title">
+          <span class="map-sidebar-icon">🏫</span>
+          <span class="map-sidebar-title-text">학교 목록</span>
+          <span class="map-sidebar-count" id="map-sidebar-count">0</span>
+        </div>
+        <button class="map-sidebar-toggle" id="map-sidebar-toggle" 
+                aria-label="목록 접기/펼치기" title="접기/펼치기">▶</button>
+      </div>
+      
+      <div class="map-sidebar-summary" id="map-sidebar-summary">
+        <span class="map-sidebar-chip elem">🔵 초 0</span>
+        <span class="map-sidebar-chip mid">🟢 중 0</span>
+        <span class="map-sidebar-chip high">🟠 고 0</span>
+      </div>
+      
+      <div class="map-sidebar-sort">
+        <label for="map-sidebar-sort-select">정렬:</label>
+        <select id="map-sidebar-sort-select" aria-label="학교 정렬 방식">
+          <option value="name">가나다순</option>
+          <option value="district">시군구순</option>
+          <option value="type">학교급순</option>
+          <option value="fav">즐겨찾기순</option>
+        </select>
+      </div>
+      
+      <div class="map-sidebar-list" id="map-sidebar-list">
+        <div class="map-sidebar-empty">
+          <div class="map-sidebar-empty-icon">📍</div>
+          <div>지도에서 필터를 선택하면<br>학교 목록이 표시됩니다</div>
+        </div>
+      </div>
+      
+      <div class="map-sidebar-footer">
+        <span id="map-sidebar-footer-text">전체 — 개</span>
+      </div>
+    </aside>
   </div>
+  
   <div class="map-legend">
     <div class="legend-item"><span class="legend-dot" style="background:#3b9eff;"></span>초등학교</div>
     <div class="legend-item"><span class="legend-dot" style="background:#00d4aa;"></span>중학교</div>
     <div class="legend-item"><span class="legend-dot" style="background:#ffa94d;"></span>고등학교</div>
   </div>
   <div style="font-size:11px;color:var(--text3);text-align:center;margin-top:8px;">
-    마커 탭 → 상세 분석 · 우측 버튼 → 라벨 ON/OFF · 필터 변경 시 즉시 반영
+    🖱️ 마커 호버 → 미리보기 · 클릭 → 팝업 고정 · 우측 버튼 → 라벨 ON/OFF · 필터 변경 시 즉시 반영
   </div>
 </div>
 
@@ -11234,17 +11685,58 @@ function initLeafletMap() {
   
   map = L.map('map', { 
     zoomControl: true,
-    preferCanvas: true  // 다량 마커 성능 최적화
+    preferCanvas: true,                    // 다량 마커 성능 최적화
+    closePopupOnClick: false               // 🆕 지도 클릭으로 팝업 자동 닫힘 방지 (호버 UX와 충돌 방지)
   }).setView([centerLat, centerLng], zoomLevel);
   
   // 🆕 전역 접근 가능하게 저장 (switchEduOffice에서 사용)
   window.mapInstance = map;
   
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+  // 🆕 다크 베이스 타일 (라벨 없는 깔끔한 배경)
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
     maxZoom: 19,
+    minZoom: 6,
     attribution: '&copy; OpenStreetMap &copy; CARTO',
-    subdomains: 'abcd'
+    subdomains: 'abcd',
+    detectRetina: true
   }).addTo(map);
+  
+  // 🆕 한글 라벨 레이어 (행정구역명, 동까지 자세히)
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png', {
+    maxZoom: 19,
+    minZoom: 6,
+    attribution: '',
+    subdomains: 'abcd',
+    detectRetina: true,
+    pane: 'overlayPane',                  // 마커 아래 라벨 위
+    opacity: 0.95,
+    className: 'leaflet-labels-layer'      // CSS 강조용
+  }).addTo(map);
+  
+  // 🆕 OpenStreetMap 한글 행정 라벨 (동 단위 보강) - 줌 14+ 에서만
+  var korLabelLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    minZoom: 14,                          // 동까지 보려면 줌 14 이상
+    attribution: '&copy; OpenStreetMap',
+    subdomains: 'abc',
+    detectRetina: true,
+    opacity: 0,                           // 처음엔 투명
+    className: 'leaflet-osm-kor-labels',
+    pane: 'overlayPane'
+  });
+  korLabelLayer.addTo(map);
+  
+  // 🆕 줌 레벨에 따라 한글 라벨 레이어 fade in
+  map.on('zoomend', function() {
+    var z = map.getZoom();
+    if (z >= 14) {
+      korLabelLayer.setOpacity(0.55);    // 동 단위 자세한 라벨 표시
+    } else if (z >= 12) {
+      korLabelLayer.setOpacity(0.25);    // 구/시 단위 약하게
+    } else {
+      korLabelLayer.setOpacity(0);        // 광역 줌에서는 숨김
+    }
+  });
   
   markerLayer = L.layerGroup();
   map.addLayer(markerLayer);
@@ -11321,7 +11813,102 @@ function renderLeafletMap() {
       });
     }
     
-    marker.on('click', function() { currentSchool = school; });
+    // 클릭: currentSchool 설정 + 팝업 고정 (계속 열림 상태 유지)
+    marker.on('click', function() {
+      currentSchool = school;
+      // 클릭한 마커는 호버 닫기 대상에서 제외 (사용자가 명시적으로 봄)
+      marker._popupPinned = true;
+    });
+    
+    // 🆕 호버 시 팝업 자동 표시 (200ms 지연 → 우발적 호버 방지)
+    // 터치 디바이스에서는 비활성화 (의도하지 않은 팝업 방지)
+    var isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    var hoverOpenTimer = null;
+    var hoverCloseTimer = null;
+    
+    if (!isTouchDevice) {
+      marker.on('mouseover', function() {
+      // 닫기 예약 중이면 취소
+      if (hoverCloseTimer) {
+        clearTimeout(hoverCloseTimer);
+        hoverCloseTimer = null;
+      }
+      // 이미 다른 마커 팝업이 호버로 열려있다면 즉시 닫기
+      if (window._lastHoverMarker && 
+          window._lastHoverMarker !== marker && 
+          !window._lastHoverMarker._popupPinned) {
+        try { window._lastHoverMarker.closePopup(); } catch(e) {}
+      }
+      
+      // 마커 시각 강조 (반경 확대)
+      try {
+        marker.setStyle({ radius: 8, weight: 2.5, fillOpacity: 1 });
+      } catch(e) {}
+      
+      // 200ms 지연 후 열기 (마우스가 잠깐 스치는 경우 방지)
+      hoverOpenTimer = setTimeout(function() {
+        if (!marker.isPopupOpen()) {
+          marker.openPopup();
+        }
+        window._lastHoverMarker = marker;
+      }, 200);
+    });
+    
+    marker.on('mouseout', function() {
+      // 열기 예약 중이면 취소
+      if (hoverOpenTimer) {
+        clearTimeout(hoverOpenTimer);
+        hoverOpenTimer = null;
+      }
+      
+      // 마커 스타일 원복
+      try {
+        marker.setStyle({ radius: 5, weight: 1.5, fillOpacity: 0.9 });
+      } catch(e) {}
+      
+      // 클릭으로 고정된 팝업은 닫지 않음
+      if (marker._popupPinned) return;
+      
+      // 300ms 지연 닫기 (사용자가 팝업으로 마우스 이동할 시간 확보)
+      hoverCloseTimer = setTimeout(function() {
+        if (marker.isPopupOpen() && !marker._popupPinned) {
+          marker.closePopup();
+        }
+      }, 300);
+    });
+    } // 🆕 if (!isTouchDevice) 종료
+    
+    // 팝업 닫힐 때 고정 해제
+    marker.on('popupclose', function() {
+      marker._popupPinned = false;
+      try {
+        marker.setStyle({ radius: 5, weight: 1.5, fillOpacity: 0.9 });
+      } catch(e) {}
+    });
+    
+    // 🆕 팝업 열릴 때 → 팝업 DOM에 호버 이벤트 부착 (마우스가 팝업 위에 있으면 닫지 않음)
+    marker.on('popupopen', function(e) {
+      var popupEl = e.popup.getElement();
+      if (!popupEl) return;
+      
+      // 팝업으로 진입 → 닫기 예약 취소
+      popupEl.addEventListener('mouseenter', function() {
+        if (hoverCloseTimer) {
+          clearTimeout(hoverCloseTimer);
+          hoverCloseTimer = null;
+        }
+      });
+      
+      // 팝업에서 나감 → 닫기 예약 (클릭 고정 안 됐을 때만)
+      popupEl.addEventListener('mouseleave', function() {
+        if (marker._popupPinned) return;
+        hoverCloseTimer = setTimeout(function() {
+          if (marker.isPopupOpen() && !marker._popupPinned) {
+            marker.closePopup();
+          }
+        }, 250);
+      });
+    });
     
     markerLayer.addLayer(marker);
     
@@ -11547,7 +12134,244 @@ function renderSVGMap() {
 function renderMap() {
   if (useLeaflet) renderLeafletMap();
   else renderSVGMap();
+  // 🆕 지도 우측 사이드패널 학교 목록 동기 갱신
+  try { renderMapSidebar(); } catch(e) { console.warn('[map-sidebar]', e); }
 }
+
+// ═══════════════════════════════════════════════
+// 🆕 지도 우측 학교 목록 사이드패널
+// ═══════════════════════════════════════════════
+
+var mapSidebarSort = 'name'; // 'name' | 'district' | 'type' | 'fav'
+
+function renderMapSidebar() {
+  var listEl = $('map-sidebar-list');
+  var countEl = $('map-sidebar-count');
+  var summaryEl = $('map-sidebar-summary');
+  var footerEl = $('map-sidebar-footer-text');
+  if (!listEl) return;
+  
+  var list = (filtered || []).slice();
+  
+  // 학교급 카운트
+  var elem = 0, mid = 0, high = 0;
+  list.forEach(function(s) {
+    if (s.type === '초등학교') elem++;
+    else if (s.type === '중학교') mid++;
+    else if (s.type === '고등학교') high++;
+  });
+  
+  // 카운트/요약 갱신
+  if (countEl) countEl.textContent = list.length.toLocaleString();
+  if (summaryEl) {
+    summaryEl.innerHTML = 
+      '<span class="map-sidebar-chip elem">🔵 초 ' + elem.toLocaleString() + '</span>' +
+      '<span class="map-sidebar-chip mid">🟢 중 ' + mid.toLocaleString() + '</span>' +
+      '<span class="map-sidebar-chip high">🟠 고 ' + high.toLocaleString() + '</span>';
+  }
+  
+  // 빈 결과 처리
+  if (list.length === 0) {
+    listEl.innerHTML = '<div class="map-sidebar-empty">' +
+      '<div class="map-sidebar-empty-icon">📍</div>' +
+      '<div>조건에 맞는 학교가 없습니다<br>필터를 조정해보세요</div>' +
+      '</div>';
+    if (footerEl) footerEl.textContent = '0개 학교 표시';
+    return;
+  }
+  
+  // 정렬
+  if (mapSidebarSort === 'name') {
+    list.sort(function(a, b) { return (a.fullName || '').localeCompare(b.fullName || '', 'ko'); });
+  } else if (mapSidebarSort === 'district') {
+    list.sort(function(a, b) {
+      var d = (a.district || '').localeCompare(b.district || '', 'ko');
+      return d !== 0 ? d : (a.fullName || '').localeCompare(b.fullName || '', 'ko');
+    });
+  } else if (mapSidebarSort === 'type') {
+    var typeOrder = { '초등학교': 1, '중학교': 2, '고등학교': 3 };
+    list.sort(function(a, b) {
+      var t = (typeOrder[a.type] || 99) - (typeOrder[b.type] || 99);
+      return t !== 0 ? t : (a.fullName || '').localeCompare(b.fullName || '', 'ko');
+    });
+  } else if (mapSidebarSort === 'fav') {
+    list.sort(function(a, b) {
+      var af = favorites.has(a.id) ? 0 : 1;
+      var bf = favorites.has(b.id) ? 0 : 1;
+      return af !== bf ? af - bf : (a.fullName || '').localeCompare(b.fullName || '', 'ko');
+    });
+  }
+  
+  // 성능: 최대 500개만 DOM에 렌더 (전국 모드 대응)
+  var MAX = 500;
+  var truncated = list.length > MAX;
+  var rows = list.slice(0, MAX);
+  
+  // HTML 생성
+  var html = rows.map(function(s) {
+    var color = s.type === '초등학교' ? '#3b9eff' : 
+                s.type === '중학교' ? '#00d4aa' : 
+                s.type === '고등학교' ? '#ffa94d' : '#7a90b8';
+    var isFav = favorites.has(s.id);
+    var name = s.fullName || s.name || '학교';
+    var district = s.district || '';
+    var type = s.type || '';
+    
+    var officeBadge = '';
+    if (s.officeCode && EDU_OFFICES && EDU_OFFICES[s.officeCode] && currentOffice === 'ALL') {
+      officeBadge = '<span>· 🏛️ ' + EDU_OFFICES[s.officeCode].short + '</span>';
+    }
+    
+    return '<div class="map-sidebar-item' + (isFav ? ' is-fav' : '') + '" ' +
+      'data-school-id="' + s.id + '" ' +
+      'onclick="focusMapSchool(' + s.id + ')" ' +
+      'title="' + escapeHTML(name) + ' · ' + escapeHTML(district) + '">' +
+      '<div class="map-sidebar-item-dot" style="background:' + color + '"></div>' +
+      '<div class="map-sidebar-item-body">' +
+        '<div class="map-sidebar-item-name">' + escapeHTML(name) + '</div>' +
+        '<div class="map-sidebar-item-meta">' +
+          '<span>' + escapeHTML(type) + '</span>' +
+          (district ? '<span class="meta-dot">·</span><span>' + escapeHTML(district) + '</span>' : '') +
+          officeBadge +
+        '</div>' +
+      '</div>' +
+      '<button class="map-sidebar-item-fav' + (isFav ? ' active' : '') + '" ' +
+        'data-school-id="' + s.id + '" ' +
+        'aria-label="' + (isFav ? '즐겨찾기 해제' : '즐겨찾기 추가') + '" ' +
+        'title="' + (isFav ? '즐겨찾기 해제' : '즐겨찾기 추가') + '">' +
+        (isFav ? '⭐' : '☆') +
+      '</button>' +
+      '</div>';
+  }).join('');
+  
+  if (truncated) {
+    html += '<div class="map-sidebar-empty" style="padding:14px;font-size:11px;">' +
+      '⚠️ ' + list.length.toLocaleString() + '개 중 상위 ' + MAX + '개만 표시<br>' +
+      '필터를 추가하여 학교 수를 줄여보세요' +
+      '</div>';
+  }
+  
+  listEl.innerHTML = html;
+  
+  // 즐겨찾기 버튼 이벤트
+  listEl.querySelectorAll('.map-sidebar-item-fav').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var sid = parseInt(this.getAttribute('data-school-id'));
+      toggleSidebarFav(sid, this);
+    });
+  });
+  
+  // 푸터
+  if (footerEl) {
+    footerEl.textContent = truncated 
+      ? '총 ' + list.length.toLocaleString() + '교 (상위 ' + MAX + '교 표시)'
+      : '전체 ' + list.length.toLocaleString() + '교 표시';
+  }
+}
+
+// 🆕 사이드패널에서 학교 클릭 → 지도 이동
+function focusMapSchool(schoolId) {
+  var school = schools.find(function(s) { return s.id === schoolId; });
+  if (!school) return;
+  
+  if (typeof highlightSchoolOnMap === 'function') {
+    highlightSchoolOnMap(school);
+  } else if (window.mapInstance && school.lat && school.lng) {
+    window.mapInstance.flyTo([school.lat, school.lng], 16, { duration: 1.2 });
+    setTimeout(function() {
+      if (window.mapMarkers && window.mapMarkers[school.id]) {
+        window.mapMarkers[school.id].openPopup();
+      }
+    }, 1300);
+  }
+  
+  toast('🎯 ' + (school.fullName || school.name), 'info');
+}
+
+// 🆕 사이드패널 즐겨찾기 토글
+function toggleSidebarFav(schoolId, btnEl) {
+  var isFav = favorites.has(schoolId);
+  
+  if (isFav) favorites.delete(schoolId);
+  else favorites.add(schoolId);
+  
+  try {
+    localStorage.setItem('ssmj-fav', JSON.stringify(Array.from(favorites)));
+  } catch(e) {}
+  
+  var nowFav = favorites.has(schoolId);
+  
+  // 버튼 즉시 업데이트
+  if (btnEl) {
+    btnEl.classList.toggle('active', nowFav);
+    btnEl.textContent = nowFav ? '⭐' : '☆';
+    btnEl.setAttribute('title', nowFav ? '즐겨찾기 해제' : '즐겨찾기 추가');
+    btnEl.setAttribute('aria-label', nowFav ? '즐겨찾기 해제' : '즐겨찾기 추가');
+    
+    var row = btnEl.closest('.map-sidebar-item');
+    if (row) row.classList.toggle('is-fav', nowFav);
+  }
+  
+  // 헤더 카운트 동기
+  var favCountEl = $('badge-fav-count');
+  if (favCountEl) favCountEl.textContent = favorites.size;
+  
+  var school = schools.find(function(s) { return s.id === schoolId; });
+  var name = school ? (school.fullName || school.name) : '학교';
+  
+  if (nowFav) toast('⭐ ' + name + ' 즐겨찾기 추가!', 'ok');
+  else toast('즐겨찾기 해제됨', 'info');
+  
+  // 즐겨찾기순 정렬일 때 재렌더
+  if (mapSidebarSort === 'fav') renderMapSidebar();
+  
+  // 다른 탭 동기 (지도는 재렌더 안함 - 팝업 유지)
+  try {
+    if (typeof renderTable === 'function') renderTable();
+    if (typeof renderFilterResults === 'function') renderFilterResults();
+    if (typeof renderAlertCenter === 'function') renderAlertCenter();
+  } catch(e) {}
+}
+
+// 🆕 사이드패널 접기/펼치기 + 정렬 이벤트
+function initMapSidebar() {
+  var toggleBtn = $('map-sidebar-toggle');
+  var sidebar = $('map-sidebar');
+  var wrap = sidebar ? sidebar.parentNode : null;
+  var sortSelect = $('map-sidebar-sort-select');
+  
+  if (toggleBtn && sidebar && wrap) {
+    toggleBtn.addEventListener('click', function() {
+      var collapsed = sidebar.classList.toggle('collapsed');
+      wrap.classList.toggle('sidebar-collapsed', collapsed);
+      this.textContent = collapsed ? '◀' : '▶';
+      this.setAttribute('title', collapsed ? '펼치기' : '접기');
+      
+      // 지도 리사이즈 (Leaflet)
+      setTimeout(function() {
+        if (window.mapInstance) window.mapInstance.invalidateSize();
+      }, 320);
+    });
+  }
+  
+  if (sortSelect) {
+    sortSelect.addEventListener('change', function() {
+      mapSidebarSort = this.value;
+      renderMapSidebar();
+    });
+  }
+  
+  // 초기 렌더
+  setTimeout(renderMapSidebar, 200);
+}
+
+// 전역 노출
+window.renderMapSidebar = renderMapSidebar;
+window.focusMapSchool = focusMapSchool;
+window.toggleSidebarFav = toggleSidebarFav;
+window.initMapSidebar = initMapSidebar;
+
 
 // ═══════ KPI ═══════
 function updateKPI() {
@@ -18364,6 +19188,7 @@ function initNewFeatures() {
   try { initAutoRefresh(); } catch(e) { console.warn('[init] refresh', e); }
   try { initAccessibility(); } catch(e) { console.warn('[init] a11y', e); }
   try { initMobileModalGestures(); } catch(e) { console.warn('[init] modal-gesture', e); }
+  try { initMapSidebar(); } catch(e) { console.warn('[init] map-sidebar', e); }
   console.log('[INIT] 신규 기능 초기화 완료');
 }
 
