@@ -1254,26 +1254,52 @@ body {
   font-family: inherit;
 }
 
-/* 🇰🇷 Leaflet OSM 다크 모드 필터 (한글 라벨 + 다크 배경) */
+/* 🌗 Leaflet 지도 테마 시스템 (다크/라이트 토글) */
+
+/* 🌙 다크 모드 필터 (OSM 라이트 타일을 다크로 변환) */
 .leaflet-osm-dark {
-  /* 라이트 OSM 타일을 다크 모드로 변환:
-     1. invert: 흰색→검정, 검정→흰색
-     2. hue-rotate: 색상 원래대로
-     3. brightness: 어둡게
-     4. contrast: 한글 라벨 또렷하게 */
   filter: invert(1) hue-rotate(180deg) brightness(0.85) contrast(1.1) saturate(0.85);
   -webkit-font-smoothing: antialiased;
   image-rendering: -webkit-optimize-contrast;
+  transition: filter 0.4s ease;
+}
+
+/* ☀️ 라이트 모드 (필터 없이 원본 OSM 그대로) */
+.leaflet-osm-light {
+  filter: brightness(1.02) saturate(1.05);
+  -webkit-font-smoothing: antialiased;
+  image-rendering: -webkit-optimize-contrast;
+  transition: filter 0.4s ease;
+}
+
+/* 지도 컨테이너 배경 - 다크 모드 */
+#map.map-theme-dark .leaflet-container,
+.map-theme-dark.leaflet-container {
+  background: #0a0e1a !important;
+  transition: background 0.4s ease;
+}
+
+/* 지도 컨테이너 배경 - 라이트 모드 */
+#map.map-theme-light .leaflet-container,
+.map-theme-light.leaflet-container {
+  background: #f5f7fa !important;
+  transition: background 0.4s ease;
+}
+
+/* 라이트 모드일 때 컨테이너 보더 살짝 어둡게 */
+#map.map-theme-light {
+  border-color: rgba(122, 144, 184, 0.4);
+}
+
+/* Leaflet 컨테이너 기본 배경 (초기 로딩 시) */
+.leaflet-container {
+  background: #0a0e1a !important;
+  transition: background 0.4s ease;
 }
 
 /* 줌인 시 행정구역 라벨 강조 (지도 컨트롤 영역) */
 .leaflet-container .leaflet-tile-pane {
   filter: brightness(1);
-}
-
-/* Leaflet 컨테이너 자체 다크 배경 */
-.leaflet-container {
-  background: #0a0e1a !important;
 }
 
 /* 🖱️ Leaflet 마커 호버 인터랙션 (마우스 커서) */
@@ -1603,10 +1629,46 @@ body {
   backdrop-filter: blur(10px);
   min-height: 32px;
   white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.map-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
 }
 
 .map-btn.active {
   background: var(--accent); color: #fff; border-color: var(--accent);
+}
+
+/* 🌗 테마 토글 버튼 (다크/라이트) */
+.map-btn.map-btn-theme {
+  font-weight: 700;
+  border-width: 1.5px;
+}
+
+.map-btn.map-btn-theme.theme-dark-active {
+  background: linear-gradient(135deg, rgba(255, 212, 59, 0.18), rgba(255, 169, 77, 0.12));
+  color: #ffd43b;
+  border-color: rgba(255, 212, 59, 0.5);
+  box-shadow: 0 0 8px rgba(255, 212, 59, 0.2);
+}
+
+.map-btn.map-btn-theme.theme-dark-active:hover {
+  background: linear-gradient(135deg, rgba(255, 212, 59, 0.3), rgba(255, 169, 77, 0.2));
+  box-shadow: 0 4px 14px rgba(255, 212, 59, 0.3);
+}
+
+.map-btn.map-btn-theme.theme-light-active {
+  background: linear-gradient(135deg, rgba(156, 136, 255, 0.18), rgba(204, 93, 232, 0.12));
+  color: #cc5de8;
+  border-color: rgba(156, 136, 255, 0.5);
+  box-shadow: 0 0 8px rgba(156, 136, 255, 0.2);
+}
+
+.map-btn.map-btn-theme.theme-light-active:hover {
+  background: linear-gradient(135deg, rgba(156, 136, 255, 0.3), rgba(204, 93, 232, 0.2));
+  box-shadow: 0 4px 14px rgba(156, 136, 255, 0.3);
 }
 
 .map-legend {
@@ -11698,6 +11760,12 @@ function initLeafletMap() {
   // 🇰🇷 한글 지명 표시 - OpenStreetMap 기반 (인증 불필요, 한국 행정구역 한글 풍부)
   // 전략: OSM 표준 타일 + CSS 다크 필터로 완전한 다크 모드 + 한글 라벨
   
+  // 🌗 지도 테마 (저장된 값 또는 다크 기본)
+  var savedMapTheme = 'dark';
+  try {
+    savedMapTheme = localStorage.getItem('ssmj-map-theme') || 'dark';
+  } catch(e) {}
+  
   // 메인 타일: OpenStreetMap 표준 (한국 행정구역 한글 라벨 풍부)
   var mainTileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
@@ -11705,7 +11773,7 @@ function initLeafletMap() {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> 기여자',
     subdomains: 'abc',
     detectRetina: true,
-    className: 'leaflet-osm-dark'         // 다크 모드 CSS 필터 적용
+    className: savedMapTheme === 'dark' ? 'leaflet-osm-dark' : 'leaflet-osm-light'
   });
   
   mainTileLayer.addTo(map);
@@ -11718,9 +11786,20 @@ function initLeafletMap() {
       attribution: '&copy; CARTO',
       subdomains: 'abcd',
       detectRetina: true,
-      className: 'leaflet-osm-dark'
+      className: savedMapTheme === 'dark' ? 'leaflet-osm-dark' : 'leaflet-osm-light'
     }
   );
+  
+  // 🆕 전역 노출 (테마 토글 함수에서 사용)
+  window.mapMainTileLayer = mainTileLayer;
+  window.mapFallbackTileLayer = fallbackTileLayer;
+  window.mapCurrentTheme = savedMapTheme;
+  
+  // 컨테이너 초기 테마 클래스 적용
+  var mapContainer = $('map');
+  if (mapContainer) {
+    mapContainer.classList.add('map-theme-' + savedMapTheme);
+  }
   
   // 메인 타일 실패 추적 (5회 실패 시 폴백 활성화)
   var mainFailCount = 0;
@@ -11746,16 +11825,98 @@ function initLeafletMap() {
   addMapControls();
 }
 
+// 🌗 지도 다크/라이트 테마 토글
+function toggleMapTheme() {
+  var newTheme = window.mapCurrentTheme === 'dark' ? 'light' : 'dark';
+  setMapTheme(newTheme);
+}
+
+function setMapTheme(theme) {
+  if (theme !== 'dark' && theme !== 'light') return;
+  
+  window.mapCurrentTheme = theme;
+  
+  // localStorage 저장
+  try { localStorage.setItem('ssmj-map-theme', theme); } catch(e) {}
+  
+  // 타일 레이어 클래스 변경
+  var darkClass = 'leaflet-osm-dark';
+  var lightClass = 'leaflet-osm-light';
+  var addClass = theme === 'dark' ? darkClass : lightClass;
+  var removeClass = theme === 'dark' ? lightClass : darkClass;
+  
+  // 메인 타일
+  if (window.mapMainTileLayer) {
+    var container = window.mapMainTileLayer.getContainer && window.mapMainTileLayer.getContainer();
+    if (container) {
+      container.classList.remove(removeClass);
+      container.classList.add(addClass);
+    }
+  }
+  
+  // 폴백 타일
+  if (window.mapFallbackTileLayer) {
+    var fbContainer = window.mapFallbackTileLayer.getContainer && window.mapFallbackTileLayer.getContainer();
+    if (fbContainer) {
+      fbContainer.classList.remove(removeClass);
+      fbContainer.classList.add(addClass);
+    }
+  }
+  
+  // 지도 컨테이너 자체 테마 클래스
+  var mapContainer = $('map');
+  if (mapContainer) {
+    mapContainer.classList.remove('map-theme-dark', 'map-theme-light');
+    mapContainer.classList.add('map-theme-' + theme);
+  }
+  
+  // 토글 버튼 UI 업데이트
+  updateMapThemeButton();
+  
+  // 토스트 알림
+  if (typeof toast === 'function') {
+    var label = theme === 'dark' ? '🌙 다크 모드' : '☀️ 라이트 모드';
+    toast(label + '로 전환', 'ok');
+  }
+}
+
+// 🌗 테마 토글 버튼 UI 갱신
+function updateMapThemeButton() {
+  var btn = $('btn-map-theme');
+  if (!btn) return;
+  
+  var isDark = window.mapCurrentTheme === 'dark';
+  btn.innerHTML = isDark ? '☀️ 라이트' : '🌙 다크';
+  btn.setAttribute('title', isDark ? '라이트 모드로 전환' : '다크 모드로 전환');
+  btn.setAttribute('aria-label', isDark ? '라이트 모드로 전환' : '다크 모드로 전환');
+  btn.classList.toggle('theme-dark-active', isDark);
+  btn.classList.toggle('theme-light-active', !isDark);
+}
+
+window.toggleMapTheme = toggleMapTheme;
+window.setMapTheme = setMapTheme;
+window.updateMapThemeButton = updateMapThemeButton;
+
 function addMapControls() {
   var mapEl = $('map');
   var existing = mapEl.querySelector('.map-controls');
   if (existing) existing.remove();
   
+  var isDark = (window.mapCurrentTheme || 'dark') === 'dark';
+  var themeBtnLabel = isDark ? '☀️ 라이트' : '🌙 다크';
+  var themeBtnTitle = isDark ? '라이트 모드로 전환' : '다크 모드로 전환';
+  
   var controls = document.createElement('div');
   controls.className = 'map-controls';
-  controls.innerHTML = '<button class="map-btn' + (showLabels ? ' active' : '') + '" id="btn-labels">🏷️ 라벨</button>';
+  controls.innerHTML = 
+    '<button class="map-btn map-btn-theme ' + (isDark ? 'theme-dark-active' : 'theme-light-active') + '" ' +
+      'id="btn-map-theme" title="' + themeBtnTitle + '" aria-label="' + themeBtnTitle + '">' +
+      themeBtnLabel +
+    '</button>' +
+    '<button class="map-btn' + (showLabels ? ' active' : '') + '" id="btn-labels">🏷️ 라벨</button>';
   mapEl.appendChild(controls);
   
+  // 라벨 토글 버튼
   $('btn-labels').addEventListener('click', function(e) {
     e.stopPropagation();
     showLabels = !showLabels;
@@ -11764,6 +11925,15 @@ function addMapControls() {
     else renderSVGMap();
     toast(showLabels ? '라벨 표시' : '라벨 숨김', 'info');
   });
+  
+  // 🆕 테마 토글 버튼
+  var themeBtn = $('btn-map-theme');
+  if (themeBtn) {
+    themeBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      toggleMapTheme();
+    });
+  }
 }
 
 function updateLabelVisibility() {
