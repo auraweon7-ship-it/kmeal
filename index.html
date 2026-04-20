@@ -15674,11 +15674,29 @@ function renderOriginTable(meal) {
     }
     // origins만 있는 경우
     var rows = meal.origins.map(function(o) {
-      var isDomestic = /국내산|국산/.test(o.origin);
+      // 다양한 데이터 구조 지원
+      var ingredient = '';
+      var origin = '';
+      
+      if (typeof o === 'object' && o !== null) {
+        // 객체 형태
+        ingredient = o.ingredient || o.name || o.item || o.food || 'undefined';
+        origin = o.origin || o.source || o.location || '정보없음';
+      } else if (Array.isArray(o)) {
+        // 배열 형태
+        ingredient = o[0] || 'undefined';
+        origin = o[1] || '정보없음';
+      } else {
+        // 문자열 또는 기타
+        ingredient = String(o);
+        origin = '정보없음';
+      }
+      
+      var isDomestic = /국내산|국산/.test(origin);
       var color = isDomestic ? 'var(--accent2)' : 'var(--accent4)';
       return '<tr>' +
-        '<td>' + o.ingredient + '</td>' +
-        '<td style="color:' + color + ';">' + o.origin + '</td>' +
+        '<td>' + ingredient + '</td>' +
+        '<td style="color:' + color + ';">' + origin + '</td>' +
         '</tr>';
     }).join('');
     return '<table class="origin-mini-table">' +
@@ -15702,8 +15720,24 @@ function renderOriginTable(meal) {
     }
     
     md.ingredients.forEach(function(ing, i) {
-      var ingredient = ing[0];
-      var origin = ing[1];
+      // 배열 또는 객체 형태 모두 지원
+      var ingredient = '';
+      var origin = '';
+      
+      if (Array.isArray(ing)) {
+        // 배열 형태: ['재료명', '원산지']
+        ingredient = ing[0] || 'undefined';
+        origin = ing[1] || '정보없음';
+      } else if (typeof ing === 'object' && ing !== null) {
+        // 객체 형태: {ingredient: '재료명', origin: '원산지'} 또는 {name: '재료명', origin: '원산지'}
+        ingredient = ing.ingredient || ing.name || ing.item || 'undefined';
+        origin = ing.origin || ing.source || '정보없음';
+      } else {
+        // 기타 형태
+        ingredient = String(ing);
+        origin = '정보없음';
+      }
+      
       var isDomestic = /국내산|국산/.test(origin);
       var color = isDomestic ? 'var(--accent2)' : 'var(--accent4)';
       
