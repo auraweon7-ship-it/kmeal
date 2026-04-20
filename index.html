@@ -6368,6 +6368,28 @@ body.high-contrast .tab {
   box-shadow: 0 6px 16px rgba(255, 212, 59, 0.4);
 }
 
+/* 🆕 "다시 표시하지 않기" 버튼 (절제된 디자인) */
+.review-never-btn {
+  width: 100%;
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: transparent;
+  color: var(--text3);
+  border: 1px solid rgba(122, 144, 184, 0.25);
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.review-never-btn:hover {
+  color: #ff6b6b;
+  border-color: rgba(255, 107, 107, 0.4);
+  background: rgba(255, 107, 107, 0.05);
+}
+
 /* 📣 공지사항 배너 */
 .announcement-banner {
   position: relative;
@@ -10211,7 +10233,7 @@ select option {
           <div class="header-stat-icon">🏫</div>
           <div class="header-stat-content">
             <div class="header-stat-value" id="hs-schools">—</div>
-            <div class="header-stat-label">학교</div>
+            <div class="header-stat-label" data-i18n="kpi_schools">학교</div>
           </div>
         </div>
         <div class="header-stat-divider"></div>
@@ -10219,7 +10241,7 @@ select option {
           <div class="header-stat-icon">🗺️</div>
           <div class="header-stat-content">
             <div class="header-stat-value" id="hs-districts">—</div>
-            <div class="header-stat-label">시/군/구</div>
+            <div class="header-stat-label" data-i18n="kpi_districts">시/군/구</div>
           </div>
         </div>
         <div class="header-stat-divider"></div>
@@ -10227,7 +10249,7 @@ select option {
           <div class="header-stat-icon">🍽️</div>
           <div class="header-stat-content">
             <div class="header-stat-value" id="hs-meals">—</div>
-            <div class="header-stat-label">검색</div>
+            <div class="header-stat-label" data-i18n="kpi_search">검색</div>
           </div>
         </div>
       </div>
@@ -10236,11 +10258,11 @@ select option {
       <div class="header-badges">
         <button class="header-badge header-badge-wide" id="badge-finder" title="내 학교 찾기">
           <span class="badge-icon">🔍</span>
-          <span class="badge-text-label">내 학교</span>
+          <span class="badge-text-label" data-i18n="btn_my_school">내 학교</span>
         </button>
         <button class="header-badge header-badge-wide" id="badge-today" title="오늘의 급식 추천">
           <span class="badge-icon">🍚</span>
-          <span class="badge-text-label">오늘</span>
+          <span class="badge-text-label" data-i18n="btn_today">오늘</span>
           <span class="badge-today-pulse"></span>
         </button>
         <button class="header-badge" id="badge-ai" title="Claude API 설정">
@@ -10368,7 +10390,7 @@ select option {
   <!-- 지도 필터 바 -->
   <div class="map-filter-bar">
     <div class="map-filter-group map-filter-office">
-      <label class="map-filter-label">🏛️ 시도교육청</label>
+      <label class="map-filter-label" data-i18n="filter_office">🏛️ 시도교육청</label>
       <select class="map-filter-select" id="map-f-office">
         <option value="ALL">🇰🇷 전국 (모든 시도교육청)</option>
         <option value="B10">🏙️ B10 · 서울특별시</option>
@@ -10391,13 +10413,13 @@ select option {
       </select>
     </div>
     <div class="map-filter-group">
-      <label class="map-filter-label">🏙️ 시군구</label>
+      <label class="map-filter-label" data-i18n="filter_district">🏙️ 시군구</label>
       <select class="map-filter-select" id="map-f-district">
         <option value="">전체</option>
       </select>
     </div>
     <div class="map-filter-group">
-      <label class="map-filter-label">🎓 학교급</label>
+      <label class="map-filter-label" data-i18n="filter_type">🎓 학교급</label>
       <select class="map-filter-select" id="map-f-type">
         <option value="">전체</option>
         <option value="초등학교">초등학교</option>
@@ -10406,7 +10428,7 @@ select option {
       </select>
     </div>
     <div class="map-filter-group">
-      <label class="map-filter-label">🍽️ 급식운영</label>
+      <label class="map-filter-label" data-i18n="filter_meal">🍽️ 급식운영</label>
       <select class="map-filter-select" id="map-f-meal">
         <option value="">전체</option>
         <option value="직영">직영</option>
@@ -10414,7 +10436,7 @@ select option {
       </select>
     </div>
     <div class="map-filter-group map-filter-search">
-      <label class="map-filter-label">🔍 학교 검색</label>
+      <label class="map-filter-label" data-i18n="filter_search">🔍 학교 검색</label>
       <div class="map-search-wrapper">
         <input type="text" 
                class="map-filter-select map-search-input" 
@@ -11178,11 +11200,6 @@ select option {
             <div class="rank-method-name">계절성 (Seasonal)</div>
             <div class="rank-method-desc">현재 계절 제철 식재료 등장 빈도</div>
           </div>
-          <div class="rank-method-item">
-            <div class="rank-method-icon">🎎</div>
-            <div class="rank-method-name">문화 (Culture)</div>
-            <div class="rank-method-desc">한국 전통식 + 세계 음식 다양성 반영</div>
-          </div>
         </div>
         <div class="rank-methodology-grades">
           <div class="rank-grade-item"><span class="rank-grade-badge grade-a">85+</span> 모범적 편성</div>
@@ -11210,7 +11227,7 @@ select option {
     <div class="stats-banner-item">
       <span class="stats-banner-icon">✨</span>
       <span class="stats-banner-label">엔진</span>
-      <span class="stats-banner-value">Claude AI + 7지표</span>
+      <span class="stats-banner-value">Claude AI + 6지표</span>
     </div>
   </div>
   
@@ -12515,9 +12532,8 @@ function ruleEvaluate(meals) {
   var sBal = Math.min(100, (protein > 0 ? 28 : 0) + (veg > 0 ? 28 : 0) + (fruit > 0 ? 22 : 8) + (soup > 0 ? 10 : 0) + (carb > 0 ? 12 : 0));
   var sOrigin = Math.round(domesticRatio * 100);
   var sSeason = Math.min(100, seasonal * 15 + 50);
-  var sCulture = Math.min(100, (traditional * 10) + (global > 0 ? 15 : 0) + 40);
   
-  var overall = Math.round((sCal + sDiv + sFresh + sBal + sOrigin + sSeason + sCulture) / 7);
+  var overall = Math.round((sCal + sDiv + sFresh + sBal + sOrigin + sSeason) / 6);
   
   var findings = [];
   if (avgCal > 0) {
@@ -12554,7 +12570,7 @@ function ruleEvaluate(meals) {
   
   return {
     overall: overall,
-    scores: { calorie: sCal, diversity: sDiv, freshness: sFresh, balance: sBal, origin: sOrigin, seasonal: sSeason, culture: sCulture },
+    scores: { calorie: sCal, diversity: sDiv, freshness: sFresh, balance: sBal, origin: sOrigin, seasonal: sSeason },
     meta: { mealDays: meals.length, totalItems: items.length, uniqueItems: uniqueSize, avgCal: Math.round(avgCal), domesticRatio: domesticRatio },
     findings: findings,
     lede: lede
@@ -14764,7 +14780,7 @@ function renderAvgScoreChart() {
   
   // 평균 계산을 위해 기존 분석 데이터 사용
   // rankings에는 meta가 있지만 scores는 없으므로 재계산
-  var avgScores = { calorie: 0, diversity: 0, freshness: 0, balance: 0, origin: 0, seasonal: 0, culture: 0 };
+  var avgScores = { calorie: 0, diversity: 0, freshness: 0, balance: 0, origin: 0, seasonal: 0 };
   var count = 0;
   
   rankings.forEach(function(r) {
@@ -14784,10 +14800,10 @@ function renderAvgScoreChart() {
   charts.avgScore = new Chart(ctx, {
     type: 'radar',
     data: {
-      labels: ['🔥 열량', '🌈 다양성', '🌱 신선도', '⚖️ 균형', '🌾 원산지', '🍂 계절성', '🎎 문화'],
+      labels: ['🔥 열량', '🌈 다양성', '🌱 신선도', '⚖️ 균형', '🌾 원산지', '🍂 계절성'],
       datasets: [{
         label: '평균 점수 (' + count + '교)',
-        data: ['calorie', 'diversity', 'freshness', 'balance', 'origin', 'seasonal', 'culture'].map(function(k) {
+        data: ['calorie', 'diversity', 'freshness', 'balance', 'origin', 'seasonal'].map(function(k) {
           return avgScores[k];
         }),
         borderColor: '#3b9eff',
@@ -15506,7 +15522,7 @@ function renderEvalTab(ev, meals) {
   
   var scoreLabels = {
     calorie: '🔥 열량', diversity: '🌈 다양성', freshness: '🌱 신선도',
-    balance: '⚖️ 균형', origin: '🌾 원산지', seasonal: '🍂 계절성', culture: '🎎 문화'
+    balance: '⚖️ 균형', origin: '🌾 원산지', seasonal: '🍂 계절성'
   };
   
   html += '<div style="margin-bottom:16px;">';
@@ -15582,13 +15598,10 @@ function renderMenuTab(meals) {
   var selectedAllergy = '';
   
   meals.forEach(function(m, idx) {
-    var date = m.date ? m.date.slice(0,4) + '-' + m.date.slice(4,6) + '-' + m.date.slice(6,8) : '';
-    var dayNames = ['일', '월', '화', '수', '목', '금', '토'];
-    var dayName = '';
-    if (m.date) {
-      var d = new Date(+m.date.slice(0,4), +m.date.slice(4,6)-1, +m.date.slice(6,8));
-      dayName = dayNames[d.getDay()];
-    }
+    // 🆕 안전한 날짜 파싱 (헬퍼 사용)
+    var dt = parseMealDate(m.date);
+    var date = dt.formatted || (m.date || '');
+    var dayName = dt.dayName;
     
     var mealId = 'meal-' + idx;
     var originTableId = 'origin-' + idx;
@@ -15602,7 +15615,7 @@ function renderMenuTab(meals) {
     
     html += '<div class="meal-card">' +
       '<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;">' +
-      '<div class="meal-date">' + date + ' (' + dayName + ')</div>' +
+      '<div class="meal-date">' + date + (dayName ? ' (' + dayName + ')' : '') + '</div>' +
       (mealTotal > 0 ? '<div style="font-size:10px;color:' + pctColor + ';font-family:var(--ff-mono);font-weight:700;">국내산 ' + mealPct + '%</div>' : '') +
       '</div>' +
       '<div class="meal-menu">' + (m.menuList || []).map(function(mn) { 
@@ -15757,9 +15770,10 @@ function renderTimelineTab(meals) {
 }
 
 function drawTimelineCharts(meals) {
-  var sorted = meals.slice().sort(function(a, b) { return a.date.localeCompare(b.date); });
+  var sorted = meals.slice().sort(function(a, b) { return (a.date || '').localeCompare(b.date || ''); });
   var labels = sorted.map(function(m) { 
-    return m.date.slice(4, 6) + '/' + m.date.slice(6, 8); 
+    var dt = parseMealDate(m.date);
+    return dt.mmdd || (m.date || '');
   });
   var cals = sorted.map(function(m) { return m.calorie || null; });
   var diversity = sorted.map(function(m) {
@@ -15841,8 +15855,11 @@ function renderMonthlyTab(ev, meals) {
   // 요일별 평균 계산
   var dayOfWeek = { 0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [] };
   meals.forEach(function(m) {
-    var d = new Date(+m.date.slice(0,4), +m.date.slice(4,6)-1, +m.date.slice(6,8));
-    if (m.calorie) dayOfWeek[d.getDay()].push(m.calorie);
+    var dt = parseMealDate(m.date);
+    if (dt.valid && m.calorie) {
+      var d = new Date(parseInt(dt.year), parseInt(dt.month) - 1, parseInt(dt.day));
+      dayOfWeek[d.getDay()].push(m.calorie);
+    }
   });
   
   var dayNames = ['일', '월', '화', '수', '목', '금', '토'];
@@ -16141,8 +16158,8 @@ function drawCompareRadar(results) {
   
   // 5개 학교 비교를 위한 5색 팔레트
   var colors = ['#3b9eff', '#00d4aa', '#ffa94d', '#cc5de8', '#ff6b6b'];
-  var labels = ['🔥 열량', '🌈 다양성', '🌱 신선도', '⚖️ 균형', '🌾 원산지', '🍂 계절성', '🎎 문화'];
-  var keys = ['calorie', 'diversity', 'freshness', 'balance', 'origin', 'seasonal', 'culture'];
+  var labels = ['🔥 열량', '🌈 다양성', '🌱 신선도', '⚖️ 균형', '🌾 원산지', '🍂 계절성'];
+  var keys = ['calorie', 'diversity', 'freshness', 'balance', 'origin', 'seasonal'];
   
   try {
     new Chart($('cmp-radar'), {
@@ -16711,7 +16728,7 @@ function generateStory(school, ev, meals) {
   var weakMetric = scoreEntries[scoreEntries.length - 1];
   var metricNameMap = {
     calorie: '열량 관리', diversity: '메뉴 다양성', freshness: '재료 신선도',
-    balance: '영양 균형', origin: '원산지 (국내산)', seasonal: '계절성', culture: '문화적 다양성'
+    balance: '영양 균형', origin: '원산지 (국내산)', seasonal: '계절성'
   };
   
   // 내러티브 생성
@@ -17567,9 +17584,9 @@ function renderAITab(ev, meals) {
       '<div class="insight-header"><span class="insight-icon">🤖</span><span class="insight-title">AI 해설 미리보기</span></div>' +
       '<div class="insight-text">' +
       'Claude Haiku 4.5 모델이 다음과 같은 분석을 제공합니다:<br><br>' +
-      '<strong>• 종합 평가 해설</strong>: 7개 지표 점수의 의미와 맥락<br>' +
+      '<strong>• 종합 평가 해설</strong>: 6개 지표 점수의 의미와 맥락<br>' +
       '<strong>• 영양 균형 진단</strong>: 한국 아동·청소년 영양 기준 대비 분석<br>' +
-      '<strong>• 메뉴 다양성 평가</strong>: 문화·계절·재료 관점 검토<br>' +
+      '<strong>• 메뉴 다양성 평가</strong>: 계절·재료 관점 검토<br>' +
       '<strong>• 개선 권고사항</strong>: 학부모·교직원 대상 실행 가능한 제안' +
       '</div></div>' +
       '<div class="ai-actions">' +
@@ -17620,7 +17637,8 @@ function callClaudeAPI(school, ev, meals) {
   
   // 최근 7일 식단 요약
   var menuSummary = meals.slice(0, 7).map(function(m) {
-    var date = m.date.slice(4,6) + '/' + m.date.slice(6,8);
+    var dt = parseMealDate(m.date);
+    var date = dt.mmdd || (m.date || '날짜미상');
     return date + ': ' + (m.menuList || []).slice(0,5).join(', ') + 
            (m.calorie ? ' (' + m.calorie + 'kcal)' : '');
   }).join('\n');
@@ -17633,8 +17651,7 @@ function callClaudeAPI(school, ev, meals) {
     '- 신선도: ' + ev.scores.freshness + '점\n' +
     '- 영양 균형: ' + ev.scores.balance + '점\n' +
     '- 국내산 비율: ' + ev.scores.origin + '점\n' +
-    '- 계절성: ' + ev.scores.seasonal + '점\n' +
-    '- 문화(전통/세계식): ' + ev.scores.culture + '점\n\n' +
+    '- 계절성: ' + ev.scores.seasonal + '점\n\n' +
     '## 통계\n' +
     '- 분석일수: ' + ev.meta.mealDays + '일\n' +
     '- 고유 메뉴: ' + ev.meta.uniqueItems + '종\n' +
@@ -17645,7 +17662,7 @@ function callClaudeAPI(school, ev, meals) {
     '다음 4가지 섹션으로 구성하되, 각 섹션은 제목(H4)과 2-3문장의 평가로 구성해주세요:\n\n' +
     '1. **종합 평가**: 전반적 급식 품질 평가 (객관적 톤)\n' +
     '2. **영양 균형**: 한국 아동청소년 영양 기준 관점에서 분석\n' +
-    '3. **메뉴 구성**: 다양성, 문화성, 계절성 종합 평가\n' +
+    '3. **메뉴 구성**: 다양성, 계절성 종합 평가\n' +
     '4. **개선 권고**: 구체적이고 실행 가능한 3가지 제안 (불릿 리스트)\n\n' +
     'Markdown 형식(## H2, **굵게**, - 리스트)으로 작성. 총 분량 400-600자 이내. ' +
     '부정적 톤보다는 건설적 톤으로 작성.';
@@ -17871,8 +17888,7 @@ function renderRanking() {
         freshness: { icon: '🌱', name: '신선도' },
         balance: { icon: '⚖️', name: '균형' },
         origin: { icon: '🌾', name: '원산지' },
-        seasonal: { icon: '🍂', name: '계절성' },
-        culture: { icon: '🎎', name: '문화' }
+        seasonal: { icon: '🍂', name: '계절성' }
       };
       miniScoresHtml = '<div class="rank-mini-scores">';
       Object.keys(scoreLabelMap).forEach(function(k) {
@@ -17937,8 +17953,7 @@ function buildRankingRationale(r, idx) {
     freshness: { icon: '🌱', name: '신선도' },
     balance: { icon: '⚖️', name: '균형' },
     origin: { icon: '🌾', name: '원산지' },
-    seasonal: { icon: '🍂', name: '계절성' },
-    culture: { icon: '🎎', name: '문화' }
+    seasonal: { icon: '🍂', name: '계절성' }
   };
   
   // 강점과 약점 구분 (점수 기준)
@@ -20414,9 +20429,40 @@ var I18N = {
     review_subtitle: '여러분의 피드백은 대시보드 개선에 큰 힘이 됩니다',
     review_placeholder: '대시보드 사용 경험을 자유롭게 남겨주세요 (선택)',
     review_submit: '💌 후기 남기기',
+    review_never: '🙅 다시 표시하지 않기',
     feedback_title: '📧 피드백 보내기',
+    feedback_label: '피드백',
     toast_langChanged: '🌐 언어가 변경되었습니다',
-    announce: 'v10.0 업데이트! · 💡 인사이트 분석 탭 · 🌐 다국어 지원 · ♿ 웹 접근성 강화'
+    announce: 'v10.0 업데이트! · 💡 인사이트 분석 탭 · 🌐 다국어 지원 · ♿ 웹 접근성 강화',
+    
+    // 헤더 KPI
+    kpi_schools: '학교',
+    kpi_districts: '시/군/구',
+    kpi_search: '검색',
+    
+    // 헤더 액션 버튼
+    btn_my_school: '내 학교',
+    btn_today: '오늘',
+    btn_lucky: '행운',
+    btn_compare: '비교',
+    btn_fav: '즐겨찾기',
+    
+    // 필터 라벨
+    filter_office: '시도교육청',
+    filter_district: '시/군/구',
+    filter_type: '학교급',
+    filter_meal: '급식운영',
+    filter_search: '학교 검색',
+    filter_all: '전체',
+    
+    // 학교급
+    type_elem: '초등학교',
+    type_mid: '중학교',
+    type_high: '고등학교',
+    
+    // 급식 운영
+    meal_direct: '직영',
+    meal_outsource: '위탁'
   },
   en: {
     title: 'Korea School Meal AI Map',
@@ -20433,9 +20479,35 @@ var I18N = {
     review_subtitle: 'Your feedback helps us improve',
     review_placeholder: 'Share your experience (optional)',
     review_submit: '💌 Submit Review',
+    review_never: '🙅 Do not show again',
     feedback_title: '📧 Send Feedback',
+    feedback_label: 'Feedback',
     toast_langChanged: '🌐 Language changed',
-    announce: 'v10.0 Update! · 💡 Insights Tab · 🌐 Multilingual · ♿ Accessibility'
+    announce: 'v10.0 Update! · 💡 Insights Tab · 🌐 Multilingual · ♿ Accessibility',
+    
+    kpi_schools: 'Schools',
+    kpi_districts: 'Districts',
+    kpi_search: 'Search',
+    
+    btn_my_school: 'My School',
+    btn_today: 'Today',
+    btn_lucky: 'Lucky',
+    btn_compare: 'Compare',
+    btn_fav: 'Favorites',
+    
+    filter_office: 'Office of Education',
+    filter_district: 'District',
+    filter_type: 'School Level',
+    filter_meal: 'Meal Operation',
+    filter_search: 'School Search',
+    filter_all: 'All',
+    
+    type_elem: 'Elementary',
+    type_mid: 'Middle',
+    type_high: 'High',
+    
+    meal_direct: 'Direct',
+    meal_outsource: 'Outsourced'
   },
   zh: {
     title: '韩国学校餐食 AI 地图',
@@ -20452,9 +20524,35 @@ var I18N = {
     review_subtitle: '您的反馈对改进仪表板非常重要',
     review_placeholder: '请分享您的使用体验（可选）',
     review_submit: '💌 提交评论',
+    review_never: '🙅 不再显示',
     feedback_title: '📧 发送反馈',
+    feedback_label: '反馈',
     toast_langChanged: '🌐 语言已更改',
-    announce: 'v10.0 更新！· 💡 洞察分析 · 🌐 多语言支持 · ♿ 无障碍增强'
+    announce: 'v10.0 更新！· 💡 洞察分析 · 🌐 多语言支持 · ♿ 无障碍增强',
+    
+    kpi_schools: '学校',
+    kpi_districts: '市/郡/区',
+    kpi_search: '搜索',
+    
+    btn_my_school: '我的学校',
+    btn_today: '今天',
+    btn_lucky: '幸运',
+    btn_compare: '比较',
+    btn_fav: '收藏',
+    
+    filter_office: '市道教育厅',
+    filter_district: '市/郡/区',
+    filter_type: '学校级别',
+    filter_meal: '餐食运营',
+    filter_search: '学校搜索',
+    filter_all: '全部',
+    
+    type_elem: '小学',
+    type_mid: '中学',
+    type_high: '高中',
+    
+    meal_direct: '直营',
+    meal_outsource: '委托'
   },
   ja: {
     title: '全国学校給食 AI マップ',
@@ -20471,9 +20569,35 @@ var I18N = {
     review_subtitle: 'フィードバックは改善に大きな助けとなります',
     review_placeholder: 'ご使用体験をお聞かせください（任意）',
     review_submit: '💌 レビューを送信',
+    review_never: '🙅 再表示しない',
     feedback_title: '📧 フィードバックを送る',
+    feedback_label: 'フィードバック',
     toast_langChanged: '🌐 言語が変更されました',
-    announce: 'v10.0 アップデート！ · 💡 インサイト分析 · 🌐 多言語対応 · ♿ アクセシビリティ'
+    announce: 'v10.0 アップデート！ · 💡 インサイト分析 · 🌐 多言語対応 · ♿ アクセシビリティ',
+    
+    kpi_schools: '学校',
+    kpi_districts: '市/郡/区',
+    kpi_search: '検索',
+    
+    btn_my_school: '私の学校',
+    btn_today: '今日',
+    btn_lucky: 'ラッキー',
+    btn_compare: '比較',
+    btn_fav: 'お気に入り',
+    
+    filter_office: '市道教育庁',
+    filter_district: '市/郡/区',
+    filter_type: '学校レベル',
+    filter_meal: '給食運営',
+    filter_search: '学校検索',
+    filter_all: '全て',
+    
+    type_elem: '小学校',
+    type_mid: '中学校',
+    type_high: '高校',
+    
+    meal_direct: '直営',
+    meal_outsource: '委託'
   }
 };
 
@@ -20517,6 +20641,70 @@ function applyI18n(lang) {
   });
   console.log('[i18n] 탭 라벨 업데이트:', updatedCount + '개');
   
+  // 🆕 data-i18n 속성을 가진 모든 요소 자동 번역
+  var i18nCount = 0;
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    var key = el.getAttribute('data-i18n');
+    if (dict[key]) {
+      // 자식 요소가 있으면 첫 텍스트 노드만 변경, 없으면 전체 textContent
+      var hasChildElements = el.children.length > 0;
+      if (hasChildElements) {
+        // 자식 노드 중 첫 텍스트 노드만 변경
+        for (var i = 0; i < el.childNodes.length; i++) {
+          if (el.childNodes[i].nodeType === Node.TEXT_NODE && el.childNodes[i].textContent.trim()) {
+            el.childNodes[i].textContent = dict[key];
+            break;
+          }
+        }
+        // 텍스트 노드 없으면 마지막에 추가
+        if (!el.textContent.trim()) {
+          el.textContent = dict[key];
+        }
+      } else {
+        el.textContent = dict[key];
+      }
+      i18nCount++;
+    }
+  });
+  
+  // 🆕 data-i18n-placeholder (input/textarea placeholder)
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
+    var key = el.getAttribute('data-i18n-placeholder');
+    if (dict[key]) {
+      el.setAttribute('placeholder', dict[key]);
+      i18nCount++;
+    }
+  });
+  
+  // 🆕 data-i18n-title (tooltip)
+  document.querySelectorAll('[data-i18n-title]').forEach(function(el) {
+    var key = el.getAttribute('data-i18n-title');
+    if (dict[key]) {
+      el.setAttribute('title', dict[key]);
+      i18nCount++;
+    }
+  });
+  
+  // 🆕 data-i18n-aria (aria-label)
+  document.querySelectorAll('[data-i18n-aria]').forEach(function(el) {
+    var key = el.getAttribute('data-i18n-aria');
+    if (dict[key]) {
+      el.setAttribute('aria-label', dict[key]);
+      i18nCount++;
+    }
+  });
+  
+  console.log('[i18n] data-i18n 요소 업데이트:', i18nCount + '개');
+  
+  // 🆕 필터 select 옵션 "전체"/"All"/"全部" 일괄 변경
+  ['f-district', 'f-type', 'f-meal', 'f-found', 'f-cook', 
+   'map-f-district', 'map-f-type', 'map-f-meal', 'map-f-found', 'map-f-cook'].forEach(function(id) {
+    var sel = $(id);
+    if (sel && sel.options.length > 0 && sel.options[0].value === '') {
+      sel.options[0].textContent = dict.filter_all || '전체';
+    }
+  });
+  
   // 공지 배너 텍스트 업데이트
   var announceEl = $('announcement-text');
   if (announceEl) {
@@ -20532,6 +20720,8 @@ function applyI18n(lang) {
   if (textarea) textarea.setAttribute('placeholder', dict.review_placeholder);
   var submitBtn = $('review-submit');
   if (submitBtn) submitBtn.textContent = dict.review_submit;
+  var neverBtn = $('review-never-btn');
+  if (neverBtn) neverBtn.textContent = dict.review_never || neverBtn.textContent;
   
   // 활성 상태 표시 (active 클래스 토글)
   document.querySelectorAll('.i18n-option').forEach(function(opt) {
@@ -20663,6 +20853,18 @@ function openReviewModal() {
 function closeReviewModal() {
   var modal = $('review-modal-back');
   if (modal) modal.classList.remove('on');
+  // 🆕 자동 표시 후 닫기 → dismiss 시각 기록 (7일 쿨다운 발동)
+  // 단, 사용자가 직접 피드백 버튼을 눌러서 연 경우는 쿨다운 적용 안 함
+  try {
+    var lastShown = parseInt(localStorage.getItem('ssmj-review-shown-at') || '0');
+    var manualOpen = window._reviewOpenedManually === true;
+    // 자동 표시 후 5분 이내 닫기 → 쿨다운 적용
+    if (!manualOpen && lastShown && (Date.now() - lastShown) < 5 * 60 * 1000) {
+      localStorage.setItem('ssmj-review-dismiss-at', String(Date.now()));
+      console.log('[review] 닫기 → 7일 쿨다운 적용');
+    }
+    window._reviewOpenedManually = false;  // 플래그 초기화
+  } catch(e) {}
 }
 
 function initReviewModal() {
@@ -20738,6 +20940,19 @@ function initReviewModal() {
   // 닫기 버튼
   if (closeBtn) closeBtn.addEventListener('click', closeReviewModal);
   
+  // 🆕 "다시 보지 않기" 버튼
+  var neverBtn = $('review-never-btn');
+  if (neverBtn) {
+    neverBtn.addEventListener('click', function() {
+      try {
+        localStorage.setItem('ssmj-review-never', '1');
+        localStorage.setItem('ssmj-review-dismiss-at', String(Date.now()));
+      } catch(e) {}
+      closeReviewModal();
+      toast('🙅 후기 모달을 다시 표시하지 않습니다', 'info');
+    });
+  }
+  
   // 오버레이 클릭 시 닫기
   modal.addEventListener('click', function(e) {
     if (e.target === modal) closeReviewModal();
@@ -20750,16 +20965,89 @@ function initReviewModal() {
     }
   });
   
-  // 3분 후 자동 표시 (이전에 제출하지 않은 경우만)
+  // 🆕 자동 표시 정책 (스팸 방지 - 강화된 다중 조건)
+  // 1) 이전에 제출한 적 있으면 → 영구 안 뜸
+  // 2) "다시 보지 않기" 선택 시 → 영구 안 뜸
+  // 3) X 닫기 시 → 7일 쿨다운
+  // 4) 방문 횟수 10회 이상 + 누적 사용시간 5분 이상 + 마지막 표시 후 7일 경과 → 1회 표시
+  // 5) 자동 표시 후 5분 동안 추가 표시 금지
   try {
+    var REVIEW_POLICY = {
+      MIN_VISITS: 10,                        // 최소 방문 횟수 (3 → 10)
+      MIN_USAGE_MS: 5 * 60 * 1000,           // 최소 누적 사용시간 5분
+      AUTO_SHOW_DELAY_MS: 8 * 60 * 1000,     // 자동 표시 지연 8분 (3분 → 8분)
+      DISMISS_COOLDOWN_MS: 7 * 24 * 60 * 60 * 1000  // 닫기 후 7일 쿨다운
+    };
+    
     var submitted = localStorage.getItem('ssmj-review-submitted');
-    if (!submitted) {
-      setTimeout(function() {
-        // 탭 방문 수 5 이상일 때만
-        var visitCount = parseInt(localStorage.getItem('ssmj-visit-count') || '0');
-        if (visitCount >= 3) openReviewModal();
-      }, 180000); // 3분
+    var neverShow = localStorage.getItem('ssmj-review-never');
+    var lastDismiss = parseInt(localStorage.getItem('ssmj-review-dismiss-at') || '0');
+    var lastShown = parseInt(localStorage.getItem('ssmj-review-shown-at') || '0');
+    var now = Date.now();
+    
+    // 표시 차단 조건 검사
+    var blocked = false;
+    var blockReason = '';
+    
+    if (submitted) { blocked = true; blockReason = '이미 제출함'; }
+    else if (neverShow) { blocked = true; blockReason = '다시 보지 않기 선택함'; }
+    else if (lastDismiss && (now - lastDismiss) < REVIEW_POLICY.DISMISS_COOLDOWN_MS) {
+      blocked = true;
+      var daysLeft = Math.ceil((REVIEW_POLICY.DISMISS_COOLDOWN_MS - (now - lastDismiss)) / (24 * 60 * 60 * 1000));
+      blockReason = '닫기 쿨다운 (' + daysLeft + '일 남음)';
     }
+    
+    if (!blocked) {
+      setTimeout(function() {
+        var visitCount = parseInt(localStorage.getItem('ssmj-visit-count') || '0');
+        var usageTime = parseInt(localStorage.getItem('ssmj-usage-ms') || '0');
+        
+        // 방문 횟수 + 누적 사용시간 모두 만족 시에만 표시
+        if (visitCount >= REVIEW_POLICY.MIN_VISITS && 
+            usageTime >= REVIEW_POLICY.MIN_USAGE_MS) {
+          // 표시 시점 기록 (다음 자동 표시 방지)
+          try { localStorage.setItem('ssmj-review-shown-at', String(Date.now())); } catch(e) {}
+          openReviewModal();
+        } else {
+          console.log('[review] 자동 표시 조건 미충족 (방문:' + visitCount + '/' + REVIEW_POLICY.MIN_VISITS + 
+            ', 사용:' + Math.round(usageTime/1000) + 's/' + Math.round(REVIEW_POLICY.MIN_USAGE_MS/1000) + 's)');
+        }
+      }, REVIEW_POLICY.AUTO_SHOW_DELAY_MS);
+    } else {
+      console.log('[review] 자동 표시 차단: ' + blockReason);
+    }
+  } catch(e) {}
+  
+  // 🆕 누적 사용 시간 추적 (페이지 활성 시간만 합산)
+  try {
+    var sessionStartTime = Date.now();
+    var lastActiveTime = Date.now();
+    var sessionAccumMs = 0;
+    
+    // 페이지 가시성 변경 추적 (백그라운드 시간 제외)
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden) {
+        sessionAccumMs += Date.now() - lastActiveTime;
+      } else {
+        lastActiveTime = Date.now();
+      }
+    });
+    
+    // 5초마다 누적 시간 저장
+    setInterval(function() {
+      if (!document.hidden) {
+        var now = Date.now();
+        sessionAccumMs += now - lastActiveTime;
+        lastActiveTime = now;
+        try {
+          var prev = parseInt(localStorage.getItem('ssmj-usage-ms') || '0');
+          // 30분(=1800000ms) 한 번 세션이라고 가정, 그 이상은 추가 안 함
+          var addMs = Math.min(sessionAccumMs, 30 * 60 * 1000);
+          localStorage.setItem('ssmj-usage-ms', String(prev + addMs));
+          sessionAccumMs = 0;
+        } catch(e) {}
+      }
+    }, 5000);
   } catch(e) {}
   
   // 방문 카운트 증가
@@ -20778,6 +21066,8 @@ function initFeedbackFAB() {
   if (!fab) return;
   
   fab.addEventListener('click', function() {
+    // 🆕 사용자가 직접 연 경우 → 쿨다운 적용 안 함
+    window._reviewOpenedManually = true;
     openReviewModal();
   });
 }
@@ -21762,6 +22052,49 @@ function detectAllergy(menuName) {
   return results;
 }
 
+// 🆕 안전한 날짜 파서 - 'YYYY-MM-DD' / 'YYYYMMDD' 두 형식 모두 대응
+// 반환: { year, month, day, dayName, formatted, mmdd, valid }
+function parseMealDate(rawDate) {
+  var dayNames = ['일', '월', '화', '수', '목', '금', '토'];
+  var result = { 
+    year: '', month: '', day: '', dayName: '', 
+    formatted: '', mmdd: '', valid: false 
+  };
+  
+  if (!rawDate) return result;
+  rawDate = String(rawDate).trim();
+  
+  var hyphenMatch = rawDate.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  var compactMatch = rawDate.match(/^(\d{4})(\d{2})(\d{2})$/);
+  
+  if (hyphenMatch) {
+    result.year = hyphenMatch[1];
+    result.month = hyphenMatch[2];
+    result.day = hyphenMatch[3];
+  } else if (compactMatch) {
+    result.year = compactMatch[1];
+    result.month = compactMatch[2];
+    result.day = compactMatch[3];
+  } else {
+    return result;
+  }
+  
+  result.formatted = result.year + '-' + result.month + '-' + result.day;
+  result.mmdd = result.month + '/' + result.day;
+  
+  try {
+    var d = new Date(parseInt(result.year), parseInt(result.month) - 1, parseInt(result.day));
+    if (!isNaN(d.getTime())) {
+      result.dayName = dayNames[d.getDay()];
+      result.valid = true;
+    }
+  } catch(e) {}
+  
+  return result;
+}
+window.parseMealDate = parseMealDate;
+
+
 function initPhase2Features() {
   // 이달의 베스트 렌더링
   renderBestMonth();
@@ -22020,9 +22353,9 @@ function renderShareCanvas(size) {
   // 7개 지표 (하단)
   var metricsY = isStory ? d.h * 0.72 : d.h * 0.7;
   if (score.scores) {
-    var labels = ['🔥 열량', '🌈 다양성', '🌱 신선도', '⚖️ 균형', '🌾 원산지', '🍂 계절성', '🎎 문화'];
-    var keys = ['calorie', 'diversity', 'freshness', 'balance', 'origin', 'seasonal', 'culture'];
-    var metricW = (d.w - padding * 2) / 7;
+    var labels = ['🔥 열량', '🌈 다양성', '🌱 신선도', '⚖️ 균형', '🌾 원산지', '🍂 계절성'];
+    var keys = ['calorie', 'diversity', 'freshness', 'balance', 'origin', 'seasonal'];
+    var metricW = (d.w - padding * 2) / 6;
     
     keys.forEach(function(k, i) {
       var val = score.scores[k] || 0;
@@ -22532,7 +22865,7 @@ async function callClaudeAPI(userQuery, localContext) {
     '- 전체 학교: ' + schools.length + '교\n' +
     '- 자치구: 25개\n' +
     '- 분석 완료: ' + rankings.length + '교\n' +
-    '- 평가 지표: 7개 (열량/다양성/신선도/균형/원산지/계절성/문화, 각 100점)\n\n' +
+    '- 평가 지표: 6개 (열량/다양성/신선도/균형/원산지/계절성, 각 100점)\n\n' +
     '## 답변 원칙\n' +
     '1. 한국어로 답변, 이모지 적절히 사용\n' +
     '2. 답변 길이: 3-5문장 (간결하게)\n' +
@@ -22710,6 +23043,10 @@ console.log('[INIT] 스크립트 로드 완료 · v10.0 Premium Edition');
     
     <button class="review-submit-btn" id="review-submit">💌 후기 남기기</button>
     
+    <button class="review-never-btn" id="review-never-btn" type="button">
+      🙅 다시 표시하지 않기
+    </button>
+    
     <div style="text-align:center;margin-top:12px;font-size:11px;color:var(--text3);">
       🏆 제8회 교육 공공데이터 AI 활용대회 출품작
     </div>
@@ -22719,7 +23056,7 @@ console.log('[INIT] 스크립트 로드 완료 · v10.0 Premium Edition');
 <!-- 📧 피드백 플로팅 버튼 -->
 <button class="feedback-fab" id="feedback-fab" title="의견 보내기" aria-label="의견 보내기">
   <span class="feedback-fab-icon">✉️</span>
-  <span class="feedback-fab-label">피드백</span>
+  <span class="feedback-fab-label" data-i18n="feedback_label">피드백</span>
 </button>
 
 <!-- 🎊 이스터에그 오버레이 -->
