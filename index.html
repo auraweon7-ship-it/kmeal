@@ -1254,28 +1254,26 @@ body {
   font-family: inherit;
 }
 
-/* 🇰🇷 Leaflet VWorld 한글 라벨 레이어 (국토교통부 공공데이터) */
-.leaflet-vworld-labels {
-  /* VWorld는 흰색 배경의 라벨이므로 다크 모드에 맞게 색상 반전 + 보정 */
-  filter: invert(1) hue-rotate(180deg) brightness(1.15) contrast(1.4) saturate(0.6);
-  mix-blend-mode: screen;              /* 다크 배경 위에서 한글 또렷하게 */
-  transition: opacity 0.4s ease;
-  pointer-events: none;                /* 마커 클릭 보장 */
+/* 🇰🇷 Leaflet OSM 다크 모드 필터 (한글 라벨 + 다크 배경) */
+.leaflet-osm-dark {
+  /* 라이트 OSM 타일을 다크 모드로 변환:
+     1. invert: 흰색→검정, 검정→흰색
+     2. hue-rotate: 색상 원래대로
+     3. brightness: 어둡게
+     4. contrast: 한글 라벨 또렷하게 */
+  filter: invert(1) hue-rotate(180deg) brightness(0.85) contrast(1.1) saturate(0.85);
   -webkit-font-smoothing: antialiased;
   image-rendering: -webkit-optimize-contrast;
 }
 
-/* 폴백: OSM Korea 라벨 - 한글이 잘 보이도록 톤 조정 */
-.leaflet-osm-fallback {
-  filter: brightness(1.3) contrast(1.4) saturate(0.85);
-  mix-blend-mode: lighten;
-  transition: opacity 0.4s ease;
-  pointer-events: none;
-}
-
 /* 줌인 시 행정구역 라벨 강조 (지도 컨트롤 영역) */
 .leaflet-container .leaflet-tile-pane {
-  filter: brightness(0.95);
+  filter: brightness(1);
+}
+
+/* Leaflet 컨테이너 자체 다크 배경 */
+.leaflet-container {
+  background: #0a0e1a !important;
 }
 
 /* 🖱️ Leaflet 마커 호버 인터랙션 (마우스 커서) */
@@ -11697,81 +11695,47 @@ function initLeafletMap() {
   // 🆕 전역 접근 가능하게 저장 (switchEduOffice에서 사용)
   window.mapInstance = map;
   
-  // 🆕 다크 베이스 타일 (라벨 없는 깔끔한 배경)
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
+  // 🇰🇷 한글 지명 표시 - OpenStreetMap 기반 (인증 불필요, 한국 행정구역 한글 풍부)
+  // 전략: OSM 표준 타일 + CSS 다크 필터로 완전한 다크 모드 + 한글 라벨
+  
+  // 메인 타일: OpenStreetMap 표준 (한국 행정구역 한글 라벨 풍부)
+  var mainTileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     minZoom: 6,
-    attribution: '&copy; OpenStreetMap &copy; CARTO',
-    subdomains: 'abcd',
-    detectRetina: true
-  }).addTo(map);
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> 기여자',
+    subdomains: 'abc',
+    detectRetina: true,
+    className: 'leaflet-osm-dark'         // 다크 모드 CSS 필터 적용
+  });
   
-  // 🇰🇷 한글 행정구역 라벨 - VWorld(국토교통부 공공데이터) 우선
-  // VWorld Hybrid: 시·도, 시·군·구, 읍·면·동 모두 100% 한글
-  var vworldLabelLayer = L.tileLayer(
-    'https://api.vworld.kr/req/wmts/1.0.0/st_emd/Hybrid/{z}/{y}/{x}.png', {
-      maxZoom: 19,
-      minZoom: 6,
-      attribution: '&copy; <a href="https://www.vworld.kr/">VWorld</a> 국토교통부',
-      detectRetina: true,
-      pane: 'overlayPane',
-      opacity: 0.95,
-      className: 'leaflet-vworld-labels',
-      // 타일 로드 실패 시 fallback
-      errorTileUrl: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='
-    }
-  );
+  mainTileLayer.addTo(map);
   
-  // 🛡️ 폴백용: OSM Korea 한글 라벨 (VWorld 실패 시)
-  var osmKoreaFallback = L.tileLayer(
-    'https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png', {
+  // 🛡️ 폴백: OSM 표준 타일 실패 시 CARTO Voyager (한글 일부 지원)
+  var fallbackTileLayer = L.tileLayer(
+    'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
       maxZoom: 19,
       minZoom: 6,
       attribution: '&copy; CARTO',
       subdomains: 'abcd',
       detectRetina: true,
-      pane: 'overlayPane',
-      opacity: 0.7,
-      className: 'leaflet-osm-fallback'
+      className: 'leaflet-osm-dark'
     }
   );
   
-  // 🎯 VWorld 타일 로드 시도 → 실패 시 자동 폴백
-  var vworldFailCount = 0;
-  var vworldSuccessFlag = false;
+  // 메인 타일 실패 추적 (5회 실패 시 폴백 활성화)
+  var mainFailCount = 0;
+  var mainSuccessFlag = false;
   
-  vworldLabelLayer.on('tileload', function() {
-    vworldSuccessFlag = true;
+  mainTileLayer.on('tileload', function() {
+    mainSuccessFlag = true;
   });
   
-  vworldLabelLayer.on('tileerror', function() {
-    vworldFailCount++;
-    // 5회 이상 실패하면 폴백 활성화
-    if (vworldFailCount >= 5 && !vworldSuccessFlag) {
-      console.warn('[map] VWorld 타일 실패 → OSM Korea 폴백');
-      try { map.removeLayer(vworldLabelLayer); } catch(e) {}
-      try { osmKoreaFallback.addTo(map); } catch(e) {}
-    }
-  });
-  
-  // VWorld 라벨 레이어 추가
-  vworldLabelLayer.addTo(map);
-  
-  // 🆕 줌 레벨에 따라 라벨 강조 (동 단위 자세한 표시)
-  map.on('zoomend', function() {
-    var z = map.getZoom();
-    if (z >= 14) {
-      vworldLabelLayer.setOpacity(0.95);   // 동까지 명확히 표시
-      try { osmKoreaFallback.setOpacity(0.85); } catch(e) {}
-    } else if (z >= 12) {
-      vworldLabelLayer.setOpacity(0.85);   // 구/시 단위
-      try { osmKoreaFallback.setOpacity(0.7); } catch(e) {}
-    } else if (z >= 9) {
-      vworldLabelLayer.setOpacity(0.75);   // 시/도 단위
-      try { osmKoreaFallback.setOpacity(0.6); } catch(e) {}
-    } else {
-      vworldLabelLayer.setOpacity(0.6);    // 광역
-      try { osmKoreaFallback.setOpacity(0.5); } catch(e) {}
+  mainTileLayer.on('tileerror', function() {
+    mainFailCount++;
+    if (mainFailCount >= 5 && !mainSuccessFlag) {
+      console.warn('[map] OSM 타일 실패 → CARTO Voyager 폴백');
+      try { map.removeLayer(mainTileLayer); } catch(e) {}
+      try { fallbackTileLayer.addTo(map); } catch(e) {}
     }
   });
   
