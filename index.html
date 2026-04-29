@@ -7074,14 +7074,19 @@ body.high-contrast .tab {
     line-height: 1.4;
   }
   
-  /* 버튼(공유, 닫기) */
+  /* 버튼(공유, 닫기) - 모바일 터치 영역 확대 */
   .modal-share-btn,
   .modal-close {
-    width: 36px !important;
-    height: 36px !important;
+    width: 44px !important;  /* 44px = Apple의 권장 최소 터치 영역 */
+    height: 44px !important;
     padding: 0 !important;
-    font-size: 20px !important;
+    font-size: 22px !important;
     flex-shrink: 0;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
+    touch-action: manipulation; /* 더블탭 줌 방지 */
   }
   
   /* 탭바 스크롤 */
@@ -15398,6 +15403,11 @@ function openAnalysis(id) {
   setText('m-title', school.fullName);
   setText('m-meta', school.district + ' · ' + school.type + ' · ' + school.meal + ' · ' + school.cook);
   
+  // 모바일: body 스크롤 방지
+  document.body.style.overflow = 'hidden';
+  document.body.style.position = 'fixed';
+  document.body.style.width = '100%';
+  
   $('modal').classList.add('on');
   setModalTab('eval');
   
@@ -17814,6 +17824,11 @@ function regenerateAI() {
 
 // AI 설정 모달
 function openAISettings() {
+  // 모바일: body 스크롤 방지
+  document.body.style.overflow = 'hidden';
+  document.body.style.position = 'fixed';
+  document.body.style.width = '100%';
+  
   $('ai-modal').classList.add('on');
   var key = getAPIKey();
   if (key) {
@@ -21439,10 +21454,48 @@ function continueInit() {
     });
   }
   
-  $('modal-close').addEventListener('click', function() { $('modal').classList.remove('on'); });
-  $('modal').addEventListener('click', function(e) {
-    if (e.target === this) this.classList.remove('on');
-  });
+  // 모달 닫기 이벤트 (PC + 모바일 터치 지원)
+  var modalCloseBtn = $('modal-close');
+  var modalEl = $('modal');
+  if (modalCloseBtn && modalEl) {
+    // 닫기 버튼 클릭/터치 이벤트
+    function closeModal(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      modalEl.classList.remove('on');
+      
+      // 모바일: body 스크롤 복원
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      
+      console.log('[MODAL] 닫기');
+    }
+    
+    // PC: click 이벤트
+    modalCloseBtn.addEventListener('click', closeModal);
+    // 모바일: touchstart 이벤트 (더 빠른 반응)
+    modalCloseBtn.addEventListener('touchstart', closeModal, { passive: false });
+    
+    // 배경 클릭/터치로 닫기
+    function closeOnBackground(e) {
+      if (e.target === this) {
+        this.classList.remove('on');
+        
+        // 모바일: body 스크롤 복원
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.width = '';
+        
+        console.log('[MODAL] 배경 클릭으로 닫기');
+      }
+    }
+    
+    modalEl.addEventListener('click', closeOnBackground);
+    modalEl.addEventListener('touchstart', closeOnBackground);
+  } else {
+    console.warn('[MODAL] 닫기 버튼 또는 모달 요소를 찾을 수 없음');
+  }
   
   $('badge-fav').addEventListener('click', function() {
     favMode = !favMode;
@@ -21452,14 +21505,55 @@ function continueInit() {
     toast(favMode ? '즐겨찾기만 표시' : '전체 표시', 'info');
   });
   
-  // AI 설정 이벤트
+  // AI 설정 이벤트 (PC + 모바일 터치 지원)
   $('badge-ai').addEventListener('click', openAISettings);
-  $('ai-modal-close').addEventListener('click', function() { $('ai-modal').classList.remove('on'); });
-  $('ai-modal').addEventListener('click', function(e) {
-    if (e.target === this) this.classList.remove('on');
-  });
-  $('ai-save-key').addEventListener('click', saveAPIKey);
-  $('ai-clear-key').addEventListener('click', clearAPIKey);
+  
+  var aiModalCloseBtn = $('ai-modal-close');
+  var aiModalEl = $('ai-modal');
+  if (aiModalCloseBtn && aiModalEl) {
+    // 닫기 버튼 클릭/터치 이벤트
+    function closeAIModal(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      aiModalEl.classList.remove('on');
+      
+      // 모바일: body 스크롤 복원
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      
+      console.log('[AI-MODAL] 닫기');
+    }
+    
+    // PC: click 이벤트
+    aiModalCloseBtn.addEventListener('click', closeAIModal);
+    // 모바일: touchstart 이벤트 (더 빠른 반응)
+    aiModalCloseBtn.addEventListener('touchstart', closeAIModal, { passive: false });
+    
+    // 배경 클릭/터치로 닫기
+    function closeAIOnBackground(e) {
+      if (e.target === this) {
+        this.classList.remove('on');
+        
+        // 모바일: body 스크롤 복원
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.width = '';
+        
+        console.log('[AI-MODAL] 배경 클릭으로 닫기');
+      }
+    }
+    
+    aiModalEl.addEventListener('click', closeAIOnBackground);
+    aiModalEl.addEventListener('touchstart', closeAIOnBackground);
+  } else {
+    console.warn('[AI-MODAL] 닫기 버튼 또는 모달 요소를 찾을 수 없음');
+  }
+  
+  var aiSaveKeyBtn = $('ai-save-key');
+  var aiClearKeyBtn = $('ai-clear-key');
+  if (aiSaveKeyBtn) aiSaveKeyBtn.addEventListener('click', saveAPIKey);
+  if (aiClearKeyBtn) aiClearKeyBtn.addEventListener('click', clearAPIKey);
   
   // API 키 설정 상태 표시
   if (hasAPIKey()) {
