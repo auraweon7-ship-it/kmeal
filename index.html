@@ -3298,6 +3298,11 @@ tr.favorite { background: rgba(59,158,255,0.04); }
   color: var(--text); font-size: 24px;
   cursor: pointer; padding: 4px 8px;
   line-height: 1;
+  position: relative;
+  z-index: 1000;
+  pointer-events: auto;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0.2);
+  user-select: none;
 }
 
 .tab-bar {
@@ -7074,7 +7079,7 @@ body.high-contrast .tab {
     line-height: 1.4;
   }
   
-  /* 버튼(공유, 닫기) - 모바일 터치 영역 확대 */
+  /* 버튼(공유, 닫기) - 모바일 터치 영역 확대 및 강화 */
   .modal-share-btn,
   .modal-close {
     width: 44px !important;  /* 44px = Apple의 권장 최소 터치 영역 */
@@ -7085,8 +7090,12 @@ body.high-contrast .tab {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
-    touch-action: manipulation; /* 더블탭 줌 방지 */
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0.2) !important;
+    touch-action: manipulation !important; /* 더블탭 줌 방지 */
+    position: relative !important;
+    z-index: 9999 !important; /* 최상위 */
+    pointer-events: auto !important;
+    user-select: none !important;
   }
   
   /* 탭바 스크롤 */
@@ -11601,7 +11610,7 @@ select option {
         <div class="modal-meta" id="m-meta"></div>
       </div>
       <button class="modal-share-btn" id="modal-share-btn" title="카드뉴스로 공유">📤</button>
-      <button class="modal-close" id="modal-close">×</button>
+      <button class="modal-close" id="modal-close" onclick="if(window.closeMainModal) window.closeMainModal(); return false;">×</button>
     </div>
     <div class="tab-bar">
       <button class="active" data-mtab="eval">📊 평가</button>
@@ -11635,7 +11644,7 @@ select option {
         <div class="modal-title">🤖 Claude AI 해설 설정</div>
         <div class="modal-meta">Anthropic Claude API를 통해 급식 데이터를 자연어로 해설합니다</div>
       </div>
-      <button class="modal-close" id="ai-modal-close">×</button>
+      <button class="modal-close" id="ai-modal-close" onclick="if(window.closeAIModal) window.closeAIModal(); return false;">×</button>
     </div>
     <div class="modal-body">
       <div class="insight-card">
@@ -21454,47 +21463,58 @@ function continueInit() {
     });
   }
   
-  // 모달 닫기 이벤트 (PC + 모바일 터치 지원)
+  // 모달 닫기 이벤트 (PC + 모바일 터치 지원) - 강화 버전
   var modalCloseBtn = $('modal-close');
   var modalEl = $('modal');
+  
+  console.log('[MODAL-INIT] 닫기 버튼:', modalCloseBtn);
+  console.log('[MODAL-INIT] 모달 요소:', modalEl);
+  
   if (modalCloseBtn && modalEl) {
-    // 닫기 버튼 클릭/터치 이벤트
-    function closeModal(e) {
-      e.stopPropagation();
-      e.preventDefault();
+    // 닫기 함수 (전역으로 등록하여 어디서든 호출 가능)
+    window.closeMainModal = function(e) {
+      if (e) {
+        e.stopPropagation();
+        e.preventDefault();
+      }
+      
+      console.log('[MODAL] 닫기 실행');
+      
+      // 클래스 제거
       modalEl.classList.remove('on');
       
       // 모바일: body 스크롤 복원
       document.body.style.overflow = '';
       document.body.style.position = '';
       document.body.style.width = '';
-      
-      console.log('[MODAL] 닫기');
-    }
+    };
+    
+    // 기존 이벤트 제거 (중복 방지)
+    var newCloseBtn = modalCloseBtn.cloneNode(true);
+    modalCloseBtn.parentNode.replaceChild(newCloseBtn, modalCloseBtn);
+    modalCloseBtn = newCloseBtn;
     
     // PC: click 이벤트
-    modalCloseBtn.addEventListener('click', closeModal);
-    // 모바일: touchstart 이벤트 (더 빠른 반응)
-    modalCloseBtn.addEventListener('touchstart', closeModal, { passive: false });
+    modalCloseBtn.addEventListener('click', window.closeMainModal, false);
+    // 모바일: touchend 이벤트 (touchstart 대신 touchend 사용)
+    modalCloseBtn.addEventListener('touchend', window.closeMainModal, false);
+    
+    console.log('[MODAL-INIT] 이벤트 리스너 등록 완료');
     
     // 배경 클릭/터치로 닫기
-    function closeOnBackground(e) {
+    modalEl.addEventListener('click', function(e) {
       if (e.target === this) {
-        this.classList.remove('on');
-        
-        // 모바일: body 스크롤 복원
-        document.body.style.overflow = '';
-        document.body.style.position = '';
-        document.body.style.width = '';
-        
-        console.log('[MODAL] 배경 클릭으로 닫기');
+        window.closeMainModal();
       }
-    }
+    }, false);
     
-    modalEl.addEventListener('click', closeOnBackground);
-    modalEl.addEventListener('touchstart', closeOnBackground);
+    modalEl.addEventListener('touchend', function(e) {
+      if (e.target === this) {
+        window.closeMainModal();
+      }
+    }, false);
   } else {
-    console.warn('[MODAL] 닫기 버튼 또는 모달 요소를 찾을 수 없음');
+    console.error('[MODAL-INIT] 오류: 닫기 버튼 또는 모달 요소를 찾을 수 없음');
   }
   
   $('badge-fav').addEventListener('click', function() {
@@ -21505,49 +21525,59 @@ function continueInit() {
     toast(favMode ? '즐겨찾기만 표시' : '전체 표시', 'info');
   });
   
-  // AI 설정 이벤트 (PC + 모바일 터치 지원)
+  // AI 설정 이벤트 (PC + 모바일 터치 지원) - 강화 버전
   $('badge-ai').addEventListener('click', openAISettings);
   
   var aiModalCloseBtn = $('ai-modal-close');
   var aiModalEl = $('ai-modal');
+  
+  console.log('[AI-MODAL-INIT] 닫기 버튼:', aiModalCloseBtn);
+  console.log('[AI-MODAL-INIT] 모달 요소:', aiModalEl);
+  
   if (aiModalCloseBtn && aiModalEl) {
-    // 닫기 버튼 클릭/터치 이벤트
-    function closeAIModal(e) {
-      e.stopPropagation();
-      e.preventDefault();
+    // 닫기 함수 (전역으로 등록)
+    window.closeAIModal = function(e) {
+      if (e) {
+        e.stopPropagation();
+        e.preventDefault();
+      }
+      
+      console.log('[AI-MODAL] 닫기 실행');
+      
       aiModalEl.classList.remove('on');
       
       // 모바일: body 스크롤 복원
       document.body.style.overflow = '';
       document.body.style.position = '';
       document.body.style.width = '';
-      
-      console.log('[AI-MODAL] 닫기');
-    }
+    };
+    
+    // 기존 이벤트 제거 (중복 방지)
+    var newAICloseBtn = aiModalCloseBtn.cloneNode(true);
+    aiModalCloseBtn.parentNode.replaceChild(newAICloseBtn, aiModalCloseBtn);
+    aiModalCloseBtn = newAICloseBtn;
     
     // PC: click 이벤트
-    aiModalCloseBtn.addEventListener('click', closeAIModal);
-    // 모바일: touchstart 이벤트 (더 빠른 반응)
-    aiModalCloseBtn.addEventListener('touchstart', closeAIModal, { passive: false });
+    aiModalCloseBtn.addEventListener('click', window.closeAIModal, false);
+    // 모바일: touchend 이벤트
+    aiModalCloseBtn.addEventListener('touchend', window.closeAIModal, false);
+    
+    console.log('[AI-MODAL-INIT] 이벤트 리스너 등록 완료');
     
     // 배경 클릭/터치로 닫기
-    function closeAIOnBackground(e) {
+    aiModalEl.addEventListener('click', function(e) {
       if (e.target === this) {
-        this.classList.remove('on');
-        
-        // 모바일: body 스크롤 복원
-        document.body.style.overflow = '';
-        document.body.style.position = '';
-        document.body.style.width = '';
-        
-        console.log('[AI-MODAL] 배경 클릭으로 닫기');
+        window.closeAIModal();
       }
-    }
+    }, false);
     
-    aiModalEl.addEventListener('click', closeAIOnBackground);
-    aiModalEl.addEventListener('touchstart', closeAIOnBackground);
+    aiModalEl.addEventListener('touchend', function(e) {
+      if (e.target === this) {
+        window.closeAIModal();
+      }
+    }, false);
   } else {
-    console.warn('[AI-MODAL] 닫기 버튼 또는 모달 요소를 찾을 수 없음');
+    console.error('[AI-MODAL-INIT] 오류: 닫기 버튼 또는 모달 요소를 찾을 수 없음');
   }
   
   var aiSaveKeyBtn = $('ai-save-key');
